@@ -351,7 +351,7 @@ def build():
     v2, *_ = fig_direccions()
     v3, *_ = fig_plans()
     rows = inventory()
-    inv_rows = "\n".join(f"<tr><td>{n[0].upper() + n[1:]}</td><td>{c}</td><td>{L:g} mm</td>"
+    inv_rows = "\n".join(f"<tr><td>{n[0].upper() + n[1:]}</td><td>{c}</td><td>{L:g}</td>"
                          f"<td>{str(round(L / M, 1)).replace('.0', '').replace('.', ',')}M</td></tr>" for n, L, c in rows)
     top02 = 64 + 46 + 4.3 * (len(rows) + 2) + 10
 
@@ -434,8 +434,8 @@ b {{ font-weight: 600; color: {INK}; }}
   <h2>Mòdul base</h2>
   <div class="row" style="align-items:flex-start; gap:4mm;">
     <div style="flex:1">
-      <p>Com a mòdul he agafat l'amplada del llistó, <span class="acc">M = 48 mm</span>.
-      El llistó real fa uns 25 × 54 mm, però l'he arrodonit a <b>24 × 48</b> (½M × M) perquè
+      <p>Com a mòdul he agafat l'amplada del llistó, <span class="acc">M = 48</span>.
+      El llistó real fa uns 25 × 54, però l'he arrodonit a <b>24 × 48</b> (½M × M) perquè
       les mides generals quadressin amb el mòdul. Totes les peces tenen aquesta secció i
       la llargada sempre és múltiple de ½M.</p>
     </div>
@@ -450,7 +450,7 @@ b {{ font-weight: 600; color: {INK}; }}
 
 <div class="abs" style="left:16mm; top:{top02}mm; width:98mm;">
   <h2>Sistema de proporcions</h2>
-  <p>Amb aquest mòdul la cadira fa <b>12M × 12M × 20M</b> (576 × 576 × 960 mm), molt a prop
+  <p>Amb aquest mòdul la cadira fa <b>12M × 12M × 20M</b> (576 × 576 × 960), molt a prop
   de les mides reals (570 × 575 × 960). La planta és un quadrat i l'alçat queda en
   relació <b>3:5</b>, dos números de la sèrie de Fibonacci (5/3 = 1,67, força a prop del
   nombre d'or). Si partim l'alçat, a sota hi ha un <span class="acc">quadrat de 12M</span>
