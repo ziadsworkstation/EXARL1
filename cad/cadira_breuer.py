@@ -21,18 +21,26 @@ from ezdxf.enums import TextEntityAlignment
 # --------------------------------------------------------------------------
 # Mòdul i proporcions
 # --------------------------------------------------------------------------
-M = 40                    # mòdul base = secció dels llistons (40 x 40 mm)
-W = 14 * M                # amplada total      560
-D = 14 * M                # profunditat total  560
-H = 24 * M                # alçada total       960
+# Segona versió (1924): tota l'estructura amb un únic llistó estandarditzat,
+# només canvia la llargada.  Llistó real ~25 x 54 mm  ->  proposta 24 x 48.
+M = 48                    # mòdul base = amplada del llistó
+t = M // 2                # gruix del llistó (24) = ½ M
+W = 12 * M                # amplada total      576  (real 570)
+D = 12 * M                # profunditat total  576  (real 575)
+H = 20 * M                # alçada total       960  (real 960)
 
-Z_RAIL = 6 * M            # alçada inferior del travesser lateral  240
-Z_SEAT_F = 11 * M         # alçada seient davant (pota davantera)  440
-Z_SEAT_R = 9 * M          # alçada seient darrere                  360
-Z_ARM = 16 * M            # alçada pota posterior / base del braç  640
-Y_REAR = 10 * M           # posició pota posterior                 400
-Y_ARM = 2 * M             # inici del braç (voladís)                80
-T = 4                     # gruix de les teles / cinghes
+Z_RAIL = 7 * M            # travesser lateral (cantell)  336-384
+Z_FLEG = 9 * M            # pota davantera               432
+Z_FRAIL = 7.5 * M         # travesser seient davant      360-408
+Z_RRAIL = 6.5 * M         # travesser seient darrere     312-360
+Z_ARM = 12.5 * M          # pota posterior / sota braç   600  (braç 600-624)
+Z_BRAIL = 10 * M          # travesser respatller         480-528
+Z_STRAP_L = 10 * M        # làmina respatller inferior   480-576
+Z_STRAP_U = 16 * M        # làmina respatller superior   768-864
+Z_HOLD = 19 * M           # suport làmina superior       624-912
+Y_ARM = 2 * M             # voladís del braç (davant)     96
+Y_REAR = 9 * M            # cara davantera pota posterior 432
+T = 6                     # gruix de les làmines (seient i respatller)
 
 
 # --------------------------------------------------------------------------
@@ -93,35 +101,44 @@ def box(name, x0, x1, y0, y1, z0, z1, kind="wood"):
     return Solid(name, v, BOX_FACES, kind)
 
 
-def prism_x(name, x0, x1, quad_yz, kind="fabric"):
+def prism_x(name, x0, x1, quad_yz, kind="lamina"):
     """Prisma extruït en X a partir d'un quadrilàter convex al pla YZ."""
     v = [(x0, y, z) for y, z in quad_yz] + [(x1, y, z) for y, z in quad_yz]
     return Solid(name, v, BOX_FACES, kind)
 
 
 def build_chair():
+    """18 llistons + 3 làmines.  Pla exterior (x 0-24): potes davanteres i
+    travessers laterals.  Pla interior (x 24-72): potes posteriors, pals del
+    respatller, braços i suports de la làmina superior."""
     s = []
-    for side, (xa, xb) in (("E", (0, M)), ("D", (W - M, W))):
-        s.append(box(f"pota davantera {side}", xa, xb, 0, M, 0, Z_SEAT_F))
-        s.append(box(f"pota posterior {side}", xa, xb, Y_REAR, Y_REAR + M, 0, Z_ARM))
-        s.append(box(f"travesser lateral {side}", xa, xb, 0, D, Z_RAIL, Z_RAIL + M))
-        s.append(box(f"pal respatller {side}", xa, xb, D - M, D, Z_RAIL, H))
-        s.append(box(f"braç {side}", xa, xb, Y_ARM, D, Z_ARM, Z_ARM + M))
+    for side, mir in (("E", False), ("D", True)):
+        def bx(name, x0, x1, *rest, kind="wood"):
+            if mir:
+                x0, x1 = W - x1, W - x0
+            s.append(box(f"{name} {side}", x0, x1, *rest, kind=kind))
+        bx("pota davantera", 0, t, 0, M, 0, Z_FLEG)
+        bx("travesser lateral", 0, t, M, D, Z_RAIL, Z_RAIL + M)
+        bx("pota posterior", t, t + M, Y_REAR, Y_REAR + t, 0, Z_ARM)
+        bx("pal respatller", t, t + M, D - t, D, Z_RAIL, H)
+        bx("braç", t, t + M, Y_ARM, D - t, Z_ARM, Z_ARM + t)
+        bx("suport làmina", t, t + M, D - 2 * t, D - t, Z_ARM + t, Z_HOLD)
     # travessers transversals
-    s.append(box("travesser seient davant", M, W - M, 0, M, Z_SEAT_F - M, Z_SEAT_F))
-    s.append(box("travesser seient darrere", M, W - M, Y_REAR, Y_REAR + M,
-                 Z_SEAT_R - M, Z_SEAT_R))
-    s.append(box("travesser posterior inferior", M, W - M, D - M, D,
-                 Z_RAIL, Z_RAIL + M))
-    # tela del seient (inclinada del travesser davanter al posterior)
-    s.append(prism_x("tela seient", M, W - M,
-                     [(0, Z_SEAT_F), (Y_REAR + M, Z_SEAT_R),
-                      (Y_REAR + M, Z_SEAT_R + T), (0, Z_SEAT_F + T)]))
-    # cinghes del respatller
-    s.append(box("cinga respatller inferior", M, W - M, Y_REAR - T, Y_REAR,
-                 12 * M, 15 * M, "fabric"))
-    s.append(box("cinga respatller superior", M, W - M, D - M - T, D - M,
-                 21 * M, 23 * M + M // 2, "fabric"))
+    s.append(box("travesser seient davant", t, W - t, 0, t, Z_FRAIL, Z_FRAIL + M))
+    s.append(box("travesser seient darrere", t + M, W - t - M, Y_REAR, Y_REAR + t,
+                 Z_RRAIL, Z_RRAIL + M))
+    s.append(box("travesser respatller", t + M, W - t - M, D - t, D,
+                 Z_BRAIL, Z_BRAIL + M))
+    # làmina del seient (inclinada, del travesser davanter al posterior)
+    zf, zr = Z_FRAIL + M, Z_RRAIL + M
+    s.append(prism_x("làmina seient", t, W - t,
+                     [(0, zf), (Y_REAR + t, zr), (Y_REAR + t, zr + T), (0, zf + T)],
+                     kind="lamina"))
+    # làmines del respatller
+    s.append(box("làmina respatller inferior", t, W - t, Y_REAR - T, Y_REAR,
+                 Z_STRAP_L, Z_STRAP_L + 2 * M, kind="lamina"))
+    s.append(box("làmina respatller superior", t, W - t, D - 2 * t - T, D - 2 * t,
+                 Z_STRAP_U, Z_STRAP_U + 2 * M, kind="lamina"))
     return s
 
 
@@ -211,7 +228,7 @@ def setup_doc():
     doc.layers.add("MARC", color=7, lineweight=70)
     doc.layers.add("CAIXETI", color=7, lineweight=35)
     doc.layers.add("FUSTA", color=7, lineweight=50)
-    doc.layers.add("TELA", color=8, lineweight=25)
+    doc.layers.add("LAMINA", color=7, lineweight=50)
     doc.layers.add("COTES", color=1, lineweight=18)
     doc.layers.add("EIXOS", color=3, lineweight=13, linetype="CENTER")
     doc.layers.add("TEXT", color=7, lineweight=25)
@@ -240,7 +257,7 @@ def draw_segments(msp, segs, origin):
     ox, oy = origin
     for p, q, kind in segs:
         msp.add_line((p[0] + ox, p[1] + oy), (q[0] + ox, q[1] + oy),
-                     dxfattribs={"layer": "FUSTA" if kind == "wood" else "TELA"})
+                     dxfattribs={"layer": "FUSTA" if kind == "wood" else "LAMINA"})
 
 
 def text(msp, s, x, y, h=TXT, align=TextEntityAlignment.BOTTOM_LEFT, layer="TEXT"):
@@ -326,41 +343,43 @@ def main(path_dxf):
     # ---- cotes: alçat ----
     o = O_ALC
     hdim(msp, 0, W, 0, -130, o)
-    hdim(msp, 0, M, 0, -60, o)
-    hdim(msp, M, W - M, 0, -60, o)
+    hdim(msp, 0, t, 0, -60, o)
+    hdim(msp, t, t + M, 0, -60, o)
+    hdim(msp, t + M, W - t - M, 0, -60, o)
+    hdim(msp, W - t - M, W - t, 0, -60, o)
+    hdim(msp, W - t, W, 0, -60, o)
     vdim(msp, 0, H, 0, -260, o)
-    vdim(msp, 0, Z_RAIL, 0, -130, o)
-    vdim(msp, Z_RAIL, Z_SEAT_F, 0, -130, o)
-    vdim(msp, Z_SEAT_F, Z_ARM, 0, -130, o)
-    vdim(msp, Z_ARM, Z_ARM + M, 0, -130, o)
-    vdim(msp, Z_ARM + M, H, 0, -130, o)
+    for a, b in ((0, Z_FLEG), (Z_FLEG, Z_ARM), (Z_ARM, Z_ARM + t),
+                 (Z_ARM + t, Z_HOLD), (Z_HOLD, H)):
+        vdim(msp, a, b, 0, -130, o)
+    for a, b in ((0, Z_FRAIL), (Z_FRAIL, Z_FRAIL + M),
+                 (Z_STRAP_U, Z_STRAP_U + 2 * M)):
+        vdim(msp, a, b, W, W + 110, o)
     label(msp, "ALÇAT", o[0] + W / 2, o[1] + H + 120)
 
-    # ---- cotes: perfil ----
+    # ---- cotes: perfil (davant a la dreta) ----
     o = O_PER
     hdim(msp, 0, D, 0, -130, o)
-    hdim(msp, 0, M, 0, -60, o)                       # pal respatller
-    hdim(msp, M, D - Y_REAR - M, 0, -60, o)
-    hdim(msp, D - Y_REAR - M, D - Y_REAR, 0, -60, o)  # pota posterior
-    hdim(msp, D - Y_REAR, D - M, 0, -60, o)
-    hdim(msp, D - M, D, 0, -60, o)                    # pota davantera
-    hdim(msp, 0, D - Y_ARM, Z_ARM + M, Z_ARM + M + 90, o)   # braç
-    vdim(msp, 0, Z_SEAT_R, D, D + 120, o)
-    vdim(msp, 0, Z_SEAT_F, D, D + 220, o)
-    vdim(msp, 0, Z_ARM + M, D, D + 320, o)
-    vdim(msp, 12 * M, 15 * M, 0, -120, o)
-    vdim(msp, 21 * M, 23 * M + M // 2, 0, -120, o)
+    hy = [0, t, D - Y_REAR - t, D - Y_REAR, D - M, D]
+    for a, b in zip(hy, hy[1:]):
+        hdim(msp, a, b, 0, -60, o)
+    hdim(msp, t, D - Y_ARM, Z_ARM + t, Z_ARM + t + 80, o)       # braç
+    hdim(msp, D - Y_ARM, D, Z_ARM + t, Z_ARM + t + 80, o)       # voladís
+    vdim(msp, 0, Z_RRAIL + M, D, D + 110, o)
+    vdim(msp, 0, Z_FRAIL + M, D, D + 200, o)
+    vdim(msp, 0, Z_ARM + t, D, D + 290, o)
+    vdim(msp, Z_RAIL, Z_RAIL + M, 0, -110, o)
+    vdim(msp, Z_STRAP_L, Z_STRAP_L + 2 * M, 0, -110, o)
+    vdim(msp, Z_STRAP_U, Z_STRAP_U + 2 * M, 0, -110, o)
     label(msp, "PERFIL ESQUERRE", o[0] + D / 2, o[1] + H + 120)
 
     # ---- cotes: planta ----
     o = O_PLA
     hdim(msp, 0, W, D, D + 110, o)
     vdim(msp, 0, D, 0, -130, o)
-    vdim(msp, 0, Y_ARM, W, W + 90, o)
-    vdim(msp, Y_REAR, Y_REAR + M, W, W + 90, o)
-    vdim(msp, Y_ARM, Y_REAR, W, W + 90, o)
-    vdim(msp, Y_REAR + M, D - M, W, W + 90, o)
-    vdim(msp, D - M, D, W, W + 90, o)
+    vy = [0, M, Y_ARM, Y_REAR, Y_REAR + t, D - 2 * t, D - t, D]
+    for a, b in zip(vy, vy[1:]):
+        vdim(msp, a, b, W, W + 90, o)
     label(msp, "PLANTA", o[0] + W / 2, o[1] - 230)
 
     # ---- perspectiva isomètrica ----
@@ -373,7 +392,7 @@ def main(path_dxf):
     label(msp, "PERSPECTIVA ISOMÈTRICA", 3300, 380 + (max(ys) - min(ys)) + 120)
 
     # ---- llegenda del mòdul ----
-    text(msp, f"Mòdul base  M = {M} mm  (secció dels llistons {M}x{M})",
+    text(msp, f"Mòdul base  M = {M} mm  ·  llistó estandarditzat {t}x{M} (½M x M)",
          1550, mg + 60, h=2.5 * SCALE)
     text(msp, f"Amplada {W // M}M · Profunditat {D // M}M · Alçada {H // M}M",
          1550, mg + 120, h=2.5 * SCALE)
@@ -426,4 +445,4 @@ if __name__ == "__main__":
         ctx.set_current_layout(doc.modelspace())
         Frontend(ctx, MatplotlibBackend(ax), config=cfg).draw_layout(doc.modelspace(), finalize=True)
         fig.savefig(str(here / "EXAR_L1_cadira_breuer_CAD.pdf"))
-        fig.savefig(str(here / "preview.png"), dpi=150)
+        fig.savefig(str(here / "preview.png"), dpi=300)
