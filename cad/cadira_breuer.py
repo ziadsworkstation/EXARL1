@@ -305,8 +305,8 @@ def main(path_dxf):
          h=4 * SCALE)
     text(msp, "SLATTED CHAIR  \"TI 1A\"  ·  Marcel Breuer, 1922-24", mg + 60,
          y_h + 70, h=6 * SCALE)
-    info = ["Alumne: COGNOMS, NOM", "Professor: ______________",
-            "Assignatura: EXAR", "Data: 05/10/2026"]
+    info = ["Alumne: Ziad Addami Ech Chaouy", "Professor: De Castro Losada, Rubén",
+            "Grup: D3012 · Assignatura: EXAR", "Data: 05/10/2026"]
     for i, s in enumerate(info):
         text(msp, s, FW - mg - 1100, y_h + 200 - i * 50, h=3 * SCALE)
     text(msp, "Escala 1:10  ·  Cotes en mm  ·  Sistema europeu", FW - mg - 1260,
