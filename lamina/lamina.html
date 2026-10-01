@@ -22,7 +22,14 @@ h1 { font-family: Anton; font-weight: 400; color: #d98a55; font-size: 30mm; line
       letter-spacing: .4mm; }
 .sub { font-family: Inter; font-weight: 500; font-size: 4.6mm; letter-spacing: .2mm; margin-top: 2.5mm; }
 .sub span { color: #9fabc2; font-weight: 300; }
-.kicker { font-weight: 600; font-size: 2.9mm; letter-spacing: 1.1mm; color: #9fabc2; margin-bottom: 3mm; }
+.kicker { font-weight: 500; font-size: 3.2mm; color: #9fabc2; margin-bottom: 2.5mm; }
+h2 { font-family: Inter; font-weight: 600; font-size: 4.6mm; color: #d98a55; margin-bottom: 2mm; }
+table { border-collapse: collapse; width: 100%; margin-top: 3mm; font-size: 2.5mm; }
+th { text-align: left; font-weight: 600; color: #9fabc2; border-bottom: .2mm solid #9fabc2; padding: .6mm 1mm; }
+td { padding: .55mm 1mm; border-bottom: .1mm solid rgba(236,232,225,.15); }
+td:nth-child(n+2), th:nth-child(n+2) { text-align: right; }
+tr.tot td { font-weight: 600; border-bottom: none; }
+.fonts { font-size: 2.2mm; color: #9fabc2; }
 p { font-size: 3.05mm; line-height: 1.42; text-align: left; }
 p.small { font-size: 2.6mm; color: #9fabc2; }
 b { font-weight: 600; color: #ece8e1; }
@@ -42,37 +49,38 @@ b { font-weight: 600; color: #ece8e1; }
 </style></head><body>
 
 <!-- ============ CAPÇALERA ============ -->
-<div class="abs" style="left:16mm; top:13mm;">
-  <div class="kicker">EXAR · L1 — APLICACIÓ A LA COMPOSICIÓ I PROPORCIÓ</div>
+<div class="abs" style="left:16mm; top:14mm;">
+  <div class="kicker">EXAR · Pràctica L1 - Aplicació a la composició i proporció</div>
   <h1>SLATTED CHAIR</h1>
-  <div class="sub">TI 1A &nbsp;·&nbsp; Marcel Breuer <span>&nbsp;·&nbsp; Bauhaus Weimar, 1922–24</span></div>
+  <div class="sub">TI 1A, Marcel Breuer <span>(Bauhaus, Weimar 1922-24)</span></div>
 </div>
-<div class="abs" style="left:194mm; top:21mm; width:112mm;">
-  <p>Dissenyada per Marcel Breuer quan encara era estudiant al taller de fusteria del
-  Bauhaus, la cadira trasllada a l'espai la gramàtica del <b>De Stijl</b>: una xarxa lleugera
-  de <b>llistons ortogonals</b> que sostenen làmines suspeses. A la segona versió
-  (1924) tota l'estructura es construeix amb un <b>únic llistó estandarditzat</b> —només en
-  canvia la llargada—, una decisió que ordena la forma i n'abarateix la producció.</p>
+<div class="abs" style="left:194mm; top:22mm; width:110mm;">
+  <p>La Slatted Chair la va dissenyar Marcel Breuer quan encara era alumne del taller de
+  fusteria del Bauhaus. Es nota molt la influència del <b>De Stijl</b> i de la Red and Blue
+  Chair de Rietveld, però en comptes de seure sobre plafons rígids, Breuer fa servir
+  <b>teles tibades</b> per al seient i el respatller. A la segona versió (1924) totes les
+  peces surten del <b>mateix llistó</b>, només en canvia la llargada.</p>
 </div>
 <div class="abs" style="left:322mm; top:14mm; width:84mm;">
   <img src="assets/logo_upc_epsevg.png" style="width:62mm; display:block; margin-bottom:4mm;">
   <div class="info">
     <b>Alumne:</b> Ziad Addami Ech Chaouy<br>
     <b>Professor:</b> De Castro Losada, Rubén<br>
-    <b>Grup:</b> D3012 &nbsp;·&nbsp; <b>Assignatura:</b> EXAR<br>
+    <b>Grup:</b> D3012<br>
+    <b>Assignatura:</b> EXAR<br>
     <b>Data:</b> 05/10/2026
   </div>
 </div>
-<div class="abs rule" style="left:16mm; right:16mm; top:56mm;"></div>
 
 <!-- ============ COL A: MÒDUL I PROPORCIONS ============ -->
-<div class="abs" style="left:16mm; top:62mm; width:98mm;">
-  <div class="sec"><span class="n">01</span><span class="t">Mòdul base</span></div>
+<div class="abs" style="left:16mm; top:64mm; width:98mm;">
+  <h2>Mòdul base</h2>
   <div class="row" style="align-items:flex-start; gap:4mm;">
     <div style="flex:1">
-      <p><span class="acc">M = 48 mm</span>, l'amplada del llistó tipus. La secció
-      24 × 48 (<b>½M × M</b>, proporció 1:2) es repeteix a totes les peces: només
-      canvia la llargada, sempre múltiple de ½M.</p>
+      <p>Com a mòdul he agafat l'amplada del llistó, <span class="acc">M = 48 mm</span>.
+      El llistó real fa uns 25 × 54 mm, però l'he arrodonit a <b>24 × 48</b> (½M × M) perquè
+      les mides generals quadressin amb el mòdul. Totes les peces tenen aquesta secció i
+      la llargada sempre és múltiple de ½M.</p>
     </div>
     <div style="text-align:center"><svg xmlns="http://www.w3.org/2000/svg" width="33.70mm" height="34.70mm" viewBox="0 0 33.700 34.700" overflow="visible">
 <line x1="7.700" y1="27.000" x2="7.700" y2="3.000" stroke="#d98a55" stroke-width="0.1" stroke-opacity="0.5" stroke-linecap="round"/>
@@ -96,217 +104,30 @@ b { font-weight: 600; color: #ece8e1; }
 <text x="2.400" y="15.000" font-family="Inter" font-size="2.0" font-weight="400" fill="#9fabc2" text-anchor="middle" transform="rotate(-90 2.400 15.000)">48</text>
 <text x="21.700" y="5.000" font-family="Inter" font-size="2.4" font-weight="600" fill="#d98a55" text-anchor="start">M</text>
 <text x="21.700" y="22.000" font-family="Inter" font-size="2.4" font-weight="600" fill="#d98a55" text-anchor="start">½M</text>
-</svg><div class="cap">Secció · E 1:2</div></div>
+</svg><div class="cap">Secció del llistó, E 1:2</div></div>
   </div>
-  <div class="cap" style="margin:3mm 0 1mm">Llargades dels llistons (en M)</div>
-  <div><svg xmlns="http://www.w3.org/2000/svg" width="105.20mm" height="43.20mm" viewBox="0 0 105.200 43.200" overflow="visible">
-<polygon points="3.200,4.400 65.600,4.400 65.600,2.000 3.200,2.000" fill="#ece8e1" fill-opacity="0.85"/>
-<line x1="5.600" y1="4.400" x2="5.600" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="8.000" y1="4.400" x2="8.000" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="10.400" y1="4.400" x2="10.400" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="12.800" y1="4.400" x2="12.800" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="15.200" y1="4.400" x2="15.200" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="17.600" y1="4.400" x2="17.600" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="20.000" y1="4.400" x2="20.000" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="22.400" y1="4.400" x2="22.400" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="24.800" y1="4.400" x2="24.800" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="27.200" y1="4.400" x2="27.200" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="29.600" y1="4.400" x2="29.600" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="32.000" y1="4.400" x2="32.000" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="34.400" y1="4.400" x2="34.400" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="36.800" y1="4.400" x2="36.800" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="39.200" y1="4.400" x2="39.200" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="41.600" y1="4.400" x2="41.600" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="44.000" y1="4.400" x2="44.000" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="46.400" y1="4.400" x2="46.400" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="48.800" y1="4.400" x2="48.800" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="51.200" y1="4.400" x2="51.200" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="53.600" y1="4.400" x2="53.600" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="56.000" y1="4.400" x2="56.000" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="58.400" y1="4.400" x2="58.400" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="60.800" y1="4.400" x2="60.800" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="63.200" y1="4.400" x2="63.200" y2="2.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<text x="66.800" y="4.000" font-family="Inter" font-size="1.9" font-weight="400" fill="#ece8e1" text-anchor="start">2× pal respatller</text>
-<text x="2.000" y="4.000" font-family="Inter" font-size="1.9" font-weight="600" fill="#d98a55" text-anchor="end">13M</text>
-<polygon points="3.200,9.000 63.200,9.000 63.200,6.600 3.200,6.600" fill="#ece8e1" fill-opacity="0.85"/>
-<line x1="5.600" y1="9.000" x2="5.600" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="8.000" y1="9.000" x2="8.000" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="10.400" y1="9.000" x2="10.400" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="12.800" y1="9.000" x2="12.800" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="15.200" y1="9.000" x2="15.200" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="17.600" y1="9.000" x2="17.600" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="20.000" y1="9.000" x2="20.000" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="22.400" y1="9.000" x2="22.400" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="24.800" y1="9.000" x2="24.800" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="27.200" y1="9.000" x2="27.200" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="29.600" y1="9.000" x2="29.600" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="32.000" y1="9.000" x2="32.000" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="34.400" y1="9.000" x2="34.400" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="36.800" y1="9.000" x2="36.800" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="39.200" y1="9.000" x2="39.200" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="41.600" y1="9.000" x2="41.600" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="44.000" y1="9.000" x2="44.000" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="46.400" y1="9.000" x2="46.400" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="48.800" y1="9.000" x2="48.800" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="51.200" y1="9.000" x2="51.200" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="53.600" y1="9.000" x2="53.600" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="56.000" y1="9.000" x2="56.000" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="58.400" y1="9.000" x2="58.400" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="60.800" y1="9.000" x2="60.800" y2="6.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<text x="64.400" y="8.600" font-family="Inter" font-size="1.9" font-weight="400" fill="#ece8e1" text-anchor="start">2× pota posterior</text>
-<text x="2.000" y="8.600" font-family="Inter" font-size="1.9" font-weight="600" fill="#d98a55" text-anchor="end">12.5M</text>
-<polygon points="3.200,13.600 56.000,13.600 56.000,11.200 3.200,11.200" fill="#ece8e1" fill-opacity="0.85"/>
-<line x1="5.600" y1="13.600" x2="5.600" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="8.000" y1="13.600" x2="8.000" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="10.400" y1="13.600" x2="10.400" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="12.800" y1="13.600" x2="12.800" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="15.200" y1="13.600" x2="15.200" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="17.600" y1="13.600" x2="17.600" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="20.000" y1="13.600" x2="20.000" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="22.400" y1="13.600" x2="22.400" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="24.800" y1="13.600" x2="24.800" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="27.200" y1="13.600" x2="27.200" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="29.600" y1="13.600" x2="29.600" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="32.000" y1="13.600" x2="32.000" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="34.400" y1="13.600" x2="34.400" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="36.800" y1="13.600" x2="36.800" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="39.200" y1="13.600" x2="39.200" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="41.600" y1="13.600" x2="41.600" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="44.000" y1="13.600" x2="44.000" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="46.400" y1="13.600" x2="46.400" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="48.800" y1="13.600" x2="48.800" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="51.200" y1="13.600" x2="51.200" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="53.600" y1="13.600" x2="53.600" y2="11.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<text x="57.200" y="13.200" font-family="Inter" font-size="1.9" font-weight="400" fill="#ece8e1" text-anchor="start">2× travesser lateral</text>
-<text x="2.000" y="13.200" font-family="Inter" font-size="1.9" font-weight="600" fill="#d98a55" text-anchor="end">11M</text>
-<polygon points="3.200,18.200 56.000,18.200 56.000,15.800 3.200,15.800" fill="#ece8e1" fill-opacity="0.85"/>
-<line x1="5.600" y1="18.200" x2="5.600" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="8.000" y1="18.200" x2="8.000" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="10.400" y1="18.200" x2="10.400" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="12.800" y1="18.200" x2="12.800" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="15.200" y1="18.200" x2="15.200" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="17.600" y1="18.200" x2="17.600" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="20.000" y1="18.200" x2="20.000" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="22.400" y1="18.200" x2="22.400" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="24.800" y1="18.200" x2="24.800" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="27.200" y1="18.200" x2="27.200" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="29.600" y1="18.200" x2="29.600" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="32.000" y1="18.200" x2="32.000" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="34.400" y1="18.200" x2="34.400" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="36.800" y1="18.200" x2="36.800" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="39.200" y1="18.200" x2="39.200" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="41.600" y1="18.200" x2="41.600" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="44.000" y1="18.200" x2="44.000" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="46.400" y1="18.200" x2="46.400" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="48.800" y1="18.200" x2="48.800" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="51.200" y1="18.200" x2="51.200" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="53.600" y1="18.200" x2="53.600" y2="15.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<text x="57.200" y="17.800" font-family="Inter" font-size="1.9" font-weight="400" fill="#ece8e1" text-anchor="start">1× travesser seient davant</text>
-<text x="2.000" y="17.800" font-family="Inter" font-size="1.9" font-weight="600" fill="#d98a55" text-anchor="end">11M</text>
-<polygon points="3.200,22.800 48.800,22.800 48.800,20.400 3.200,20.400" fill="#ece8e1" fill-opacity="0.85"/>
-<line x1="5.600" y1="22.800" x2="5.600" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="8.000" y1="22.800" x2="8.000" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="10.400" y1="22.800" x2="10.400" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="12.800" y1="22.800" x2="12.800" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="15.200" y1="22.800" x2="15.200" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="17.600" y1="22.800" x2="17.600" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="20.000" y1="22.800" x2="20.000" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="22.400" y1="22.800" x2="22.400" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="24.800" y1="22.800" x2="24.800" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="27.200" y1="22.800" x2="27.200" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="29.600" y1="22.800" x2="29.600" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="32.000" y1="22.800" x2="32.000" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="34.400" y1="22.800" x2="34.400" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="36.800" y1="22.800" x2="36.800" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="39.200" y1="22.800" x2="39.200" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="41.600" y1="22.800" x2="41.600" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="44.000" y1="22.800" x2="44.000" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="46.400" y1="22.800" x2="46.400" y2="20.400" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<text x="50.000" y="22.400" font-family="Inter" font-size="1.9" font-weight="400" fill="#ece8e1" text-anchor="start">2× braç</text>
-<text x="2.000" y="22.400" font-family="Inter" font-size="1.9" font-weight="600" fill="#d98a55" text-anchor="end">9.5M</text>
-<polygon points="3.200,27.400 46.400,27.400 46.400,25.000 3.200,25.000" fill="#ece8e1" fill-opacity="0.85"/>
-<line x1="5.600" y1="27.400" x2="5.600" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="8.000" y1="27.400" x2="8.000" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="10.400" y1="27.400" x2="10.400" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="12.800" y1="27.400" x2="12.800" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="15.200" y1="27.400" x2="15.200" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="17.600" y1="27.400" x2="17.600" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="20.000" y1="27.400" x2="20.000" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="22.400" y1="27.400" x2="22.400" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="24.800" y1="27.400" x2="24.800" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="27.200" y1="27.400" x2="27.200" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="29.600" y1="27.400" x2="29.600" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="32.000" y1="27.400" x2="32.000" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="34.400" y1="27.400" x2="34.400" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="36.800" y1="27.400" x2="36.800" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="39.200" y1="27.400" x2="39.200" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="41.600" y1="27.400" x2="41.600" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="44.000" y1="27.400" x2="44.000" y2="25.000" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<text x="47.600" y="27.000" font-family="Inter" font-size="1.9" font-weight="400" fill="#ece8e1" text-anchor="start">2× pota davantera</text>
-<text x="2.000" y="27.000" font-family="Inter" font-size="1.9" font-weight="600" fill="#d98a55" text-anchor="end">9M</text>
-<polygon points="3.200,32.000 46.400,32.000 46.400,29.600 3.200,29.600" fill="#ece8e1" fill-opacity="0.85"/>
-<line x1="5.600" y1="32.000" x2="5.600" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="8.000" y1="32.000" x2="8.000" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="10.400" y1="32.000" x2="10.400" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="12.800" y1="32.000" x2="12.800" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="15.200" y1="32.000" x2="15.200" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="17.600" y1="32.000" x2="17.600" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="20.000" y1="32.000" x2="20.000" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="22.400" y1="32.000" x2="22.400" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="24.800" y1="32.000" x2="24.800" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="27.200" y1="32.000" x2="27.200" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="29.600" y1="32.000" x2="29.600" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="32.000" y1="32.000" x2="32.000" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="34.400" y1="32.000" x2="34.400" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="36.800" y1="32.000" x2="36.800" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="39.200" y1="32.000" x2="39.200" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="41.600" y1="32.000" x2="41.600" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="44.000" y1="32.000" x2="44.000" y2="29.600" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<text x="47.600" y="31.600" font-family="Inter" font-size="1.9" font-weight="400" fill="#ece8e1" text-anchor="start">1× travesser seient darrere</text>
-<text x="2.000" y="31.600" font-family="Inter" font-size="1.9" font-weight="600" fill="#d98a55" text-anchor="end">9M</text>
-<polygon points="3.200,36.600 46.400,36.600 46.400,34.200 3.200,34.200" fill="#ece8e1" fill-opacity="0.85"/>
-<line x1="5.600" y1="36.600" x2="5.600" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="8.000" y1="36.600" x2="8.000" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="10.400" y1="36.600" x2="10.400" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="12.800" y1="36.600" x2="12.800" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="15.200" y1="36.600" x2="15.200" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="17.600" y1="36.600" x2="17.600" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="20.000" y1="36.600" x2="20.000" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="22.400" y1="36.600" x2="22.400" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="24.800" y1="36.600" x2="24.800" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="27.200" y1="36.600" x2="27.200" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="29.600" y1="36.600" x2="29.600" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="32.000" y1="36.600" x2="32.000" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="34.400" y1="36.600" x2="34.400" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="36.800" y1="36.600" x2="36.800" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="39.200" y1="36.600" x2="39.200" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="41.600" y1="36.600" x2="41.600" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="44.000" y1="36.600" x2="44.000" y2="34.200" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<text x="47.600" y="36.200" font-family="Inter" font-size="1.9" font-weight="400" fill="#ece8e1" text-anchor="start">1× travesser respatller</text>
-<text x="2.000" y="36.200" font-family="Inter" font-size="1.9" font-weight="600" fill="#d98a55" text-anchor="end">9M</text>
-<polygon points="3.200,41.200 32.000,41.200 32.000,38.800 3.200,38.800" fill="#ece8e1" fill-opacity="0.85"/>
-<line x1="5.600" y1="41.200" x2="5.600" y2="38.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="8.000" y1="41.200" x2="8.000" y2="38.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="10.400" y1="41.200" x2="10.400" y2="38.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="12.800" y1="41.200" x2="12.800" y2="38.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="15.200" y1="41.200" x2="15.200" y2="38.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="17.600" y1="41.200" x2="17.600" y2="38.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="20.000" y1="41.200" x2="20.000" y2="38.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="22.400" y1="41.200" x2="22.400" y2="38.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="24.800" y1="41.200" x2="24.800" y2="38.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="27.200" y1="41.200" x2="27.200" y2="38.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<line x1="29.600" y1="41.200" x2="29.600" y2="38.800" stroke="#1d2742" stroke-width="0.08" stroke-opacity="0.6" stroke-linecap="round"/>
-<text x="33.200" y="40.800" font-family="Inter" font-size="1.9" font-weight="400" fill="#ece8e1" text-anchor="start">2× suport làmina</text>
-<text x="2.000" y="40.800" font-family="Inter" font-size="1.9" font-weight="600" fill="#d98a55" text-anchor="end">6M</text>
-</svg></div>
+  <table>
+    <tr><th>Peça</th><th>Uts.</th><th>Llargada</th><th>Mòduls</th></tr>
+    <tr><td>Pal respatller</td><td>2</td><td>624 mm</td><td>13M</td></tr>
+<tr><td>Pota posterior</td><td>2</td><td>600 mm</td><td>12,5M</td></tr>
+<tr><td>Travesser lateral</td><td>2</td><td>528 mm</td><td>11M</td></tr>
+<tr><td>Travesser seient davant</td><td>1</td><td>528 mm</td><td>11M</td></tr>
+<tr><td>Braç</td><td>2</td><td>456 mm</td><td>9,5M</td></tr>
+<tr><td>Pota davantera</td><td>2</td><td>432 mm</td><td>9M</td></tr>
+<tr><td>Travesser seient darrere</td><td>1</td><td>432 mm</td><td>9M</td></tr>
+<tr><td>Travesser respatller</td><td>1</td><td>432 mm</td><td>9M</td></tr>
+<tr><td>Suport làmina</td><td>2</td><td>288 mm</td><td>6M</td></tr>
+    <tr class="tot"><td>Total</td><td>15</td><td></td><td></td></tr>
+  </table>
 </div>
 
-<div class="abs" style="left:16mm; top:167.2mm; width:98mm;">
-  <div class="sec"><span class="n">02</span><span class="t">Sistema de proporcions</span></div>
-  <p>Planta <b>quadrada</b> (12M × 12M) i alçat <b>12M × 20M = 3:5</b>, termes de la sèrie de
-  Fibonacci que tendeix a la secció àuria (5/3 = 1,67, prop de 1,618). L'alçada es divideix
-  en un <span class="acc">quadrat de 12M</span> —cos del seient, fins a l'arrencada dels braços— i
-  un rectangle 12M × 8M —el respatller—: <b>3:2</b>.</p>
+<div class="abs" style="left:16mm; top:167.3mm; width:98mm;">
+  <h2>Sistema de proporcions</h2>
+  <p>Amb aquest mòdul la cadira fa <b>12M × 12M × 20M</b> (576 × 576 × 960 mm), molt a prop
+  de les mides reals (570 × 575 × 960). La planta és un quadrat i l'alçat queda en
+  relació <b>3:5</b>, dos números de la sèrie de Fibonacci (5/3 = 1,67, força a prop del
+  nombre d'or). Si partim l'alçat, a sota hi ha un <span class="acc">quadrat de 12M</span>
+  (fins als braços) i el respatller hi afegeix 8M més: <b>3:2</b>.</p>
   <div class="row" style="margin-top:3mm; align-items:flex-end;">
     <div style="text-align:center"><svg xmlns="http://www.w3.org/2000/svg" width="32.17mm" height="49.23mm" viewBox="0 0 32.170 49.225" overflow="visible">
 <line x1="3.125" y1="45.200" x2="3.125" y2="2.000" stroke="#d98a55" stroke-width="0.08" stroke-opacity="0.35" stroke-linecap="round"/>
@@ -423,7 +244,7 @@ b { font-weight: 600; color: #ece8e1; }
 <text x="30.170" y="10.640" font-family="Inter" font-size="2.0" font-weight="600" fill="#7fa6d6" text-anchor="start">8M</text>
 <text x="16.085" y="47.225" font-family="Inter" font-size="2.0" font-weight="600" fill="#d98a55" text-anchor="middle">12M</text>
 <text x="2.000" y="23.600" font-family="Inter" font-size="2.0" font-weight="600" fill="#ece8e1" text-anchor="middle" transform="rotate(-90 2.000 23.600)">20M</text>
-</svg><div class="cap">Alçat · 3:5</div></div>
+</svg><div class="cap">Alçat 3:5</div></div>
     <div style="text-align:center"><svg xmlns="http://www.w3.org/2000/svg" width="32.17mm" height="47.20mm" viewBox="0 0 32.170 47.200" overflow="visible">
 <line x1="2.450" y1="45.200" x2="2.450" y2="2.000" stroke="#d98a55" stroke-width="0.08" stroke-opacity="0.35" stroke-linecap="round"/>
 <line x1="4.610" y1="45.200" x2="4.610" y2="2.000" stroke="#d98a55" stroke-width="0.08" stroke-opacity="0.35" stroke-linecap="round"/>
@@ -518,7 +339,7 @@ b { font-weight: 600; color: #ece8e1; }
 <text x="30.170" y="10.910" font-family="Inter" font-size="1.8" font-weight="600" fill="#d98a55" text-anchor="start">16M</text>
 <line x1="2.000" y1="2.000" x2="29.720" y2="2.000" stroke="#d98a55" stroke-width="0.18" stroke-opacity="1" stroke-linecap="round"/>
 <text x="30.170" y="2.270" font-family="Inter" font-size="1.8" font-weight="600" fill="#d98a55" text-anchor="start">20M</text>
-</svg><div class="cap">Perfil · nivells</div></div>
+</svg><div class="cap">Perfil, alçades en M</div></div>
     <div style="text-align:center"><svg xmlns="http://www.w3.org/2000/svg" width="29.92mm" height="31.95mm" viewBox="0 0 29.920 31.945" overflow="visible">
 <line x1="2.000" y1="27.920" x2="2.000" y2="2.000" stroke="#d98a55" stroke-width="0.08" stroke-opacity="0.35" stroke-linecap="round"/>
 <line x1="4.160" y1="27.920" x2="4.160" y2="2.000" stroke="#d98a55" stroke-width="0.08" stroke-opacity="0.35" stroke-linecap="round"/>
@@ -604,16 +425,14 @@ b { font-weight: 600; color: #ece8e1; }
 <line x1="27.920" y1="27.920" x2="2.000" y2="2.000" stroke="#d98a55" stroke-width="0.2" stroke-opacity="1" stroke-linecap="round" stroke-dasharray="1 0.8"/>
 <polygon points="2.000,27.920 27.920,27.920 27.920,2.000 2.000,2.000" fill="#d98a55" fill-opacity="0.08" stroke="#d98a55" stroke-width="0.35"/>
 <text x="14.960" y="29.945" font-family="Inter" font-size="2.0" font-weight="600" fill="#d98a55" text-anchor="middle">12M × 12M</text>
-</svg><div class="cap">Planta · quadrat</div></div>
+</svg><div class="cap">Planta quadrada</div></div>
   </div>
-  <p class="small" style="margin-top:2.5mm;">Retícula de mòduls M = 48 mm (esquemes sense escala). Tots els
-  nivells i llargades cauen sobre la retícula de ½M.</p>
 </div>
 
 <!-- ============ COL B: VISTES ============ -->
-<div class="abs" style="left:124mm; top:62mm; width:178mm;">
-  <div class="sec"><span class="n">04</span><span class="t">Vistes dièdriques acotades</span>
-    <span class="m">E 1:10 · cotes en mm · sistema europeu</span></div>
+<div class="abs" style="left:124mm; top:64mm; width:178mm;">
+  <div class="row" style="align-items:baseline"><h2>Vistes dièdriques</h2>
+    <span class="cap">Escala 1:10 · cotes en mm · sistema europeu</span></div>
   <div style="margin-top:3mm; display:flex; justify-content:center;"><svg xmlns="http://www.w3.org/2000/svg" width="169.10mm" height="195.10mm" viewBox="0 0 169.100 195.100" overflow="visible">
 <line x1="18.200" y1="105.000" x2="20.600" y2="105.000" stroke="#ece8e1" stroke-width="0.3" stroke-opacity="1" stroke-linecap="round"/>
 <line x1="18.200" y1="105.000" x2="18.200" y2="61.800" stroke="#ece8e1" stroke-width="0.3" stroke-opacity="1" stroke-linecap="round"/>
@@ -1013,22 +832,26 @@ b { font-weight: 600; color: #ece8e1; }
 <text x="121.600" y="2.000" font-family="Inter" font-size="2.4" font-weight="600" fill="#ece8e1" text-anchor="middle">PERFIL ESQUERRE</text>
 <text x="47.000" y="193.100" font-family="Inter" font-size="2.4" font-weight="600" fill="#ece8e1" text-anchor="middle">PLANTA</text>
 </svg></div>
+  <p class="small" style="margin-top:3mm; width:120mm;">Les mides generals són les de la fitxa
+  del museu. Les alçades del seient i el voladís dels braços els he estimat a partir de les
+  fotografies.</p>
 </div>
 
 <!-- ============ COL C: ISOMÈTRICA + COMPOSICIÓ ============ -->
-<div class="abs" style="left:306mm; top:62mm; width:100mm; height:140mm;">
-  <img src="assets/render_iso.png" style="position:absolute; right:-4mm; top:8mm; height:128mm;">
-  <div class="sec" style="position:relative;"><span class="n">05</span><span class="t">Perspectiva isomètrica</span></div>
-  <div class="cap" style="position:absolute; left:0; top:12mm; width:31mm; line-height:1.4;">Model 3D a partir de les
-  vistes acotades. La làmina inferior del respatller s'ancora a les potes posteriors i la
-  superior als pals: el respatller s'inclina sense inclinar cap llistó.</div>
+<div class="abs" style="left:306mm; top:64mm; width:100mm; height:140mm;">
+  <img src="assets/render_iso.png" style="position:absolute; right:-4mm; top:6mm; height:128mm;">
+  <h2 style="position:relative;">Perspectiva isomètrica</h2>
+  <div class="cap" style="position:absolute; left:0; top:9mm; width:31mm; line-height:1.4;">El
+  respatller queda inclinat perquè la tela de baix va a les potes del darrere i la de dalt
+  als pals, que estan més enrere.</div>
 </div>
 
 <div class="abs" style="left:310mm; top:204mm; width:96mm;">
-  <div class="sec"><span class="n">03</span><span class="t">Composició volumètrica</span></div>
-  <p style="font-size:2.75mm">Un <span class="acc">cub de 12M</span> conté potes, seient i braços; en
-  sobresurt el pla del respatller (8M). La forma s'articula amb <b>línies</b> —llistons en les
-  tres direccions, que es superposen sense tallar-se— i <b>plans</b> —tres làmines suspeses.</p>
+  <h2>Composició volumètrica</h2>
+  <p style="font-size:2.75mm">Tota la cadira cap dins d'un <span class="acc">cub de 12M</span> i
+  només en surt el respatller. Està feta de <b>línies</b> (els llistons, en les tres
+  direccions, muntats un al costat de l'altre sense creuar-se) i de <b>plans</b> (les teles,
+  que aquí he dibuixat com a làmines).</p>
   <div class="row" style="margin-top:2mm">
     <div style="text-align:center"><svg xmlns="http://www.w3.org/2000/svg" width="30.07mm" height="43.82mm" viewBox="0 0 30.067 43.819" overflow="visible">
 <line x1="2.000" y1="34.294" x2="2.543" y2="34.608" stroke="#9fabc2" stroke-width="0.15" stroke-opacity="1" stroke-linecap="round"/>
@@ -1206,7 +1029,7 @@ b { font-weight: 600; color: #ece8e1; }
 <polygon points="14.490,12.660 26.438,19.558 26.438,9.525 14.490,2.627" fill="#7fa6d6" fill-opacity="0.18"/>
 <polygon points="26.438,19.558 27.524,18.931 27.524,8.898 26.438,9.525" fill="#7fa6d6" fill-opacity="0.18"/>
 <polygon points="14.490,2.627 26.438,9.525 27.524,8.898 15.576,2.000" fill="#7fa6d6" fill-opacity="0.18"/>
-</svg><div class="cap">Volum envolupant</div></div>
+</svg><div class="cap">Volum que l'envolta</div></div>
     <div style="text-align:center"><svg xmlns="http://www.w3.org/2000/svg" width="30.07mm" height="43.82mm" viewBox="0 0 30.067 43.819" overflow="visible">
 <line x1="2.000" y1="34.294" x2="2.543" y2="34.608" stroke="#ece8e1" stroke-width="0.3" stroke-opacity="1" stroke-linecap="round"/>
 <line x1="2.000" y1="34.294" x2="2.000" y2="23.007" stroke="#ece8e1" stroke-width="0.3" stroke-opacity="1" stroke-linecap="round"/>
@@ -1331,7 +1154,7 @@ b { font-weight: 600; color: #ece8e1; }
 <line x1="25.351" y1="19.558" x2="25.895" y2="19.871" stroke="#7fa6d6" stroke-width="0.3" stroke-opacity="1" stroke-linecap="round"/>
 <line x1="16.120" y1="14.228" x2="16.663" y2="13.914" stroke="#7fa6d6" stroke-width="0.3" stroke-opacity="1" stroke-linecap="round"/>
 <line x1="24.265" y1="18.304" x2="16.663" y2="13.914" stroke="#7fa6d6" stroke-width="0.3" stroke-opacity="1" stroke-linecap="round"/>
-</svg><div class="cap">Línies X · Y · Z</div></div>
+</svg><div class="cap">Llistons per direcció</div></div>
     <div style="text-align:center"><svg xmlns="http://www.w3.org/2000/svg" width="30.07mm" height="43.82mm" viewBox="0 0 30.067 43.819" overflow="visible">
 <line x1="2.000" y1="34.294" x2="2.543" y2="34.608" stroke="#9fabc2" stroke-width="0.18" stroke-opacity="1" stroke-linecap="round"/>
 <line x1="2.000" y1="34.294" x2="2.000" y2="23.007" stroke="#9fabc2" stroke-width="0.18" stroke-opacity="1" stroke-linecap="round"/>
@@ -1481,14 +1304,15 @@ b { font-weight: 600; color: #ece8e1; }
 <polygon points="2.543,23.947 14.490,30.845 24.808,26.142 24.808,25.985 12.861,19.088 2.543,23.791" fill="#d98a55" fill-opacity="0.75"/>
 <polygon points="12.182,16.501 24.130,23.399 24.265,23.320 24.265,20.812 12.318,13.914 12.182,13.993" fill="#d98a55" fill-opacity="0.75"/>
 <polygon points="14.355,7.722 26.302,14.620 26.438,14.541 26.438,12.033 14.490,5.135 14.355,5.214" fill="#d98a55" fill-opacity="0.75"/>
-</svg><div class="cap">Plans suspesos</div></div>
+</svg><div class="cap">Plans (teles)</div></div>
   </div>
-  <div class="legend" style="margin-top:1.5mm; text-align:center">
-    <span><i style="background:#ece8e1"></i>Z verticals</span>
-    <span><i style="background:#e3c27a"></i>Y longitudinals</span>
-    <span><i style="background:#7fa6d6"></i>X transversals</span>
-    <span><i style="background:#d98a55; height:1.6mm"></i>làmines</span>
-  </div>
+  <p class="small" style="margin-top:1.5mm; text-align:center;">
+    <span style="color:#ece8e1">blanc</span>: verticals ·
+    <span style="color:#e3c27a">groc</span>: longitudinals ·
+    <span style="color:#7fa6d6">blau</span>: transversals</p>
 </div>
+
+<div class="abs fonts" style="left:16mm; bottom:9mm;">Fonts: fitxa i fotografies del MoMA (Nova York)
+i de Quittenbaum Kunstauktionen. Model 3D i vistes elaborats a partir d'aquestes referències.</div>
 
 </body></html>

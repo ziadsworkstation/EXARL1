@@ -350,7 +350,10 @@ def build():
     v1, *_ = fig_volum()
     v2, *_ = fig_direccions()
     v3, *_ = fig_plans()
-    top02 = 62 + 50 + invh + 12
+    rows = inventory()
+    inv_rows = "\n".join(f"<tr><td>{n[0].upper() + n[1:]}</td><td>{c}</td><td>{L:g} mm</td>"
+                         f"<td>{str(round(L / M, 1)).replace('.0', '').replace('.', ',')}M</td></tr>" for n, L, c in rows)
+    top02 = 64 + 46 + 4.3 * (len(rows) + 2) + 10
 
     html = f"""<!doctype html>
 <html lang="ca"><head><meta charset="utf-8">
@@ -376,7 +379,14 @@ h1 {{ font-family: Anton; font-weight: 400; color: {ACCENT}; font-size: 30mm; li
       letter-spacing: .4mm; }}
 .sub {{ font-family: Inter; font-weight: 500; font-size: 4.6mm; letter-spacing: .2mm; margin-top: 2.5mm; }}
 .sub span {{ color: {MUTED}; font-weight: 300; }}
-.kicker {{ font-weight: 600; font-size: 2.9mm; letter-spacing: 1.1mm; color: {MUTED}; margin-bottom: 3mm; }}
+.kicker {{ font-weight: 500; font-size: 3.2mm; color: {MUTED}; margin-bottom: 2.5mm; }}
+h2 {{ font-family: Inter; font-weight: 600; font-size: 4.6mm; color: {ACCENT}; margin-bottom: 2mm; }}
+table {{ border-collapse: collapse; width: 100%; margin-top: 3mm; font-size: 2.5mm; }}
+th {{ text-align: left; font-weight: 600; color: {MUTED}; border-bottom: .2mm solid {MUTED}; padding: .6mm 1mm; }}
+td {{ padding: .55mm 1mm; border-bottom: .1mm solid rgba(236,232,225,.15); }}
+td:nth-child(n+2), th:nth-child(n+2) {{ text-align: right; }}
+tr.tot td {{ font-weight: 600; border-bottom: none; }}
+.fonts {{ font-size: 2.2mm; color: {MUTED}; }}
 p {{ font-size: 3.05mm; line-height: 1.42; text-align: left; }}
 p.small {{ font-size: 2.6mm; color: {MUTED}; }}
 b {{ font-weight: 600; color: {INK}; }}
@@ -396,92 +406,100 @@ b {{ font-weight: 600; color: {INK}; }}
 </style></head><body>
 
 <!-- ============ CAPÇALERA ============ -->
-<div class="abs" style="left:16mm; top:13mm;">
-  <div class="kicker">EXAR · L1 — APLICACIÓ A LA COMPOSICIÓ I PROPORCIÓ</div>
+<div class="abs" style="left:16mm; top:14mm;">
+  <div class="kicker">EXAR · Pràctica L1 - Aplicació a la composició i proporció</div>
   <h1>SLATTED CHAIR</h1>
-  <div class="sub">TI 1A &nbsp;·&nbsp; Marcel Breuer <span>&nbsp;·&nbsp; Bauhaus Weimar, 1922–24</span></div>
+  <div class="sub">TI 1A, Marcel Breuer <span>(Bauhaus, Weimar 1922-24)</span></div>
 </div>
-<div class="abs" style="left:194mm; top:21mm; width:112mm;">
-  <p>Dissenyada per Marcel Breuer quan encara era estudiant al taller de fusteria del
-  Bauhaus, la cadira trasllada a l'espai la gramàtica del <b>De Stijl</b>: una xarxa lleugera
-  de <b>llistons ortogonals</b> que sostenen làmines suspeses. A la segona versió
-  (1924) tota l'estructura es construeix amb un <b>únic llistó estandarditzat</b> —només en
-  canvia la llargada—, una decisió que ordena la forma i n'abarateix la producció.</p>
+<div class="abs" style="left:194mm; top:22mm; width:110mm;">
+  <p>La Slatted Chair la va dissenyar Marcel Breuer quan encara era alumne del taller de
+  fusteria del Bauhaus. Es nota molt la influència del <b>De Stijl</b> i de la Red and Blue
+  Chair de Rietveld, però en comptes de seure sobre plafons rígids, Breuer fa servir
+  <b>teles tibades</b> per al seient i el respatller. A la segona versió (1924) totes les
+  peces surten del <b>mateix llistó</b>, només en canvia la llargada.</p>
 </div>
 <div class="abs" style="left:322mm; top:14mm; width:84mm;">
   <img src="assets/logo_upc_epsevg.png" style="width:62mm; display:block; margin-bottom:4mm;">
   <div class="info">
     <b>Alumne:</b> {ALUMNE}<br>
     <b>Professor:</b> {PROFESSOR}<br>
-    <b>Grup:</b> {GRUP} &nbsp;·&nbsp; <b>Assignatura:</b> EXAR<br>
+    <b>Grup:</b> {GRUP}<br>
+    <b>Assignatura:</b> EXAR<br>
     <b>Data:</b> {DATA}
   </div>
 </div>
-<div class="abs rule" style="left:16mm; right:16mm; top:56mm;"></div>
 
 <!-- ============ COL A: MÒDUL I PROPORCIONS ============ -->
-<div class="abs" style="left:16mm; top:62mm; width:98mm;">
-  <div class="sec"><span class="n">01</span><span class="t">Mòdul base</span></div>
+<div class="abs" style="left:16mm; top:64mm; width:98mm;">
+  <h2>Mòdul base</h2>
   <div class="row" style="align-items:flex-start; gap:4mm;">
     <div style="flex:1">
-      <p><span class="acc">M = 48 mm</span>, l'amplada del llistó tipus. La secció
-      24 × 48 (<b>½M × M</b>, proporció 1:2) es repeteix a totes les peces: només
-      canvia la llargada, sempre múltiple de ½M.</p>
+      <p>Com a mòdul he agafat l'amplada del llistó, <span class="acc">M = 48 mm</span>.
+      El llistó real fa uns 25 × 54 mm, però l'he arrodonit a <b>24 × 48</b> (½M × M) perquè
+      les mides generals quadressin amb el mòdul. Totes les peces tenen aquesta secció i
+      la llargada sempre és múltiple de ½M.</p>
     </div>
-    <div style="text-align:center">{ll}<div class="cap">Secció · E 1:2</div></div>
+    <div style="text-align:center">{ll}<div class="cap">Secció del llistó, E 1:2</div></div>
   </div>
-  <div class="cap" style="margin:3mm 0 1mm">Llargades dels llistons (en M)</div>
-  <div>{inv}</div>
+  <table>
+    <tr><th>Peça</th><th>Uts.</th><th>Llargada</th><th>Mòduls</th></tr>
+    {inv_rows}
+    <tr class="tot"><td>Total</td><td>{n_llistons}</td><td></td><td></td></tr>
+  </table>
 </div>
 
 <div class="abs" style="left:16mm; top:{top02}mm; width:98mm;">
-  <div class="sec"><span class="n">02</span><span class="t">Sistema de proporcions</span></div>
-  <p>Planta <b>quadrada</b> (12M × 12M) i alçat <b>12M × 20M = 3:5</b>, termes de la sèrie de
-  Fibonacci que tendeix a la secció àuria (5/3 = 1,67, prop de 1,618). L'alçada es divideix
-  en un <span class="acc">quadrat de 12M</span> —cos del seient, fins a l'arrencada dels braços— i
-  un rectangle 12M × 8M —el respatller—: <b>3:2</b>.</p>
+  <h2>Sistema de proporcions</h2>
+  <p>Amb aquest mòdul la cadira fa <b>12M × 12M × 20M</b> (576 × 576 × 960 mm), molt a prop
+  de les mides reals (570 × 575 × 960). La planta és un quadrat i l'alçat queda en
+  relació <b>3:5</b>, dos números de la sèrie de Fibonacci (5/3 = 1,67, força a prop del
+  nombre d'or). Si partim l'alçat, a sota hi ha un <span class="acc">quadrat de 12M</span>
+  (fins als braços) i el respatller hi afegeix 8M més: <b>3:2</b>.</p>
   <div class="row" style="margin-top:3mm; align-items:flex-end;">
-    <div style="text-align:center">{pa}<div class="cap">Alçat · 3:5</div></div>
-    <div style="text-align:center">{pp}<div class="cap">Perfil · nivells</div></div>
-    <div style="text-align:center">{pl}<div class="cap">Planta · quadrat</div></div>
+    <div style="text-align:center">{pa}<div class="cap">Alçat 3:5</div></div>
+    <div style="text-align:center">{pp}<div class="cap">Perfil, alçades en M</div></div>
+    <div style="text-align:center">{pl}<div class="cap">Planta quadrada</div></div>
   </div>
-  <p class="small" style="margin-top:2.5mm;">Retícula de mòduls M = 48 mm (esquemes sense escala). Tots els
-  nivells i llargades cauen sobre la retícula de ½M.</p>
 </div>
 
 <!-- ============ COL B: VISTES ============ -->
-<div class="abs" style="left:124mm; top:62mm; width:178mm;">
-  <div class="sec"><span class="n">04</span><span class="t">Vistes dièdriques acotades</span>
-    <span class="m">E 1:10 · cotes en mm · sistema europeu</span></div>
+<div class="abs" style="left:124mm; top:64mm; width:178mm;">
+  <div class="row" style="align-items:baseline"><h2>Vistes dièdriques</h2>
+    <span class="cap">Escala 1:10 · cotes en mm · sistema europeu</span></div>
   <div style="margin-top:3mm; display:flex; justify-content:center;">{vistes}</div>
+  <p class="small" style="margin-top:3mm; width:120mm;">Les mides generals són les de la fitxa
+  del museu. Les alçades del seient i el voladís dels braços els he estimat a partir de les
+  fotografies.</p>
 </div>
 
 <!-- ============ COL C: ISOMÈTRICA + COMPOSICIÓ ============ -->
-<div class="abs" style="left:306mm; top:62mm; width:100mm; height:140mm;">
-  <img src="assets/render_iso.png" style="position:absolute; right:-4mm; top:8mm; height:128mm;">
-  <div class="sec" style="position:relative;"><span class="n">05</span><span class="t">Perspectiva isomètrica</span></div>
-  <div class="cap" style="position:absolute; left:0; top:12mm; width:31mm; line-height:1.4;">Model 3D a partir de les
-  vistes acotades. La làmina inferior del respatller s'ancora a les potes posteriors i la
-  superior als pals: el respatller s'inclina sense inclinar cap llistó.</div>
+<div class="abs" style="left:306mm; top:64mm; width:100mm; height:140mm;">
+  <img src="assets/render_iso.png" style="position:absolute; right:-4mm; top:6mm; height:128mm;">
+  <h2 style="position:relative;">Perspectiva isomètrica</h2>
+  <div class="cap" style="position:absolute; left:0; top:9mm; width:31mm; line-height:1.4;">El
+  respatller queda inclinat perquè la tela de baix va a les potes del darrere i la de dalt
+  als pals, que estan més enrere.</div>
 </div>
 
 <div class="abs" style="left:310mm; top:204mm; width:96mm;">
-  <div class="sec"><span class="n">03</span><span class="t">Composició volumètrica</span></div>
-  <p style="font-size:2.75mm">Un <span class="acc">cub de 12M</span> conté potes, seient i braços; en
-  sobresurt el pla del respatller (8M). La forma s'articula amb <b>línies</b> —llistons en les
-  tres direccions, que es superposen sense tallar-se— i <b>plans</b> —tres làmines suspeses.</p>
+  <h2>Composició volumètrica</h2>
+  <p style="font-size:2.75mm">Tota la cadira cap dins d'un <span class="acc">cub de 12M</span> i
+  només en surt el respatller. Està feta de <b>línies</b> (els llistons, en les tres
+  direccions, muntats un al costat de l'altre sense creuar-se) i de <b>plans</b> (les teles,
+  que aquí he dibuixat com a làmines).</p>
   <div class="row" style="margin-top:2mm">
-    <div style="text-align:center">{v1}<div class="cap">Volum envolupant</div></div>
-    <div style="text-align:center">{v2}<div class="cap">Línies X · Y · Z</div></div>
-    <div style="text-align:center">{v3}<div class="cap">Plans suspesos</div></div>
+    <div style="text-align:center">{v1}<div class="cap">Volum que l'envolta</div></div>
+    <div style="text-align:center">{v2}<div class="cap">Llistons per direcció</div></div>
+    <div style="text-align:center">{v3}<div class="cap">Plans (teles)</div></div>
   </div>
-  <div class="legend" style="margin-top:1.5mm; text-align:center">
-    <span><i style="background:{AX['z']}"></i>Z verticals</span>
-    <span><i style="background:{AX['y']}"></i>Y longitudinals</span>
-    <span><i style="background:{AX['x']}"></i>X transversals</span>
-    <span><i style="background:{ACCENT}; height:1.6mm"></i>làmines</span>
-  </div>
+  <p class="small" style="margin-top:1.5mm; text-align:center;">
+    <span style="color:{AX['z']}">blanc</span>: verticals ·
+    <span style="color:{AX['y']}">groc</span>: longitudinals ·
+    <span style="color:{AX['x']}">blau</span>: transversals</p>
 </div>
+
+<div class="abs fonts" style="left:16mm; bottom:9mm;">Fonts: fitxa i fotografies del MoMA (Nova York)
+i de Quittenbaum Kunstauktionen. Model 3D i vistes elaborats a partir d'aquestes referències.</div>
 
 </body></html>"""
     out = HERE / "lamina.html"
