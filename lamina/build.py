@@ -28,7 +28,7 @@ AX = {"z": INK, "y": "#a8a8a6", "x": "#5f6368"}
 
 ALUMNE = "Ziad Addami Ech Chaouy"
 PROFESSOR = "Gonzales Alsina, Rafael"
-GRUP = "D3012"
+GRUP = "D3111"
 DATA = "05/10/2026"
 
 SOLIDS = cb.build_chair()
