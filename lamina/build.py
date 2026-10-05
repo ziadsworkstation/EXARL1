@@ -17,11 +17,13 @@ import cadira_breuer as cb  # noqa: E402
 from cadira_breuer import M, t, W, D, H  # noqa: E402
 
 # ---------------------------------------------------------------- paleta
-BG0, BG1 = "#1d2742", "#2b3b63"
-INK = "#ece8e1"        # línies i text principal
-MUTED = "#9fabc2"      # cotes, text secundari
-ACCENT = "#d98a55"     # làmines / accent
-AX = {"z": INK, "y": "#e3c27a", "x": "#7fa6d6"}
+# Paleta complementària: taronja (fusta/làmines) <-> blau, sobre neutres clars
+BG0, BG1 = "#f4f1eb", "#ebe6dd"
+INK = "#1f2633"        # línies i text principal
+MUTED = "#6c7380"      # cotes, text secundari
+ACCENT = "#c8662f"     # taronja: làmines / títol
+BLUE = "#2c5d8f"       # blau complementari: apartats / esquemes
+AX = {"z": INK, "y": "#9aa1ad", "x": BLUE}
 
 ALUMNE = "Ziad Addami Ech Chaouy"
 PROFESSOR = "Gonzales Alsina, Rafael"
@@ -197,11 +199,11 @@ def fig_prop_alcat():
     # quadrat 12M + rectangle 12x8
     sq = [(0, 0), (W, 0), (W, W), (0, W)]
     f.poly(sq, ACCENT, op=0.10, stroke=ACCENT, w=0.35)
-    f.poly([(0, W), (W, W), (W, H), (0, H)], "#7fa6d6", op=0.10, stroke="#7fa6d6", w=0.35)
+    f.poly([(0, W), (W, W), (W, H), (0, H)], BLUE, op=0.10, stroke=BLUE, w=0.35)
     f.line((0, 0), (W, W), color=ACCENT, w=0.2, dash="1 0.8")
     f.line((W, 0), (0, W), color=ACCENT, w=0.2, dash="1 0.8")
     f.text((W + 25, W / 2), "12M", size=2.0, color=ACCENT, anchor="start", weight=600)
-    f.text((W + 25, (W + H) / 2), "8M", size=2.0, color="#7fa6d6", anchor="start", weight=600)
+    f.text((W + 25, (W + H) / 2), "8M", size=2.0, color=BLUE, anchor="start", weight=600)
     f.text((W / 2, -45), "12M", size=2.0, color=ACCENT, weight=600)
     f.text((-25, H / 2), "20M", size=2.0, color=INK, rot=-90, weight=600)
     return f.svg()
@@ -287,7 +289,7 @@ def fig_volum():
         for face in ((0, 1, 5, 4), (1, 3, 7, 5), (4, 5, 7, 6)):
             f.poly([P[i] for i in face], col, op=fill_op)
     boxw(0, W, 0, D, 0, W, ACCENT, 0.10)
-    boxw(t, W - t, D - 2 * t, D, W, H, "#7fa6d6", 0.18)
+    boxw(t, W - t, D - 2 * t, D, W, H, BLUE, 0.15)
     return f.svg()
 
 
@@ -371,7 +373,7 @@ html, body {{ width: 420mm; height: 297mm; }}
 body {{
   position: relative; overflow: hidden;
   font-family: Inter; font-weight: 300; color: {INK};
-  background: radial-gradient(120% 90% at 85% 25%, {BG1} 0%, {BG0} 70%);
+  background: linear-gradient(160deg, {BG0} 0%, {BG1} 100%);
   -webkit-print-color-adjust: exact; print-color-adjust: exact;
 }}
 .abs {{ position: absolute; }}
@@ -380,10 +382,10 @@ h1 {{ font-family: Anton; font-weight: 400; color: {ACCENT}; font-size: 30mm; li
 .sub {{ font-family: Inter; font-weight: 500; font-size: 4.6mm; letter-spacing: .2mm; margin-top: 2.5mm; }}
 .sub span {{ color: {MUTED}; font-weight: 300; }}
 .kicker {{ font-weight: 500; font-size: 3.2mm; color: {MUTED}; margin-bottom: 2.5mm; }}
-h2 {{ font-family: Inter; font-weight: 600; font-size: 4.6mm; color: {ACCENT}; margin-bottom: 2mm; }}
+h2 {{ font-family: Inter; font-weight: 600; font-size: 4.6mm; color: {BLUE}; margin-bottom: 2mm; }}
 table {{ border-collapse: collapse; width: 100%; margin-top: 3mm; font-size: 2.5mm; }}
 th {{ text-align: left; font-weight: 600; color: {MUTED}; border-bottom: .2mm solid {MUTED}; padding: .6mm 1mm; }}
-td {{ padding: .55mm 1mm; border-bottom: .1mm solid rgba(236,232,225,.15); }}
+td {{ padding: .55mm 1mm; border-bottom: .1mm solid rgba(31,38,51,.15); }}
 td:nth-child(n+2), th:nth-child(n+2) {{ text-align: right; }}
 tr.tot td {{ font-weight: 600; border-bottom: none; }}
 .fonts {{ font-size: 2.2mm; color: {MUTED}; }}
@@ -419,7 +421,7 @@ b {{ font-weight: 600; color: {INK}; }}
   peces surten del <b>mateix llistó</b>, només en canvia la llargada.</p>
 </div>
 <div class="abs" style="left:322mm; top:14mm; width:84mm;">
-  <img src="assets/logo_upc_epsevg.png" style="width:62mm; display:block; margin-bottom:4mm;">
+  <img src="assets/logo_upc_epsevg_dark.png" style="width:62mm; display:block; margin-bottom:4mm;">
   <div class="info">
     <b>Alumne:</b> {ALUMNE}<br>
     <b>Professor:</b> {PROFESSOR}<br>
@@ -492,8 +494,8 @@ b {{ font-weight: 600; color: {INK}; }}
     <div style="text-align:center">{v3}<div class="cap">Plans (teles)</div></div>
   </div>
   <p class="small" style="margin-top:1.5mm; text-align:center;">
-    <span style="color:{AX['z']}">blanc</span>: verticals ·
-    <span style="color:{AX['y']}">groc</span>: longitudinals ·
+    <span style="color:{AX['z']}">negre</span>: verticals ·
+    <span style="color:{AX['y']}">gris</span>: longitudinals ·
     <span style="color:{AX['x']}">blau</span>: transversals</p>
 </div>
 

@@ -108,8 +108,8 @@ def render(path, px_per_mm=2.2, ss=2):
 
     sh_img = Image.fromarray((shadow_a.reshape(Hp, Wp) * 255).astype(np.uint8), "L")
     sh_img = sh_img.filter(ImageFilter.GaussianBlur(6 * ss))
-    shadow = Image.new("RGBA", (Wp, Hp), (8, 12, 30, 0))
-    shadow.putalpha(sh_img.point(lambda v: int(v * 0.45)))
+    shadow = Image.new("RGBA", (Wp, Hp), (70, 60, 50, 0))
+    shadow.putalpha(sh_img.point(lambda v: int(v * 0.22)))
     out = Image.alpha_composite(shadow, obj)
     out = out.resize((Wp // ss, Hp // ss), Image.LANCZOS)
     out.save(path)
