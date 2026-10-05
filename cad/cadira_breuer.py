@@ -220,7 +220,6 @@ def proj_iso(p):
 # --------------------------------------------------------------------------
 # DXF
 # --------------------------------------------------------------------------
-LOGO_FILE = "logo_upc_epsevg.png"
 SCALE = 10                 # 1:10  ->  1 mm de paper = 10 unitats
 TXT = 2.5 * SCALE
 
@@ -287,41 +286,10 @@ def label(msp, s, x, y):
 
 
 def main(path_dxf):
+    """DXF 2D: només les tres vistes dièdriques acotades (sistema europeu)."""
     solids = build_chair()
     doc = setup_doc()
     msp = doc.modelspace()
-
-    # ---- marc A3 (420 x 297 mm a 1:10) ----
-    FW, FH = 420 * SCALE, 297 * SCALE
-    mg = 10 * SCALE
-    msp.add_lwpolyline([(0, 0), (FW, 0), (FW, FH), (0, FH)], close=True,
-                       dxfattribs={"layer": "CAIXETI", "lineweight": 13})
-    msp.add_lwpolyline([(mg, mg), (FW - mg, mg), (FW - mg, FH - mg), (mg, FH - mg)],
-                       close=True, dxfattribs={"layer": "MARC"})
-
-    # ---- capçalera (caixetí de disseny lliure) ----
-    hb = 28 * SCALE
-    y_h = FH - mg - hb
-    msp.add_line((mg, y_h), (FW - mg, y_h), dxfattribs={"layer": "CAIXETI"})
-    text(msp, "L1 - APLICACIÓ A LA COMPOSICIÓ I PROPORCIÓ", mg + 60, y_h + 170,
-         h=4 * SCALE)
-    text(msp, "SLATTED CHAIR  \"TI 1A\"  ·  Marcel Breuer, 1922-24", mg + 60,
-         y_h + 70, h=6 * SCALE)
-    info = ["Alumne: Ziad Addami Ech Chaouy", "Professor: De Castro Losada, Rubén",
-            "Grup: D3012 · Assignatura: EXAR", "Data: 05/10/2026"]
-    for i, s in enumerate(info):
-        text(msp, s, FW - mg - 1100, y_h + 200 - i * 50, h=3 * SCALE)
-    text(msp, "Escala 1:10  ·  Cotes en mm  ·  Sistema europeu", FW - mg - 1260,
-         y_h - 60, h=2.5 * SCALE)
-    # logo (imatge externa: s'ha d'entregar al costat del .dxf)
-    from PIL import Image
-    logo = Path(__file__).parent / LOGO_FILE
-    px = Image.open(logo).size
-    doc.set_raster_variables(frame=0, quality=1, units="mm")
-    idef = doc.add_image_def(filename=LOGO_FILE, size_in_pixel=px)
-    lw = 620
-    msp.add_image(idef, insert=(FW - mg - 1800, y_h + 75), size_in_units=(lw, lw * px[1] / px[0]),
-                  dxfattribs={"layer": "CAIXETI"})
 
     # ---- vistes dièdriques ----
     O_ALC = (600, 1420)                    # alçat
@@ -385,32 +353,39 @@ def main(path_dxf):
         vdim(msp, a, b, W, W + 90, o)
     label(msp, "PLANTA", o[0] + W / 2, o[1] - 230)
 
-    # ---- perspectiva isomètrica ----
-    segs = visible_segments(solids, ISO_DIR, proj_iso)
-    xs = [c for p, q, _ in segs for c in (p[0], q[0])]
-    ys = [c for p, q, _ in segs for c in (p[1], q[1])]
-    cx, cy = (min(xs) + max(xs)) / 2, min(ys)
-    O_ISO = (3300 - cx, 380 - cy)
-    draw_segments(msp, segs, O_ISO)
-    label(msp, "PERSPECTIVA ISOMÈTRICA", 3300, 380 + (max(ys) - min(ys)) + 120)
-
-    # ---- llegenda del mòdul ----
-    text(msp, f"Mòdul base  M = {M}  ·  llistó estandarditzat {t}x{M} (½M x M)",
-         1550, mg + 60, h=2.5 * SCALE)
-    text(msp, f"Amplada {W // M}M · Profunditat {D // M}M · Alçada {H // M}M",
-         1550, mg + 120, h=2.5 * SCALE)
-
-    # ---- presentació A3 per imprimir directament a 1:10 ----
-    doc.layouts.rename("Layout1", "A3 1-10")
-    psp = doc.layouts.get("A3 1-10")
-    psp.page_setup(size=(420, 297), margins=(0, 0, 0, 0), units="mm",
-                   name="ISO_full_bleed_A3_(420.00_x_297.00_MM)", device="DWG To PDF.pc3")
-    vp = psp.add_viewport(center=(210, 148.5), size=(420, 297),
-                          view_center_point=(FW / 2, FH / 2), view_height=FH)
-    vp.dxf.flags |= 16384                 # viewport bloquejat (escala fixa 1:10)
-
     doc.saveas(path_dxf)
     return doc, solids
+
+
+def export_3d(solids, path):
+    """DXF 3D amb sòlids ACIS (3DSOLID) -> a AutoCAD: Guardar com a .dwg."""
+    from ezdxf.acis import api as acis
+    from ezdxf.render import MeshBuilder
+
+    doc = ezdxf.new("R2010", units=4)
+    doc.layers.add("FUSTA", color=30, true_color=ezdxf.rgb2int((110, 60, 35)))
+    doc.layers.add("LAMINA", color=30, true_color=ezdxf.rgb2int((210, 120, 65)))
+    msp = doc.modelspace()
+    for s in solids:
+        c = s.v.mean(axis=0)
+        mesh = MeshBuilder()
+        mesh.vertices = [tuple(v) for v in s.v]
+        for f in s.faces:
+            p0, p1, p2 = s.v[f[0]], s.v[f[1]], s.v[f[2]]
+            n = np.cross(p1 - p0, p2 - p0)
+            mesh.faces.append(list(f) if n @ (p0 - c) > 0 else list(reversed(f)))
+        body = acis.body_from_mesh(mesh)
+        layer = "LAMINA" if s.kind == "lamina" else "FUSTA"
+        solid = msp.add_3dsolid(dxfattribs={"layer": layer})
+        acis.export_dxf(solid, [body])
+    # vista inicial isomètrica (SE)
+    vp = doc.viewports.get("*Active")[0]
+    vp.dxf.direction = (1, -1, 1)
+    vp.dxf.target = (W / 2, D / 2, H / 2)
+    vp.dxf.center = (0, 0)
+    vp.dxf.height = 1400
+    doc.saveas(path)
+    return doc
 
 
 def export_stl(solids, path):
@@ -441,6 +416,7 @@ if __name__ == "__main__":
     here = Path(__file__).parent
     doc, solids = main(str(here / "EXAR_L1_cadira_breuer.dxf"))
     export_stl(solids, str(here / "EXAR_L1_cadira_breuer_3D.stl"))
+    export_3d(solids, str(here / "EXAR_L1_cadira_breuer_3D.dxf"))
     if "--pdf" in sys.argv:
         import matplotlib
         matplotlib.use("Agg")

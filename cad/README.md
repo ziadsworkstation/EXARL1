@@ -4,8 +4,9 @@ Part CAD de la pràctica L1 (Composició i proporció).
 
 | Fitxer | Contingut |
 |---|---|
-| `EXAR_L1_cadira_breuer.dxf` | Làmina A3 a escala 1:10 (espai model): alçat, perfil esquerre i planta acotats (sistema europeu) + perspectiva isomètrica. Capes: FUSTA, TELA, COTES, EIXOS, MARC, CAIXETI, TEXT. Obre amb AutoCAD / LibreCAD / DraftSight. |
-| `EXAR_L1_cadira_breuer_CAD.pdf` | Exportació PDF de la làmina. |
+| `EXAR_L1_cadira_breuer.dxf` | Només les tres vistes dièdriques acotades (alçat, perfil esquerre, planta), sistema europeu, 1:1 en mm. |
+| `EXAR_L1_cadira_breuer_3D.dxf` | Model volumètric: 18 sòlids 3D (3DSOLID/ACIS), capes FUSTA i LAMINA. A AutoCAD: *Guardar com* → `.dwg`. |
+| `EXAR_L1_cadira_breuer_CAD.pdf` | Exportació PDF de les vistes. |
 | `EXAR_L1_cadira_breuer_3D.stl` | Model 3D de la cadira (mm). |
 | `cadira_breuer.py` | Generador paramètric (`pip install ezdxf matplotlib` → `python3 cadira_breuer.py --pdf`). |
 
