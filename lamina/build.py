@@ -24,7 +24,7 @@ ACCENT = "#d98a55"     # làmines / accent
 AX = {"z": INK, "y": "#e3c27a", "x": "#7fa6d6"}
 
 ALUMNE = "Ziad Addami Ech Chaouy"
-PROFESSOR = "De Castro Losada, Rubén"
+PROFESSOR = "Gonzales Alsina, Rafael"
 GRUP = "D3012"
 DATA = "05/10/2026"
 
