@@ -11,8 +11,8 @@ from PIL import Image, ImageDraw, ImageFilter
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "cad"))
 import cadira_breuer as cb  # noqa: E402
 
-WOOD = np.array([0.40, 0.21, 0.12])       # noguera / cirerer
-LAMINA = np.array([0.80, 0.45, 0.24])     # làmina (to tèxtil original)
+WOOD = np.array([0.56, 0.56, 0.55])       # maqueta en gris
+LAMINA = np.array([0.78, 0.47, 0.29])     # làmina (accent)
 SUN = np.array([0.35, -0.75, 1.0]); SUN /= np.linalg.norm(SUN)
 
 
@@ -104,11 +104,11 @@ def render(path, px_per_mm=2.2, ss=2):
     for p, q, kind in segs:
         a_ = ((p[0] - r0) * k, (u1 - p[1]) * k)
         b_ = ((q[0] - r0) * k, (u1 - q[1]) * k)
-        draw.line([a_, b_], fill=(40, 20, 12, 150), width=max(1, int(0.6 * ss)))
+        draw.line([a_, b_], fill=(35, 35, 35, 170), width=max(1, int(0.6 * ss)))
 
     sh_img = Image.fromarray((shadow_a.reshape(Hp, Wp) * 255).astype(np.uint8), "L")
     sh_img = sh_img.filter(ImageFilter.GaussianBlur(6 * ss))
-    shadow = Image.new("RGBA", (Wp, Hp), (70, 60, 50, 0))
+    shadow = Image.new("RGBA", (Wp, Hp), (60, 60, 60, 0))
     shadow.putalpha(sh_img.point(lambda v: int(v * 0.22)))
     out = Image.alpha_composite(shadow, obj)
     out = out.resize((Wp // ss, Hp // ss), Image.LANCZOS)

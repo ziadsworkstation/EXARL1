@@ -17,13 +17,14 @@ import cadira_breuer as cb  # noqa: E402
 from cadira_breuer import M, t, W, D, H  # noqa: E402
 
 # ---------------------------------------------------------------- paleta
-# Paleta complementària: taronja (fusta/làmines) <-> blau, sobre neutres clars
-BG0, BG1 = "#f4f1eb", "#ebe6dd"
-INK = "#1f2633"        # línies i text principal
-MUTED = "#6c7380"      # cotes, text secundari
-ACCENT = "#c8662f"     # taronja: làmines / títol
-BLUE = "#2c5d8f"       # blau complementari: apartats / esquemes
-AX = {"z": INK, "y": "#9aa1ad", "x": BLUE}
+# Paleta arquitectònica: grisos + un sol accent (taronja apagat, només làmines i 12M)
+BG0, BG1 = "#f6f6f4", "#eeeeec"
+INK = "#262626"        # línies i text principal
+MUTED = "#7b7b7b"      # cotes, text secundari
+GRID = "#b9b9b6"       # retícules
+ACCENT = "#c27445"     # làmines / accent puntual
+GREY_D = "#5a5f66"       # gris fosc (rectangle del respatller, transversals)
+AX = {"z": INK, "y": "#a8a8a6", "x": "#5f6368"}
 
 ALUMNE = "Ziad Addami Ech Chaouy"
 PROFESSOR = "Gonzales Alsina, Rafael"
@@ -187,9 +188,9 @@ def fig_vistes():
 # ---------------------------------------------------------------- 02 proporcions
 def grid(f, x0, y0, nx, ny, step):
     for i in range(nx + 1):
-        f.line((x0 + i * step, y0), (x0 + i * step, y0 + ny * step), color=ACCENT, w=0.08, op=0.35)
+        f.line((x0 + i * step, y0), (x0 + i * step, y0 + ny * step), color=GRID, w=0.08, op=0.7)
     for j in range(ny + 1):
-        f.line((x0, y0 + j * step), (x0 + nx * step, y0 + j * step), color=ACCENT, w=0.08, op=0.35)
+        f.line((x0, y0 + j * step), (x0 + nx * step, y0 + j * step), color=GRID, w=0.08, op=0.7)
 
 
 def fig_prop_alcat():
@@ -199,11 +200,11 @@ def fig_prop_alcat():
     # quadrat 12M + rectangle 12x8
     sq = [(0, 0), (W, 0), (W, W), (0, W)]
     f.poly(sq, ACCENT, op=0.10, stroke=ACCENT, w=0.35)
-    f.poly([(0, W), (W, W), (W, H), (0, H)], BLUE, op=0.10, stroke=BLUE, w=0.35)
+    f.poly([(0, W), (W, W), (W, H), (0, H)], GREY_D, op=0.10, stroke=GREY_D, w=0.35)
     f.line((0, 0), (W, W), color=ACCENT, w=0.2, dash="1 0.8")
     f.line((W, 0), (0, W), color=ACCENT, w=0.2, dash="1 0.8")
     f.text((W + 25, W / 2), "12M", size=2.0, color=ACCENT, anchor="start", weight=600)
-    f.text((W + 25, (W + H) / 2), "8M", size=2.0, color=BLUE, anchor="start", weight=600)
+    f.text((W + 25, (W + H) / 2), "8M", size=2.0, color=GREY_D, anchor="start", weight=600)
     f.text((W / 2, -45), "12M", size=2.0, color=ACCENT, weight=600)
     f.text((-25, H / 2), "20M", size=2.0, color=INK, rot=-90, weight=600)
     return f.svg()
@@ -216,8 +217,8 @@ def fig_prop_perfil():
     levels = [(cb.Z_RAIL, "7M"), (cb.Z_FRAIL + M, "8,5M"), (cb.Z_ARM + t, "13M"),
               (cb.Z_STRAP_U, "16M"), (H, "20M")]
     for z, lab in levels:
-        f.line((-10, z), (D + 30, z), color=ACCENT, w=0.18)
-        f.text((D + 40, z - 6), lab, size=1.8, color=ACCENT, anchor="start", weight=600)
+        f.line((-10, z), (D + 30, z), color=MUTED, w=0.18)
+        f.text((D + 40, z - 6), lab, size=1.8, color=INK, anchor="start", weight=600)
     return f.svg()
 
 
@@ -225,10 +226,10 @@ def fig_prop_planta():
     f = Fig(0.045)
     grid(f, 0, 0, 12, 12, M)
     f.segs(PLA, w=0.22, lam=INK)
-    f.line((0, 0), (W, D), color=ACCENT, w=0.2, dash="1 0.8")
-    f.line((W, 0), (0, D), color=ACCENT, w=0.2, dash="1 0.8")
-    f.poly([(0, 0), (W, 0), (W, D), (0, D)], ACCENT, op=0.08, stroke=ACCENT, w=0.35)
-    f.text((W / 2, -45), "12M × 12M", size=2.0, color=ACCENT, weight=600)
+    f.line((0, 0), (W, D), color=MUTED, w=0.2, dash="1 0.8")
+    f.line((W, 0), (0, D), color=MUTED, w=0.2, dash="1 0.8")
+    f.poly([(0, 0), (W, 0), (W, D), (0, D)], INK, op=0.05, stroke=INK, w=0.35)
+    f.text((W / 2, -45), "12M × 12M", size=2.0, color=INK, weight=600)
     return f.svg()
 
 
@@ -237,14 +238,14 @@ def fig_llisto():
     """Secció del llistó tipus a 1:2 sobre retícula de ½M."""
     f = Fig(0.5)
     for i in range(3):
-        f.line((i * t, 0), (i * t, M), color=ACCENT, w=0.1, op=0.5)
+        f.line((i * t, 0), (i * t, M), color=GRID, w=0.1, op=0.8)
     for j in range(3):
-        f.line((0, j * t), (2 * t, j * t), color=ACCENT, w=0.1, op=0.5)
+        f.line((0, j * t), (2 * t, j * t), color=GRID, w=0.1, op=0.8)
     f.poly([(0, 0), (t, 0), (t, M), (0, M)], INK, op=0.9)
     f.hdim(0, t, 0, -9, txt="24")
     f.vdim(0, M, 0, -9, txt="48")
-    f.text((t + 4, M - 4), "M", size=2.4, color=ACCENT, anchor="start", weight=600)
-    f.text((t + 4, t / 2 - 2), "½M", size=2.4, color=ACCENT, anchor="start", weight=600)
+    f.text((t + 4, M - 4), "M", size=2.4, color=INK, anchor="start", weight=600)
+    f.text((t + 4, t / 2 - 2), "½M", size=2.4, color=INK, anchor="start", weight=600)
     return f.svg()
 
 
@@ -289,7 +290,7 @@ def fig_volum():
         for face in ((0, 1, 5, 4), (1, 3, 7, 5), (4, 5, 7, 6)):
             f.poly([P[i] for i in face], col, op=fill_op)
     boxw(0, W, 0, D, 0, W, ACCENT, 0.10)
-    boxw(t, W - t, D - 2 * t, D, W, H, BLUE, 0.15)
+    boxw(t, W - t, D - 2 * t, D, W, H, GREY_D, 0.12)
     return f.svg()
 
 
@@ -377,12 +378,13 @@ body {{
   -webkit-print-color-adjust: exact; print-color-adjust: exact;
 }}
 .abs {{ position: absolute; }}
-h1 {{ font-family: Anton; font-weight: 400; color: {ACCENT}; font-size: 30mm; line-height: .9;
+h1 {{ font-family: Anton; font-weight: 400; color: {INK}; font-size: 30mm; line-height: .9;
       letter-spacing: .4mm; }}
 .sub {{ font-family: Inter; font-weight: 500; font-size: 4.6mm; letter-spacing: .2mm; margin-top: 2.5mm; }}
 .sub span {{ color: {MUTED}; font-weight: 300; }}
 .kicker {{ font-weight: 500; font-size: 3.2mm; color: {MUTED}; margin-bottom: 2.5mm; }}
-h2 {{ font-family: Inter; font-weight: 600; font-size: 4.6mm; color: {BLUE}; margin-bottom: 2mm; }}
+h2 {{ font-family: Inter; font-weight: 600; font-size: 3.3mm; color: {INK}; text-transform: uppercase;
+      letter-spacing: .5mm; padding-bottom: 1.2mm; margin-bottom: 2.5mm; border-bottom: .2mm solid {INK}; }}
 table {{ border-collapse: collapse; width: 100%; margin-top: 3mm; font-size: 2.5mm; }}
 th {{ text-align: left; font-weight: 600; color: {MUTED}; border-bottom: .2mm solid {MUTED}; padding: .6mm 1mm; }}
 td {{ padding: .55mm 1mm; border-bottom: .1mm solid rgba(31,38,51,.15); }}
@@ -465,7 +467,7 @@ b {{ font-weight: 600; color: {INK}; }}
 
 <!-- ============ COL B: VISTES ============ -->
 <div class="abs" style="left:124mm; top:64mm; width:178mm;">
-  <div class="row" style="align-items:baseline"><h2>Vistes dièdriques</h2>
+  <div class="row" style="align-items:baseline; gap:3mm"><h2 style="flex:1">Vistes dièdriques</h2>
     <span class="cap">Escala 1:10 · cotes en mm · sistema europeu</span></div>
   <div style="margin-top:3mm; display:flex; justify-content:center;">{vistes}</div>
   <p class="small" style="margin-top:3mm; width:120mm;">Les mides generals reals (570 × 575 × 960)
@@ -495,8 +497,8 @@ b {{ font-weight: 600; color: {INK}; }}
   </div>
   <p class="small" style="margin-top:1.5mm; text-align:center;">
     <span style="color:{AX['z']}">negre</span>: verticals ·
-    <span style="color:{AX['y']}">gris</span>: longitudinals ·
-    <span style="color:{AX['x']}">blau</span>: transversals</p>
+    <span style="color:{AX['y']}">gris clar</span>: longitudinals ·
+    <span style="color:{AX['x']}">gris fosc</span>: transversals</p>
 </div>
 
 <div class="abs fonts" style="left:16mm; bottom:9mm;">Fonts: fitxa i fotografies del MoMA (Nova York)
