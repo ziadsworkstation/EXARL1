@@ -16,6 +16,7 @@ Eixos del model:  X = amplada (esquerra -> dreta)
 import math
 import numpy as np
 import ezdxf
+from pathlib import Path
 from ezdxf.enums import TextEntityAlignment
 
 # --------------------------------------------------------------------------
@@ -219,6 +220,7 @@ def proj_iso(p):
 # --------------------------------------------------------------------------
 # DXF
 # --------------------------------------------------------------------------
+LOGO_FILE = "logo_upc_epsevg.png"
 SCALE = 10                 # 1:10  ->  1 mm de paper = 10 unitats
 TXT = 2.5 * SCALE
 
@@ -232,7 +234,7 @@ def setup_doc():
     doc.layers.add("COTES", color=1, lineweight=18)
     doc.layers.add("EIXOS", color=3, lineweight=13, linetype="CENTER")
     doc.layers.add("TEXT", color=7, lineweight=25)
-    doc.styles.add("EXAR", font="DejaVuSans.ttf")
+    doc.styles.add("EXAR", font="arial.ttf")
     ds = doc.dimstyles.new("EXAR_1-10")
     ds.dxf.dimtxsty = "EXAR"
     ds.dxf.dimscale = SCALE
@@ -311,11 +313,15 @@ def main(path_dxf):
         text(msp, s, FW - mg - 1100, y_h + 200 - i * 50, h=3 * SCALE)
     text(msp, "Escala 1:10  ·  Cotes en mm  ·  Sistema europeu", FW - mg - 1260,
          y_h - 60, h=2.5 * SCALE)
-    msp.add_lwpolyline([(FW - mg - 1260, y_h + 30), (FW - mg - 1160, y_h + 30),
-                        (FW - mg - 1160, y_h + 230), (FW - mg - 1260, y_h + 230)],
-                       close=True, dxfattribs={"layer": "CAIXETI"})
-    text(msp, "LOGO", FW - mg - 1210, y_h + 130, h=2 * SCALE,
-         align=TextEntityAlignment.MIDDLE_CENTER)
+    # logo (imatge externa: s'ha d'entregar al costat del .dxf)
+    from PIL import Image
+    logo = Path(__file__).parent / LOGO_FILE
+    px = Image.open(logo).size
+    doc.set_raster_variables(frame=0, quality=1, units="mm")
+    idef = doc.add_image_def(filename=LOGO_FILE, size_in_pixel=px)
+    lw = 620
+    msp.add_image(idef, insert=(FW - mg - 1800, y_h + 75), size_in_units=(lw, lw * px[1] / px[0]),
+                  dxfattribs={"layer": "CAIXETI"})
 
     # ---- vistes dièdriques ----
     O_ALC = (600, 1420)                    # alçat
@@ -352,9 +358,6 @@ def main(path_dxf):
     for a, b in ((0, Z_FLEG), (Z_FLEG, Z_ARM), (Z_ARM, Z_ARM + t),
                  (Z_ARM + t, Z_HOLD), (Z_HOLD, H)):
         vdim(msp, a, b, 0, -130, o)
-    for a, b in ((0, Z_FRAIL), (Z_FRAIL, Z_FRAIL + M),
-                 (Z_STRAP_U, Z_STRAP_U + 2 * M)):
-        vdim(msp, a, b, W, W + 110, o)
     label(msp, "ALÇAT", o[0] + W / 2, o[1] + H + 120)
 
     # ---- cotes: perfil (davant a la dreta) ----
@@ -392,10 +395,19 @@ def main(path_dxf):
     label(msp, "PERSPECTIVA ISOMÈTRICA", 3300, 380 + (max(ys) - min(ys)) + 120)
 
     # ---- llegenda del mòdul ----
-    text(msp, f"Mòdul base  M = {M} mm  ·  llistó estandarditzat {t}x{M} (½M x M)",
+    text(msp, f"Mòdul base  M = {M}  ·  llistó estandarditzat {t}x{M} (½M x M)",
          1550, mg + 60, h=2.5 * SCALE)
     text(msp, f"Amplada {W // M}M · Profunditat {D // M}M · Alçada {H // M}M",
          1550, mg + 120, h=2.5 * SCALE)
+
+    # ---- presentació A3 per imprimir directament a 1:10 ----
+    doc.layouts.rename("Layout1", "A3 1-10")
+    psp = doc.layouts.get("A3 1-10")
+    psp.page_setup(size=(420, 297), margins=(0, 0, 0, 0), units="mm",
+                   name="ISO_full_bleed_A3_(420.00_x_297.00_MM)", device="DWG To PDF.pc3")
+    vp = psp.add_viewport(center=(210, 148.5), size=(420, 297),
+                          view_center_point=(FW / 2, FH / 2), view_height=FH)
+    vp.dxf.flags |= 16384                 # viewport bloquejat (escala fixa 1:10)
 
     doc.saveas(path_dxf)
     return doc, solids

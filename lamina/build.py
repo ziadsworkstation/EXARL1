@@ -409,7 +409,7 @@ b {{ font-weight: 600; color: {INK}; }}
 <div class="abs" style="left:16mm; top:14mm;">
   <div class="kicker">EXAR · Pràctica L1 - Aplicació a la composició i proporció</div>
   <h1>SLATTED CHAIR</h1>
-  <div class="sub">TI 1A, Marcel Breuer <span>(Bauhaus, Weimar 1922-24)</span></div>
+  <div class="sub">"TI 1A", Marcel Breuer <span>(Bauhaus, Weimar 1922-24)</span></div>
 </div>
 <div class="abs" style="left:194mm; top:22mm; width:110mm;">
   <p>La Slatted Chair la va dissenyar Marcel Breuer quan encara era alumne del taller de
@@ -423,8 +423,7 @@ b {{ font-weight: 600; color: {INK}; }}
   <div class="info">
     <b>Alumne:</b> {ALUMNE}<br>
     <b>Professor:</b> {PROFESSOR}<br>
-    <b>Grup:</b> {GRUP}<br>
-    <b>Assignatura:</b> EXAR<br>
+    <b>Grup:</b> {GRUP} · <b>Assignatura:</b> EXAR<br>
     <b>Data:</b> {DATA}
   </div>
 </div>
@@ -454,7 +453,7 @@ b {{ font-weight: 600; color: {INK}; }}
   de les mides reals (570 × 575 × 960). La planta és un quadrat i l'alçat queda en
   relació <b>3:5</b>, dos números de la sèrie de Fibonacci (5/3 = 1,67, força a prop del
   nombre d'or). Si partim l'alçat, a sota hi ha un <span class="acc">quadrat de 12M</span>
-  (fins als braços) i el respatller hi afegeix 8M més: <b>3:2</b>.</p>
+  (gairebé fins als braços) i el respatller hi afegeix 8M més: <b>3:2</b>.</p>
   <div class="row" style="margin-top:3mm; align-items:flex-end;">
     <div style="text-align:center">{pa}<div class="cap">Alçat 3:5</div></div>
     <div style="text-align:center">{pp}<div class="cap">Perfil, alçades en M</div></div>
@@ -467,9 +466,9 @@ b {{ font-weight: 600; color: {INK}; }}
   <div class="row" style="align-items:baseline"><h2>Vistes dièdriques</h2>
     <span class="cap">Escala 1:10 · cotes en mm · sistema europeu</span></div>
   <div style="margin-top:3mm; display:flex; justify-content:center;">{vistes}</div>
-  <p class="small" style="margin-top:3mm; width:120mm;">Les mides generals són les de la fitxa
-  del museu. Les alçades del seient i el voladís dels braços els he estimat a partir de les
-  fotografies.</p>
+  <p class="small" style="margin-top:3mm; width:120mm;">Les mides generals reals (570 × 575 × 960)
+  les he ajustat al mòdul (576 × 576 × 960). Les alçades del seient i el voladís dels braços
+  els he estimat a partir de les fotografies.</p>
 </div>
 
 <!-- ============ COL C: ISOMÈTRICA + COMPOSICIÓ ============ -->
@@ -478,13 +477,13 @@ b {{ font-weight: 600; color: {INK}; }}
   <h2 style="position:relative;">Perspectiva isomètrica</h2>
   <div class="cap" style="position:absolute; left:0; top:9mm; width:31mm; line-height:1.4;">El
   respatller queda inclinat perquè la tela de baix va a les potes del darrere i la de dalt
-  als pals, que estan més enrere.</div>
+  als suports dels pals, que estan més enrere.</div>
 </div>
 
 <div class="abs" style="left:310mm; top:204mm; width:96mm;">
   <h2>Composició volumètrica</h2>
-  <p style="font-size:2.75mm">Tota la cadira cap dins d'un <span class="acc">cub de 12M</span> i
-  només en surt el respatller. Està feta de <b>línies</b> (els llistons, en les tres
+  <p style="font-size:2.75mm">Les potes i el seient caben dins d'un <span class="acc">cub de 12M</span>;
+  per sobre només en surten els braços (1M) i el respatller. Està feta de <b>línies</b> (els llistons, en les tres
   direccions, muntats un al costat de l'altre sense creuar-se) i de <b>plans</b> (les teles,
   que aquí he dibuixat com a làmines).</p>
   <div class="row" style="margin-top:2mm">
