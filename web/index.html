@@ -77,14 +77,17 @@ const O = { x: PHI / den, y: (PHI * (1 / PHI)) / den };
 
 const ITEMS = [
   { t: 'r11', d: 'estudio de diseño industrial', mark: true },
-  { t: 'producto', d: 'Objetos, mobiliario e iluminación pensados desde el lugar que habitan.' },
-  { t: 'espacio', d: 'Interiores en los que cada pieza habla el mismo lenguaje.' },
-  { t: 'experiencia', d: 'Cómo se usa, se recorre y se vive el conjunto.' },
-  { t: 'un mismo proceso', d: 'No separamos producto e interior: los diseñamos a la vez.' },
-  { t: 'diseño externo', d: 'Para empresas sin departamento de diseño o de producto. Del concepto a la producción.' },
+  { t: 'producto', d: 'Objetos, mobiliario e iluminación pensados desde el lugar que habitan.', img: 'img/gafas-metal.webp' },
+  { t: 'espacio', d: 'Interiores en los que cada pieza habla el mismo lenguaje.', img: 'img/butaca.webp' },
+  { t: 'experiencia', d: 'Cómo se usa, se recorre y se vive el conjunto.', img: 'img/perfil.webp' },
+  { t: 'un mismo proceso', d: 'No separamos producto e interior: los diseñamos a la vez.', img: 'img/anfora.webp' },
+  { t: 'diseño externo', d: 'Para empresas sin departamento de diseño o de producto. Del concepto a la producción.', img: 'img/gafas-negras.webp' },
   { t: 'Efrain David Rondon\nZiad Addami Ech Chaouy', d: 'Fundadores · dirección', small: true },
   { t: 'hola@r11.studio', d: 'Barcelona · nuevos proyectos', small: true },
 ];
+// Imágenes recortadas a 1:1: cada una llena exactamente su cuadrado áureo
+for (const it of ITEMS) if (it.img) { it.im = new Image(); it.im.decoding = 'async'; it.im.src = it.img; }
+const itemAt = n => ITEMS[((n % ITEMS.length) + ITEMS.length) % ITEMS.length];
 
 const SUP = { '-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
 const sup = n => String(n).split('').map(c => SUP[c]).join('');
@@ -146,6 +149,26 @@ function draw() {
   const base = Math.floor(t), frac = t - base;
   const hair = 1 / DPR > 0.5 ? 1 : 0.75;
 
+  // --- imágenes de fondo: llenan su cuadrado, rectas cuando el cuadrado llena el marco ---
+  for (let j = -2; j < 26; j++) {
+    const m = j - frac;
+    const side = view.k * Math.exp(-m * LN_PHI);
+    if (side < 2) break;
+    const im = itemAt(base + j).im;
+    if (!im || !im.complete || !im.naturalWidth) continue;
+    const [cx, cy] = maker(m)(0.5, 0.5);
+    ctx.save();
+    ctx.translate(cx, cy); ctx.rotate(m * Math.PI / 2);
+    ctx.drawImage(im, -side / 2, -side / 2, side, side);
+    if (side > 120) {                       // velo para leer el texto
+      const g = ctx.createLinearGradient(0, -side / 2, 0, side / 2);
+      g.addColorStop(0, 'rgba(0,0,0,.28)'); g.addColorStop(.3, 'rgba(0,0,0,0)');
+      g.addColorStop(.45, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.5)');
+      ctx.fillStyle = g; ctx.fillRect(-side / 2, -side / 2, side, side);
+    }
+    ctx.restore();
+  }
+
   // --- cuadrados (de mayor a menor) ---
   ctx.lineWidth = hair;
   ctx.strokeStyle = INK;
@@ -193,7 +216,8 @@ function draw() {
     if (m < 0) al *= Math.max(0, 1 + m * 2.6);   // se desvanece al salir
     if (al <= 0.01) continue;
     const n = base + j;
-    const item = ITEMS[((n % ITEMS.length) + ITEMS.length) % ITEMS.length];
+    const item = itemAt(n);
+    const onImg = !!item.im;
     const P = maker(m);
     const [cx, cy] = P(0.5, 0.5);
     const ang = m * Math.PI / 2;                    // el texto queda recto cuando el cuadrado llena el marco
@@ -205,27 +229,27 @@ function draw() {
     // índice
     const ms = Math.max(7, Math.min(13, side * 0.022));
     ctx.font = `400 ${ms}px ${MONO}`;
-    ctx.fillStyle = MUTE; ctx.textBaseline = 'top';
+    ctx.fillStyle = onImg ? 'rgba(255,255,255,.85)' : MUTE; ctx.textBaseline = 'top';
     ctx.fillText(`${String(((n % ITEMS.length) + ITEMS.length) % ITEMS.length + 1).padStart(2, '0')} / ${String(ITEMS.length).padStart(2, '0')}`, pad, pad);
     ctx.textAlign = 'right';
-    ctx.fillText(`lado ${phiPow(n)}`, side - pad, pad);
+    ctx.fillText(`1:1 · lado ${phiPow(n)}`, side - pad, pad);
     ctx.textAlign = 'left';
     // título
-    ctx.fillStyle = INK; ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = onImg ? '#fff' : INK; ctx.textBaseline = 'alphabetic';
     const fs = side * (item.mark ? 0.46 : item.small ? 0.075 : 0.13);
     ctx.font = `${item.mark ? 200 : 300} ${fs}px ${SANS}`;
     if ('letterSpacing' in ctx) ctx.letterSpacing = `${-fs * (item.mark ? 0.07 : 0.045)}px`;
     const lines = wrap(item.t, side - pad * 2);
     const lh = fs * (item.mark ? 0.9 : 1.0);
-    let y = side * (item.mark ? 0.66 : 0.6) - (lines.length - 1) * lh;
+    let y = side * (item.mark ? 0.66 : onImg ? 0.8 : 0.6) - (lines.length - 1) * lh;
     for (const l of lines) { ctx.fillText(l, pad - (item.mark ? fs * 0.04 : 0), y); y += lh; }
     if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
     // descripción
     const ds = side * (item.mark ? 0.05 : 0.034);
     if (ds >= 8) {
       ctx.font = `300 ${ds}px ${SANS}`;
-      ctx.fillStyle = item.mark ? INK : MUTE;
-      let dy = side * (item.mark ? 0.8 : 0.72);
+      ctx.fillStyle = onImg ? 'rgba(255,255,255,.88)' : item.mark ? INK : MUTE;
+      let dy = side * (item.mark ? 0.8 : onImg ? 0.875 : 0.72);
       for (const l of wrap(item.d, side * 0.7)) { ctx.fillText(l, pad, dy); dy += ds * 1.35; }
     }
     ctx.restore();
