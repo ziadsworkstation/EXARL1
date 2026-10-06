@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R11 — Estudio de diseño industrial</title>
+<meta name="description" content="R11 es un estudio de diseño industrial. Diseñamos espacios y los productos que viven en ellos como un mismo proceso. Producto + espacio + experiencia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------
+   R11 — tokens
+   Hormigón (gris cálido) · metacrilato rojo · vidrio cobalto
+------------------------------------------------------------------- */
+:root{
+  --concrete:#e4e2de;
+  --concrete-2:#d3d0cb;
+  --concrete-3:#a9a59f;
+  --ink:#121212;
+  --ink-2:#4a4844;
+  --line:rgba(18,18,18,.16);
+  --red:#e8251b;
+  --red-glass:rgba(232,37,27,.58);
+  --red-deep:#b3150d;
+  --cobalt:#1c2fd8;
+  --cobalt-deep:#0a1170;
+  --night:#0d0d0d;
+
+  --sans:"Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --serif:"Instrument Serif", "Times New Roman", serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  --gutter:clamp(16px, 3vw, 40px);
+  --noise:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --pores:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.035' numOctaves='5' seed='7'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>");
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--concrete);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:16px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{ /* grano de papel / hormigón en toda la página */
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:100;
+  background-image:var(--noise);opacity:.09;mix-blend-mode:multiply;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--red);color:#fff}
+
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:400}
+.serif{font-family:var(--serif);font-weight:400}
+.wrap{padding-inline:var(--gutter)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gutter)}
+
+/* ------------------------------------------------------------------
+   Cabecera
+------------------------------------------------------------------- */
+.top{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:14px var(--gutter);
+  color:#fff;mix-blend-mode:difference;
+}
+.top .logo{font-weight:500;font-size:15px;letter-spacing:-.01em}
+.top nav{display:flex;gap:22px}
+.top nav a{position:relative}
+.top nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-3px;height:1px;background:currentColor;transition:right .35s ease}
+.top nav a:hover::after{right:0}
+.top .meta{justify-self:end;display:flex;gap:18px}
+
+/* ------------------------------------------------------------------
+   Hero — sala de hormigón con planos de metacrilato rojo
+------------------------------------------------------------------- */
+.hero{
+  position:relative;height:100svh;min-height:620px;overflow:hidden;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 62%, rgba(0,0,0,.38) 100%),
+    radial-gradient(120% 70% at 62% 58%, #9b978f 0%, #6d6a65 45%, #2e2d2b 100%);
+  color:#efede9;
+  isolation:isolate;
+}
+.hero .room{position:absolute;inset:0;z-index:0}
+.hero .room::before{ /* poros del hormigón */
+  content:"";position:absolute;inset:0;background-image:var(--pores);opacity:.16;mix-blend-mode:multiply;
+}
+.hero .room::after{ /* encofrado: juntas de tablero */
+  content:"";position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(16.66% - 1px), rgba(0,0,0,.14) calc(16.66% - 1px) 16.66%),
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,.35) 0 2px, transparent 3px) 0 0/8.33% 22%;
+  opacity:.55;mix-blend-mode:multiply;
+}
+.beam{position:absolute;left:-5%;right:-5%;height:9%;background:linear-gradient(180deg,#5a5853,#3a3936);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.beam.b1{top:0;height:12%}
+.beam.b2{top:16%;transform:skewY(-3deg);height:5%;opacity:.9}
+.floor{position:absolute;left:0;right:0;bottom:0;height:30%;
+  background:linear-gradient(180deg,#8f8b84 0%,#b8b4ad 100%);
+  clip-path:polygon(0 22%,100% 0,100% 100%,0 100%)}
+.floor::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 30%,rgba(232,37,27,.22) 55%,transparent 75%);filter:blur(20px)}
+
+.pane{
+  position:absolute;z-index:2;
+  background:linear-gradient(180deg, rgba(240,46,32,.62), rgba(214,26,16,.42));
+  border-left:1px solid rgba(255,120,100,.9);
+  border-right:1px solid rgba(120,0,0,.35);
+  box-shadow:inset 0 0 60px rgba(255,80,60,.25), 0 0 80px rgba(232,37,27,.28);
+  backdrop-filter:blur(1.5px) saturate(1.4);
+  -webkit-backdrop-filter:blur(1.5px) saturate(1.4);
+  will-change:transform;
+}
+.pane::before{ /* canto encendido */
+  content:"";position:absolute;left:0;right:0;top:0;height:6px;background:var(--red);box-shadow:0 0 18px var(--red)}
+.pane::after{ /* reflejo */
+  content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.18) 42%,transparent 50%)}
+.pane.p1{left:-2%;top:-4%;width:24%;height:110%}
+.pane.p2{left:67%;top:22%;width:15%;height:66%;transform:skewY(-6deg)}
+.pane.p2::before{height:8px}
+.pane.p3{left:14%;top:76%;width:30%;height:14%;background:linear-gradient(180deg,#c9301f,#8c1a10);backdrop-filter:none;border:0;box-shadow:0 30px 50px rgba(0,0,0,.4)}
+.pane.p3::before,.pane.p3::after{display:none}
+
+.shelf{position:absolute;z-index:1;left:70%;top:46%;width:9%;height:22%;
+  background:linear-gradient(180deg,#ff3b26,#c4140a);box-shadow:0 0 60px rgba(255,59,38,.55)}
+.shelf i{position:absolute;left:8%;right:8%;height:1px;background:rgba(0,0,0,.45)}
+.shelf i:nth-child(1){top:33%}.shelf i:nth-child(2){top:66%}
+.column{position:absolute;z-index:1;top:0;bottom:22%;width:5.5%;left:86%;
+  background:linear-gradient(90deg,#77736c,#a29e96 40%,#6a6761);box-shadow:-20px 0 40px rgba(0,0,0,.25)}
+.spot{position:absolute;z-index:3;width:6px;height:6px;border-radius:50%;background:#fff6e8;box-shadow:0 0 14px 4px rgba(255,236,210,.8)}
+
+.hero .mark{
+  position:absolute;z-index:5;left:50%;top:50%;transform:translate(-50%,-54%);
+  text-align:center;line-height:.8;pointer-events:none;
+}
+.hero .mark h1{
+  font-weight:300;letter-spacing:-.065em;
+  font-size:clamp(140px, 30vw, 460px);
+  color:#efede9;
+  text-shadow:0 2px 30px rgba(0,0,0,.18);
+}
+.hero .mark p{font-weight:300;font-size:clamp(20px, 3.4vw, 46px);letter-spacing:-.02em;margin-top:.2em;color:#efede9}
+
+.hero .corner{position:absolute;z-index:6;color:#efede9}
+.hero .c-bl{left:var(--gutter);bottom:22px;max-width:300px}
+.hero .c-br{right:var(--gutter);bottom:22px;text-align:right}
+.hero .c-bl p{margin-top:8px;font-size:14px;line-height:1.4;opacity:.9}
+.scroll-cue{display:inline-flex;align-items:center;gap:10px}
+.scroll-cue span{display:block;width:1px;height:28px;background:currentColor;animation:cue 2.2s ease-in-out infinite;transform-origin:top}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ------------------------------------------------------------------
+   Secciones editoriales
+------------------------------------------------------------------- */
+section{position:relative}
+.sec-head{
+  display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gutter);
+  border-top:1px solid var(--ink);padding-top:12px;margin-bottom:clamp(40px,7vw,96px);
+}
+.sec-head .n{grid-column:1/3}
+.sec-head .t{grid-column:3/9}
+.sec-head .r{grid-column:9/13;text-align:right}
+
+/* Manifiesto */
+.manifesto{padding-block:clamp(80px,12vw,180px) clamp(60px,9vw,140px)}
+.manifesto .lead{
+  grid-column:3/13;
+  font-size:clamp(30px,4.6vw,72px);line-height:1.02;letter-spacing:-.035em;font-weight:300;
+  text-wrap:balance;
+}
+.manifesto .lead em{font-family:var(--serif);font-style:italic;letter-spacing:-.01em}
+.manifesto .lead .r{color:var(--red)}
+.manifesto .lead .b{color:var(--cobalt)}
+.manifesto .cols{grid-column:3/13;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gutter);margin-top:clamp(48px,7vw,100px)}
+.manifesto .cols p{font-size:15px;color:var(--ink-2);max-width:34ch}
+.manifesto .cols .mono{display:block;color:var(--ink);margin-bottom:10px}
+
+/* Proyectos */
+.work{padding-bottom:clamp(80px,10vw,160px)}
+.projects{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gutter);row-gap:clamp(56px,8vw,120px)}
+.proj{display:block;cursor:pointer}
+.proj .frame{position:relative;overflow:hidden;background:var(--concrete-2)}
+.proj .frame > .art{position:absolute;inset:0;transition:transform 1.1s cubic-bezier(.2,.7,.1,1)}
+.proj:hover .frame > .art{transform:scale(1.035)}
+.proj .cap{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:baseline;padding-top:12px;border-top:1px solid var(--line);margin-top:12px}
+.proj .cap h3{font-weight:400;font-size:clamp(18px,1.6vw,22px);letter-spacing:-.02em}
+.proj .cap h3 em{font-family:var(--serif);font-style:italic;font-weight:400}
+.proj .desc{margin-top:8px;font-size:14px;color:var(--ink-2);max-width:46ch}
+.proj .tag{position:absolute;left:14px;top:12px;z-index:3;color:#fff;mix-blend-mode:difference}
+.proj .view{position:absolute;right:14px;bottom:12px;z-index:3;color:#fff;opacity:0;transform:translateY(6px);transition:.4s}
+.proj:hover .view{opacity:1;transform:none}
+
+.pj1{grid-column:1/8}  .pj1 .frame{aspect-ratio:4/3}
+.pj2{grid-column:9/13;margin-top:18vw} .pj2 .frame{aspect-ratio:3/4}
+.pj3{grid-column:2/6}  .pj3 .frame{aspect-ratio:4/5}
+.pj4{grid-column:7/13;margin-top:8vw} .pj4 .frame{aspect-ratio:5/4}
+
+/* Arte 01 — Biombo de metacrilato */
+.a-screen{background:
+  radial-gradient(90% 70% at 30% 30%, #bdb9b2, #8a8680 70%, #6a6762);}
+.a-screen::before{content:"";position:absolute;inset:0;background-image:var(--pores);opacity:.14;mix-blend-mode:multiply}
+.a-screen .s{position:absolute;bottom:12%;width:13%;height:70%;
+  background:linear-gradient(180deg,rgba(240,46,32,.66),rgba(210,30,18,.45));
+  border-left:1px solid rgba(255,140,120,.9);box-shadow:0 0 50px rgba(232,37,27,.35)}
+.a-screen .s::after{content:"";position:absolute;left:-6%;right:-6%;bottom:-3%;height:3%;background:var(--red-deep)}
+.a-screen .s:nth-child(1){left:22%;transform:skewY(4deg)}
+.a-screen .s:nth-child(2){left:38%;bottom:16%;height:64%;opacity:.85}
+.a-screen .s:nth-child(3){left:54%;transform:skewY(-4deg)}
+.a-screen .s:nth-child(4){left:70%;bottom:18%;height:58%;opacity:.75}
+.a-screen .fl{position:absolute;left:0;right:0;bottom:0;height:18%;background:linear-gradient(180deg,#a7a39c,#c7c3bc)}
+
+/* Arte 02 — Mesa anillo, vidrio cobalto */
+.a-ring{background:radial-gradient(80% 60% at 50% 70%, #2a3fe6 0%, #14208f 45%, #070b3a 100%)}
+.a-ring::before{content:"";position:absolute;inset:0;background-image:var(--noise);opacity:.45;mix-blend-mode:screen}
+.a-ring .ring{position:absolute;left:-4%;right:-4%;top:-2%;aspect-ratio:1;border-radius:50%;
+  border:clamp(18px,2.6vw,34px) solid #c9cbd0;
+  box-shadow:inset 0 10px 0 rgba(255,255,255,.4), 0 30px 60px rgba(0,0,0,.45);
+  transform:perspective(600px) rotateX(64deg)}
+.a-ring .glass{position:absolute;left:8%;right:8%;top:12%;aspect-ratio:1;border-radius:50%;
+  border:clamp(22px,3vw,40px) solid rgba(60,90,255,.55);
+  box-shadow:0 0 50px rgba(60,90,255,.7);
+  transform:perspective(600px) rotateX(64deg)}
+.a-ring .dot{position:absolute;left:62%;top:33%;width:9%;aspect-ratio:2/1;border-radius:50%;background:#1b1b1b;box-shadow:0 6px 12px rgba(0,0,0,.6)}
+.a-ring .dot::after{content:"";position:absolute;left:40%;top:30%;width:20%;height:30%;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red)}
+
+/* Arte 03 — Vitrina roja con tubos */
+.a-vitrine{background:linear-gradient(180deg,#191919,#0c0c0c)}
+.a-vitrine .box{position:absolute;inset:14% 10% 12% 10%;background:linear-gradient(180deg,#ff2d1f,#e3200f 60%,#c81a0b);box-shadow:0 0 0 6px #232323, 0 0 80px rgba(255,45,31,.45)}
+.a-vitrine .tube{position:absolute;height:3px;border-radius:2px;background:#fff;box-shadow:0 0 10px #fff, 0 0 22px rgba(255,255,255,.7)}
+.a-vitrine .tube:nth-child(2){left:22%;right:14%;top:24%}
+.a-vitrine .tube:nth-child(3){left:30%;right:20%;top:30%}
+.a-vitrine .tube:nth-child(4){left:18%;right:26%;top:36%}
+.a-vitrine .tube:nth-child(5){left:34%;right:16%;top:42%}
+.a-vitrine .lbl{position:absolute;left:0;right:0;top:56%;text-align:center;font-weight:500;letter-spacing:-.06em;color:#1a1a1a;font-size:clamp(48px,8vw,120px);line-height:1}
+.a-vitrine .fl{position:absolute;left:10%;right:10%;bottom:12%;height:22%;background:linear-gradient(180deg,#c81a0b,#a5140a)}
+.a-vitrine .pave{position:absolute;left:0;right:0;bottom:0;height:12%;background:repeating-linear-gradient(90deg,#2b2a28 0 18px,#1e1d1b 18px 20px)}
+
+/* Arte 04 — Volumen cromado sobre moqueta azul */
+.a-chrome{background:linear-gradient(180deg,#f2f2f4 0%,#f2f2f4 46%,#2b3be0 66%,#0b1365 100%)}
+.a-chrome::before{content:"";position:absolute;inset:0 0 54% 0;
+  background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),rgba(40,50,140,.25) calc(10% - 1px) 10%),
+             repeating-linear-gradient(0deg,transparent 0 calc(14% - 1px),rgba(40,50,140,.18) calc(14% - 1px) 14%)}
+.a-chrome::after{content:"";position:absolute;inset:46% 0 0 0;background-image:var(--noise);opacity:.55;mix-blend-mode:overlay}
+.a-chrome .slab{position:absolute;left:6%;top:30%;width:30%;height:42%;
+  background:linear-gradient(180deg,#e9e9ee 0%,#9aa0b0 30%,#0e0e10 52%,#1a2ad0 78%,#0b1365 100%);
+  box-shadow:24px 0 40px rgba(0,0,30,.25)}
+.a-chrome .wall{position:absolute;left:44%;right:14%;top:36%;height:30%;
+  background:linear-gradient(180deg,#e7e7eb 0%,#b9bcc6 40%,#4a4f66 70%,#2333c7 100%)}
+.a-chrome .ladder{position:absolute;right:20%;top:28%;width:9%;height:52%;border-left:3px solid #e9eaee;border-right:3px solid #e9eaee;
+  background:repeating-linear-gradient(180deg,transparent 0 calc(20% - 3px),#e9eaee calc(20% - 3px) 20%)}
+.a-chrome .sphere{position:absolute;right:4%;top:50%;width:18%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff 0%,#dcdde3 30%,#8b90a3 70%,#2a3bd6 100%);
+  box-shadow:0 20px 30px rgba(0,0,40,.4)}
+
+/* Servicios */
+.services{padding-block:clamp(60px,9vw,140px);background:var(--night);color:#e9e7e3}
+.services .sec-head{border-color:#e9e7e3}
+.svc{border-top:1px solid rgba(233,231,227,.18)}
+.svc li{list-style:none;border-bottom:1px solid rgba(233,231,227,.18)}
+.svc button{all:unset;box-sizing:border-box;cursor:pointer;width:100%;
+  display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gutter);align-items:baseline;
+  padding:clamp(16px,2.2vw,28px) 0;position:relative}
+.svc button:focus-visible{outline:1px solid var(--red);outline-offset:4px}
+.svc .i{grid-column:1/3;color:rgba(233,231,227,.5)}
+.svc .h{grid-column:3/10;font-size:clamp(30px,5.2vw,84px);letter-spacing:-.045em;line-height:.95;font-weight:300;transition:color .3s, transform .5s cubic-bezier(.2,.7,.1,1)}
+.svc .k{grid-column:10/13;text-align:right;color:rgba(233,231,227,.5)}
+.svc li:hover .h, .svc li.open .h{color:var(--red);transform:translateX(.25em)}
+.svc li.b:hover .h, .svc li.b.open .h{color:#4a5cff}
+.svc .body{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gutter);
+  max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.2,.7,.1,1)}
+.svc li.open .body{max-height:320px}
+.svc .body p{grid-column:3/8;padding-bottom:28px;font-size:16px;color:rgba(233,231,227,.78)}
+.svc .body ul{grid-column:9/13;padding-bottom:28px}
+.svc .body ul li{border:0;padding:3px 0;color:rgba(233,231,227,.6)}
+
+/* Materiales */
+.materials{padding-block:clamp(80px,10vw,160px)}
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter)}
+.sw .chip{aspect-ratio:3/4;position:relative;overflow:hidden}
+.sw .meta{display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid var(--line);margin-top:10px}
+.sw h4{font-weight:400;font-size:18px;letter-spacing:-.02em;margin-top:6px}
+.sw p{font-size:13px;color:var(--ink-2);margin-top:4px}
+.chip.c-con{background:#a8a49d}
+.chip.c-con::before{content:"";position:absolute;inset:0;background-image:var(--pores);opacity:.3;mix-blend-mode:multiply}
+.chip.c-con::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(0,0,0,.4) 0 3px,transparent 4px) 0 0/33% 25%}
+.chip.c-pmma{background:linear-gradient(135deg,#ff4a35,#d81c0f);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.chip.c-pmma::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.35) 45%,transparent 55%)}
+.chip.c-glass{background:linear-gradient(160deg,#4c62ff,#1a2bc4 55%,#0a1170)}
+.chip.c-glass::after{content:"";position:absolute;inset:8%;border:1px solid rgba(255,255,255,.35)}
+.chip.c-steel{background:linear-gradient(180deg,#f3f3f5,#b7bac2 35%,#4e5260 55%,#c9ccd3 80%,#eef0f3)}
+
+/* Proceso */
+.process{padding-bottom:clamp(80px,10vw,160px)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter);counter-reset:s}
+.step{border-top:1px solid var(--ink);padding-top:14px}
+.step .num{font-size:clamp(56px,7vw,110px);font-weight:200;letter-spacing:-.06em;line-height:.9}
+.step h4{font-weight:400;font-size:20px;letter-spacing:-.02em;margin-top:24px}
+.step p{font-size:14px;color:var(--ink-2);margin-top:8px;max-width:30ch}
+
+/* Contacto */
+.contact{
+  position:relative;overflow:hidden;color:#fff;
+  background:linear-gradient(180deg,#ef2a1d 0%,#d71e12 100%);
+  padding-block:clamp(70px,10vw,150px) 26px;
+}
+.contact::before{content:"";position:absolute;inset:0;background-image:var(--noise);opacity:.18;mix-blend-mode:multiply;pointer-events:none}
+.contact .tubes{position:absolute;inset:0;pointer-events:none}
+.contact .tubes i{position:absolute;height:2px;background:#fff;box-shadow:0 0 12px #fff,0 0 26px rgba(255,255,255,.6);opacity:.85}
+.contact .sec-head{border-color:#fff}
+.contact .big{
+  display:block;font-weight:300;letter-spacing:-.06em;line-height:.88;
+  font-size:clamp(56px,13vw,220px);position:relative;z-index:1;
+}
+.contact .big .serif{font-style:italic;letter-spacing:-.03em}
+.contact .big:hover .arrow{transform:translate(.08em,-.08em)}
+.contact .arrow{display:inline-block;transition:transform .4s}
+.contact .info{position:relative;z-index:1;margin-top:clamp(48px,8vw,110px)}
+.contact .info > div{grid-column:span 3}
+.contact .info p{font-size:15px;margin-top:8px;line-height:1.5}
+.contact .info a{border-bottom:1px solid rgba(255,255,255,.5)}
+.contact .info a:hover{border-color:#fff}
+.foot{position:relative;z-index:1;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:clamp(60px,9vw,120px);padding-top:14px;border-top:1px solid rgba(255,255,255,.5)}
+.foot .wm{text-transform:none;font-weight:300;letter-spacing:-.07em;font-size:clamp(90px,24vw,380px);line-height:.75;margin-top:30px;width:100%;color:rgba(255,255,255,.95)}
+
+/* Enfoque: producto + espacio + experiencia */
+.approach{padding-bottom:clamp(80px,10vw,160px)}
+.eq{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;column-gap:clamp(12px,2vw,32px);align-items:start}
+.eq .term{border-top:1px solid var(--ink);padding-top:14px}
+.eq .w{display:block;font-size:clamp(40px,6.4vw,110px);font-weight:300;letter-spacing:-.055em;line-height:.9;margin-bottom:28px}
+.eq .term:nth-child(3) .w{color:var(--red)}
+.eq .term:nth-child(5) .w{color:var(--cobalt)}
+.eq .term p{font-size:15px;color:var(--ink-2);max-width:32ch;margin-top:8px}
+.eq .op{font-size:clamp(40px,6.4vw,110px);font-weight:200;line-height:.9;padding-top:14px}
+.eq-out{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gutter);margin-top:clamp(40px,6vw,80px);padding-top:14px;border-top:1px solid var(--ink);align-items:baseline}
+.eq-out .mono{grid-column:1/3;font-size:clamp(26px,3.4vw,52px);font-weight:300}
+.eq-out p{grid-column:3/13;font-size:clamp(26px,3.4vw,52px);letter-spacing:-.035em;line-height:1.05}
+.eq-out em{font-family:var(--serif);font-style:italic;letter-spacing:-.01em}
+
+/* Para empresas */
+.company{padding-block:clamp(70px,10vw,150px);color:#fff;
+  background:radial-gradient(120% 90% at 80% 0%,#3349ff 0%,#1c2fd8 40%,#0a1170 100%);overflow:hidden}
+.company::before{content:"";position:absolute;inset:0;background-image:var(--noise);opacity:.22;mix-blend-mode:overlay;pointer-events:none}
+.company .sec-head{border-color:#fff;position:relative}
+.company .lead{grid-column:1/9;font-size:clamp(34px,5vw,80px);font-weight:300;letter-spacing:-.045em;line-height:.98;position:relative}
+.company .lead em{font-family:var(--serif);font-style:italic;letter-spacing:-.015em}
+.company .intro{grid-column:9/13;align-self:end;font-size:16px;color:rgba(255,255,255,.82);position:relative}
+.phases{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,3vw,48px) var(--gutter);margin-top:clamp(56px,8vw,110px);position:relative}
+.phases li{border-top:1px solid rgba(255,255,255,.4);padding-top:12px}
+.phases h4{font-weight:300;font-size:clamp(24px,2.4vw,36px);letter-spacing:-.035em;margin-top:18px}
+.phases p{font-size:14px;color:rgba(255,255,255,.75);margin-top:6px;max-width:32ch}
+.cta{position:relative;display:inline-block;margin-top:clamp(48px,6vw,80px);padding:14px 20px;border:1px solid #fff;font-size:12px;transition:background .3s,color .3s}
+.cta:hover{background:#fff;color:var(--cobalt)}
+
+/* Equipo */
+.team{padding-bottom:clamp(80px,10vw,160px)}
+.people{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gutter);row-gap:40px;align-items:end}
+.people .lead{grid-column:1/5;align-self:start;font-size:clamp(22px,2.2vw,32px);letter-spacing:-.03em;line-height:1.12}
+.people .lead em{font-family:var(--serif);font-style:italic}
+.person:nth-of-type(1){grid-column:6/9}
+.person:nth-of-type(2){grid-column:10/13}
+.portrait{aspect-ratio:4/5;position:relative;overflow:hidden;background:linear-gradient(180deg,#b3afa8,#8d8982)}
+.portrait::before{content:"";position:absolute;inset:0;background-image:var(--pores);opacity:.25;mix-blend-mode:multiply}
+.portrait::after{content:"";position:absolute;left:0;top:0;bottom:0;width:22%;background:var(--red-glass);border-right:1px solid rgba(255,140,120,.9)}
+.portrait.p-b::after{left:auto;right:0;background:rgba(28,47,216,.6);border:0;border-left:1px solid rgba(140,160,255,.9)}
+.portrait span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(60px,8vw,130px);font-weight:200;letter-spacing:-.06em;color:#efede9;z-index:1}
+.person .meta{display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid var(--line);margin-top:10px}
+.person h3{font-weight:400;font-size:clamp(20px,1.8vw,26px);letter-spacing:-.025em;margin-top:6px}
+
+/* Ticker */
+.ticker{overflow:hidden;border-block:1px solid var(--ink);padding-block:12px;white-space:nowrap}
+.ticker .track{display:inline-flex;gap:48px;animation:tick 40s linear infinite;padding-left:48px}
+.ticker span{display:inline-flex;align-items:center;gap:48px}
+.ticker span::after{content:"";width:8px;height:8px;background:var(--red);display:inline-block}
+.ticker span:nth-child(3n)::after{background:var(--cobalt)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* Revelado */
+.rv{opacity:0;transform:translateY(24px);transition:opacity 1s ease, transform 1.1s cubic-bezier(.2,.7,.1,1)}
+.rv.in{opacity:1;transform:none}
+
+/* ------------------------------------------------------------------
+   Responsive
+------------------------------------------------------------------- */
+@media (max-width:900px){
+  .top{grid-template-columns:1fr auto}
+  .top .meta{display:none}
+  .sec-head .t{grid-column:3/13}
+  .sec-head .r{display:none}
+  .manifesto .lead,.manifesto .cols{grid-column:1/13}
+  .manifesto .cols{grid-template-columns:1fr}
+  .pj1,.pj2,.pj3,.pj4{grid-column:1/13;margin-top:0}
+  .svc .i{grid-column:1/3}.svc .h{grid-column:3/13}.svc .k{display:none}
+  .svc .body p,.svc .body ul{grid-column:3/13}
+  .svc .body ul{padding-top:0}
+  .swatches{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr);row-gap:48px}
+  .contact .info > div{grid-column:span 6;margin-bottom:28px}
+  .eq{grid-template-columns:1fr}
+  .eq .op{padding:0;font-size:40px;line-height:1;margin:18px 0 8px}
+  .eq-out p{grid-column:1/13;margin-top:8px}.eq-out .mono{grid-column:1/13}
+  .company .lead,.company .intro{grid-column:1/13}
+  .company .intro{margin-top:28px}
+  .phases{grid-template-columns:repeat(2,1fr)}
+  .people .lead{grid-column:1/13}
+  .person:nth-of-type(1){grid-column:1/7}
+  .person:nth-of-type(2){grid-column:7/13}
+}
+@media (max-width:560px){
+  .top nav{gap:14px}
+  .top nav a:nth-child(n+3){display:none}
+  .hero .c-br{display:none}
+  .pane.p1{width:34%}
+  .pane.p2{left:58%;width:22%}
+  .pane.p3{display:none}
+  .column{left:84%;width:9%}
+  .steps{grid-template-columns:1fr}
+  .contact .info > div{grid-column:1/13}
+  .phases{grid-template-columns:1fr}
+  .person:nth-of-type(n){grid-column:1/13}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top mono">
+  <a class="logo" href="#top" aria-label="R11, inicio">R11</a>
+  <nav aria-label="Principal">
+    <a href="#estudio">Estudio</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#empresas">Empresas</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+  <div class="meta"><span>Barcelona</span><span id="clock">--:--</span></div>
+</header>
+
+<main id="top">
+
+<!-- HERO ------------------------------------------------------------ -->
+<section class="hero" aria-label="R11 estudio de diseño industrial">
+  <div class="room" aria-hidden="true">
+    <div class="beam b1"></div>
+    <div class="beam b2"></div>
+    <div class="floor"></div>
+    <div class="column"></div>
+    <div class="shelf"><i></i><i></i></div>
+    <span class="spot" style="left:30%;top:14%"></span>
+    <span class="spot" style="left:46%;top:20%"></span>
+    <span class="spot" style="left:58%;top:24%"></span>
+    <span class="spot" style="left:72%;top:13%"></span>
+    <span class="spot" style="left:88%;top:18%"></span>
+  </div>
+  <div class="pane p1" data-depth="18" aria-hidden="true"></div>
+  <div class="pane p2" data-depth="-10" aria-hidden="true"></div>
+  <div class="pane p3" data-depth="6" aria-hidden="true"></div>
+
+  <div class="mark">
+    <h1>r11</h1>
+    <p>estudio de diseño industrial</p>
+  </div>
+
+  <div class="corner c-bl">
+    <span class="mono">Producto + espacio + experiencia</span>
+    <p>Diseñamos los espacios y los productos que viven dentro de ellos, como un único proyecto.</p>
+  </div>
+  <div class="corner c-br mono">
+    <a class="scroll-cue" href="#estudio"><span></span>Desplazar</a>
+  </div>
+</section>
+
+<div class="ticker mono" aria-hidden="true">
+  <div class="track">
+    <span>Producto</span><span>Espacio</span><span>Experiencia</span><span>Interiorismo</span><span>Mobiliario</span><span>Desarrollo de producto</span><span>Departamento de diseño externo</span>
+    <span>Producto</span><span>Espacio</span><span>Experiencia</span><span>Interiorismo</span><span>Mobiliario</span><span>Desarrollo de producto</span><span>Departamento de diseño externo</span>
+  </div>
+</div>
+
+<!-- ESTUDIO --------------------------------------------------------- -->
+<section class="manifesto wrap" id="estudio">
+  <div class="sec-head mono rv">
+    <span class="n">(01)</span>
+    <span class="t">Estudio</span>
+    <span class="r">Manifiesto</span>
+  </div>
+  <div class="grid">
+    <p class="lead rv">
+      R11 es un estudio de diseño industrial. Diseñamos los <em>espacios</em> y los
+      <em>objetos</em> que viven dentro de ellos como partes de un
+      <span class="r">mismo proceso</span>: interior, mobiliario, materiales y uso
+      hablando un solo <span class="b">lenguaje</span>.
+    </p>
+    <div class="cols">
+      <p class="rv"><span class="mono">— Integral</span>No separamos producto e interior. Un espacio se define por lo que contiene; un objeto, por el lugar donde se usa.</p>
+      <p class="rv"><span class="mono">— Escala</span>De la pieza que cabe en la mano al espacio que la contiene. La misma lógica a 1:1 y a 1:50.</p>
+      <p class="rv"><span class="mono">— Experiencia</span>Partimos de cómo las personas usan, recorren y viven un lugar, no solo de cómo se ve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ENFOQUE --------------------------------------------------------- -->
+<section class="approach wrap" id="enfoque">
+  <div class="sec-head mono rv">
+    <span class="n">(02)</span>
+    <span class="t">Enfoque</span>
+    <span class="r">Diseño integral</span>
+  </div>
+  <div class="eq rv">
+    <div class="term"><span class="w">Producto</span><span class="mono">A — Objeto</span><p>Mobiliario, iluminación y piezas específicas, diseñadas para el lugar y el uso que las explica.</p></div>
+    <span class="op" aria-hidden="true">+</span>
+    <div class="term"><span class="w">Espacio</span><span class="mono">B — Interior</span><p>Distribución, recorridos, luz y materiales: el marco donde los objetos cobran sentido.</p></div>
+    <span class="op" aria-hidden="true">+</span>
+    <div class="term"><span class="w">Experiencia</span><span class="mono">C — Uso</span><p>Cómo se utiliza y se percibe el conjunto. Es lo que da coherencia a todo lo demás.</p></div>
+  </div>
+  <div class="eq-out rv">
+    <span class="mono">=</span>
+    <p>Un solo proyecto. <em>Un mismo lenguaje</em> del objeto al lugar.</p>
+  </div>
+</section>
+
+<!-- PROYECTOS ------------------------------------------------------- -->
+<!-- Proyectos provisionales: sustituir por trabajos reales del estudio -->
+<section class="work wrap" id="proyectos">
+  <div class="sec-head mono rv">
+    <span class="n">(03)</span>
+    <span class="t">Proyectos seleccionados</span>
+    <span class="r">2023 — 2026</span>
+  </div>
+
+  <div class="projects">
+    <a class="proj pj1 rv" href="#contacto">
+      <div class="frame">
+        <span class="tag mono">P—01</span>
+        <div class="art a-screen" data-depth="8" aria-hidden="true"><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="fl"></i></div>
+        <span class="view mono">Ver proyecto ↗</span>
+      </div>
+      <div class="cap">
+        <span class="mono">01</span>
+        <h3>Tienda <em>Filtre</em></h3>
+        <span class="mono">Espacio + producto · 2026</span>
+      </div>
+      <p class="desc">Interior comercial y sistema de paneles de metacrilato diseñados a la vez: el mobiliario es el que organiza el espacio y filtra la luz.</p>
+    </a>
+
+    <a class="proj pj2 rv" href="#contacto">
+      <div class="frame">
+        <span class="tag mono">P—02</span>
+        <div class="art a-ring" aria-hidden="true"><i class="glass"></i><i class="ring"></i><i class="dot"></i></div>
+        <span class="view mono">Ver proyecto ↗</span>
+      </div>
+      <div class="cap">
+        <span class="mono">02</span>
+        <h3>Sala <em>Anell</em></h3>
+        <span class="mono">Contract · 2025</span>
+      </div>
+      <p class="desc">Sala de reuniones proyectada desde la mesa: una pieza circular de acero y vidrio cobalto que ordena luz, recorrido y uso.</p>
+    </a>
+
+    <a class="proj pj3 rv" href="#contacto">
+      <div class="frame">
+        <span class="tag mono">P—03</span>
+        <div class="art a-vitrine" aria-hidden="true"><div class="box"></div><i class="tube"></i><i class="tube"></i><i class="tube"></i><i class="tube"></i><div class="fl"></div><div class="lbl">r11</div><div class="pave"></div></div>
+        <span class="view mono">Ver proyecto ↗</span>
+      </div>
+      <div class="cap">
+        <span class="mono">03</span>
+        <h3>Escaparate <em>Vermell</em></h3>
+        <span class="mono">Espacio + luz · 2025</span>
+      </div>
+      <p class="desc">Escaparate y luminarias lineales como una sola pieza. Una caja monocroma que se lee desde la calle.</p>
+    </a>
+
+    <a class="proj pj4 rv" href="#contacto">
+      <div class="frame">
+        <span class="tag mono">P—04</span>
+        <div class="art a-chrome" aria-hidden="true"><i class="wall"></i><i class="slab"></i><i class="ladder"></i><i class="sphere"></i></div>
+        <span class="view mono">Ver proyecto ↗</span>
+      </div>
+      <div class="cap">
+        <span class="mono">04</span>
+        <h3>Sistema <em>Escala</em></h3>
+        <span class="mono">Dpto. externo · 2024</span>
+      </div>
+      <p class="desc">Desarrollo de producto para una empresa sin equipo de diseño: expositor modular, del concepto a la producción en serie.</p>
+    </a>
+  </div>
+</section>
+
+<!-- SERVICIOS ------------------------------------------------------- -->
+<section class="services wrap" id="servicios">
+  <div class="sec-head mono rv">
+    <span class="n">(04)</span>
+    <span class="t">Servicios</span>
+    <span class="r">Un proceso, varias escalas</span>
+  </div>
+  <ul class="svc">
+    <li>
+      <button aria-expanded="false"><span class="i mono">S—01</span><span class="h">Proyecto integral</span><span class="k mono">Espacio + producto</span></button>
+      <div class="body"><p>Diseñamos el interior y las piezas que lo habitan a la vez: distribución, mobiliario, iluminación, materiales y experiencia de uso, con un único criterio.</p><ul class="mono"><li>Interiorismo</li><li>Mobiliario a medida</li><li>Iluminación</li><li>Experiencia de uso</li></ul></div>
+    </li>
+    <li class="b">
+      <button aria-expanded="false"><span class="i mono">S—02</span><span class="h">Producto para el espacio</span><span class="k mono">Objeto</span></button>
+      <div class="body"><p>Mobiliario, luminarias y objetos pensados desde el lugar y el uso para el que existen. Del concepto a la pieza lista para fabricar.</p><ul class="mono"><li>Concepto</li><li>Modelado 3D / CAD</li><li>Planos de fabricación</li></ul></div>
+    </li>
+    <li>
+      <button aria-expanded="false"><span class="i mono">S—03</span><span class="h">Departamento de diseño externo</span><span class="k mono">Empresas</span></button>
+      <div class="body"><p>Para empresas sin departamento de diseño o de producto: nos integramos como su equipo externo y trabajamos en las fases que necesiten.</p><ul class="mono"><li>Consultoría</li><li>Desarrollo de producto</li><li>Seguimiento de producción</li></ul></div>
+    </li>
+    <li class="b">
+      <button aria-expanded="false"><span class="i mono">S—04</span><span class="h">Materiales y prototipado</span><span class="k mono">Taller</span></button>
+      <div class="body"><p>Muestras, maquetas y prototipos a escala real para validar espacio y objeto antes de construir o producir.</p><ul class="mono"><li>Paletas CMF</li><li>Maquetas</li><li>Prototipo 1:1</li></ul></div>
+    </li>
+  </ul>
+</section>
+
+<!-- EMPRESAS -------------------------------------------------------- -->
+<section class="company wrap" id="empresas">
+  <div class="sec-head mono rv">
+    <span class="n">(05)</span>
+    <span class="t">Para empresas</span>
+    <span class="r">Departamento de diseño externo</span>
+  </div>
+  <div class="grid">
+    <p class="lead rv">¿Tu empresa no tiene departamento de diseño o de producto? <em>R11 puede serlo.</em></p>
+    <p class="intro rv">Aportamos conocimiento y capacidad de trabajo en las fases que hagan falta: desde definir qué producto tiene sentido hasta acompañar su fabricación. Por proyecto o de forma continuada.</p>
+  </div>
+  <ol class="phases">
+    <li class="rv"><span class="mono">F—01</span><h4>Estrategia</h4><p>Análisis de producto, mercado y usuario. Definición del briefing.</p></li>
+    <li class="rv"><span class="mono">F—02</span><h4>Concepto</h4><p>Exploración, bocetos y propuestas de forma, uso y materiales.</p></li>
+    <li class="rv"><span class="mono">F—03</span><h4>Desarrollo</h4><p>Modelado CAD, definición técnica, CMF y planos.</p></li>
+    <li class="rv"><span class="mono">F—04</span><h4>Prototipo</h4><p>Maquetas y prototipos funcionales para validar con el cliente.</p></li>
+    <li class="rv"><span class="mono">F—05</span><h4>Industrialización</h4><p>Despieces, proveedores y preparación para fabricar.</p></li>
+    <li class="rv"><span class="mono">F—06</span><h4>Seguimiento</h4><p>Acompañamiento en producción y en la puesta en el espacio.</p></li>
+  </ol>
+  <a class="cta mono rv" href="#contacto">Hablemos de tu producto ↗</a>
+</section>
+
+<!-- PROCESO --------------------------------------------------------- -->
+<section class="process wrap" id="proceso">
+  <div class="sec-head mono rv">
+    <span class="n">(06)</span>
+    <span class="t">Proceso</span>
+    <span class="r">Cuatro fases</span>
+  </div>
+  <div class="steps">
+    <div class="step rv"><div class="num">01</div><h4>Escuchar</h4><p>Contexto, usuarios y restricciones. Entender qué tiene que pasar en el lugar.</p></div>
+    <div class="step rv"><div class="num">02</div><h4>Dibujar</h4><p>Espacio y objeto en el mismo papel. Proporción, recorridos y primeras maquetas.</p></div>
+    <div class="step rv"><div class="num">03</div><h4>Construir</h4><p>CAD, prototipos y pruebas de material. Lo que funciona en la mano y en el lugar, se queda.</p></div>
+    <div class="step rv"><div class="num">04</div><h4>Producir</h4><p>Planos, despieces y seguimiento en taller y en obra hasta el resultado final.</p></div>
+  </div>
+</section>
+
+<!-- MATERIALES ------------------------------------------------------ -->
+<section class="materials wrap" id="materiales">
+  <div class="sec-head mono rv">
+    <span class="n">(07)</span>
+    <span class="t">Índice de materiales</span>
+    <span class="r">Paleta del estudio</span>
+  </div>
+  <div class="swatches">
+    <div class="sw rv"><div class="chip c-con"></div><div class="meta mono"><span>M—01</span><span>Gris</span></div><h4>Hormigón visto</h4><p>Base, peso, permanencia.</p></div>
+    <div class="sw rv"><div class="chip c-pmma"></div><div class="meta mono"><span>M—02</span><span>#E8251B</span></div><h4>Metacrilato rojo</h4><p>Filtra la luz, tiñe el espacio.</p></div>
+    <div class="sw rv"><div class="chip c-glass"></div><div class="meta mono"><span>M—03</span><span>#1C2FD8</span></div><h4>Vidrio cobalto</h4><p>Profundidad y transparencia.</p></div>
+    <div class="sw rv"><div class="chip c-steel"></div><div class="meta mono"><span>M—04</span><span>Inox</span></div><h4>Acero / cromo</h4><p>Reflejo, precisión, estructura.</p></div>
+  </div>
+</section>
+
+<!-- EQUIPO ---------------------------------------------------------- -->
+<section class="team wrap" id="equipo">
+  <div class="sec-head mono rv">
+    <span class="n">(08)</span>
+    <span class="t">Equipo</span>
+    <span class="r">Fundadores</span>
+  </div>
+  <div class="people">
+    <p class="lead rv">R11 está fundado y dirigido por dos diseñadores industriales que entienden el producto y el interior como <em>una misma disciplina</em>.</p>
+    <article class="person rv">
+      <div class="portrait" aria-hidden="true"><span>ER</span></div>
+      <div class="meta mono"><span>Cofundador</span><span>Dirección</span></div>
+      <h3>Efrain David Rondon</h3>
+    </article>
+    <article class="person rv">
+      <div class="portrait p-b" aria-hidden="true"><span>ZA</span></div>
+      <div class="meta mono"><span>Cofundador</span><span>Dirección</span></div>
+      <h3>Ziad Addami Ech Chaouy</h3>
+    </article>
+  </div>
+</section>
+
+<!-- CONTACTO -------------------------------------------------------- -->
+<section class="contact wrap" id="contacto">
+  <div class="tubes" aria-hidden="true">
+    <i style="left:46%;right:6%;top:3%"></i>
+    <i style="left:54%;right:10%;top:5.5%"></i>
+    <i style="left:50%;right:4%;top:8%"></i>
+  </div>
+  <div class="sec-head mono">
+    <span class="n">(09)</span>
+    <span class="t">Contacto</span>
+    <span class="r">Nuevos proyectos 2026—27</span>
+  </div>
+
+  <a class="big" href="mailto:hola@r11.studio">Hablemos de tu<br>próximo <span class="serif">espacio</span> <span class="arrow">↗</span></a>
+
+  <div class="grid info">
+    <div><span class="mono">Correo</span><p><a href="mailto:hola@r11.studio">hola@r11.studio</a></p></div>
+    <div><span class="mono">Proyectos</span><p>Espacio, producto<br>y proyecto integral</p></div>
+    <div><span class="mono">Empresas</span><p>Departamento de<br>diseño externo</p></div>
+    <div><span class="mono">Estudio</span><p>Barcelona · <span id="clock2">--:--</span><br><a href="#">Instagram</a> · <a href="#">LinkedIn</a></p></div>
+  </div>
+
+  <footer class="foot mono">
+    <span>© <span id="yr">2026</span> R11 Estudio de diseño industrial</span>
+    <span>Efrain David Rondon &amp; Ziad Addami Ech Chaouy</span>
+    <a href="#top">Volver arriba ↑</a>
+    <div class="wm" aria-hidden="true">r11</div>
+  </footer>
+</section>
+
+</main>
+
+<script>
+(() => {
+  // Reloj local (Europa/Madrid)
+  const fmt = new Intl.DateTimeFormat('es-ES', {hour:'2-digit', minute:'2-digit', timeZone:'Europe/Madrid'});
+  const c1 = document.getElementById('clock'), c2 = document.getElementById('clock2');
+  const tick = () => { const t = fmt.format(new Date()) + ' CET'; c1.textContent = t; c2.textContent = t; };
+  tick(); setInterval(tick, 15000);
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Revelado al hacer scroll
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), {rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // Servicios desplegables
+  document.querySelectorAll('.svc > li > button').forEach(b => b.addEventListener('click', () => {
+    const li = b.parentElement, open = !li.classList.contains('open');
+    document.querySelectorAll('.svc > li.open').forEach(o => { o.classList.remove('open'); o.firstElementChild.setAttribute('aria-expanded','false'); });
+    if (open) { li.classList.add('open'); b.setAttribute('aria-expanded','true'); }
+  }));
+
+  // Paralaje suave de los planos de metacrilato
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const layers = [...document.querySelectorAll('[data-depth]')];
+  let mx = 0, my = 0, raf = 0;
+  const base = el => el.dataset.base ??= (getComputedStyle(el).transform === 'none' ? '' : getComputedStyle(el).transform);
+  layers.forEach(base);
+  const draw = () => {
+    raf = 0;
+    const sy = scrollY;
+    layers.forEach(el => {
+      const d = +el.dataset.depth;
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > innerHeight + 200) return;
+      const py = el.closest('.hero') ? sy * d / 60 : (r.top - innerHeight / 2) * d / -200;
+      el.style.transform = `translate3d(${mx * d}px, ${my * d * .5 + py}px, 0) ${el.dataset.base}`;
+    });
+  };
+  const req = () => { if (!raf) raf = requestAnimationFrame(draw); };
+  addEventListener('scroll', req, {passive:true});
+  addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; req(); }, {passive:true});
+  draw();
+})();
+</script>
+</body>
+</html>
