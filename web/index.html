@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>R11 — Estudio de diseño industrial</title>
-<meta name="description" content="R11 es un estudio de diseño industrial. Producto, mobiliario, iluminación y espacio. Materia, luz y proporción.">
+<meta name="description" content="R11 es un estudio de diseño industrial. Diseñamos espacios y los productos que viven en ellos como un mismo proceso. Producto + espacio + experiencia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -322,11 +322,55 @@ section{position:relative}
 .contact .arrow{display:inline-block;transition:transform .4s}
 .contact .info{position:relative;z-index:1;margin-top:clamp(48px,8vw,110px)}
 .contact .info > div{grid-column:span 3}
-.contact .info p{font-size:15px;margin-top:8px}
+.contact .info p{font-size:15px;margin-top:8px;line-height:1.5}
 .contact .info a{border-bottom:1px solid rgba(255,255,255,.5)}
 .contact .info a:hover{border-color:#fff}
 .foot{position:relative;z-index:1;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:clamp(60px,9vw,120px);padding-top:14px;border-top:1px solid rgba(255,255,255,.5)}
 .foot .wm{text-transform:none;font-weight:300;letter-spacing:-.07em;font-size:clamp(90px,24vw,380px);line-height:.75;margin-top:30px;width:100%;color:rgba(255,255,255,.95)}
+
+/* Enfoque: producto + espacio + experiencia */
+.approach{padding-bottom:clamp(80px,10vw,160px)}
+.eq{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;column-gap:clamp(12px,2vw,32px);align-items:start}
+.eq .term{border-top:1px solid var(--ink);padding-top:14px}
+.eq .w{display:block;font-size:clamp(40px,6.4vw,110px);font-weight:300;letter-spacing:-.055em;line-height:.9;margin-bottom:28px}
+.eq .term:nth-child(3) .w{color:var(--red)}
+.eq .term:nth-child(5) .w{color:var(--cobalt)}
+.eq .term p{font-size:15px;color:var(--ink-2);max-width:32ch;margin-top:8px}
+.eq .op{font-size:clamp(40px,6.4vw,110px);font-weight:200;line-height:.9;padding-top:14px}
+.eq-out{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gutter);margin-top:clamp(40px,6vw,80px);padding-top:14px;border-top:1px solid var(--ink);align-items:baseline}
+.eq-out .mono{grid-column:1/3;font-size:clamp(26px,3.4vw,52px);font-weight:300}
+.eq-out p{grid-column:3/13;font-size:clamp(26px,3.4vw,52px);letter-spacing:-.035em;line-height:1.05}
+.eq-out em{font-family:var(--serif);font-style:italic;letter-spacing:-.01em}
+
+/* Para empresas */
+.company{padding-block:clamp(70px,10vw,150px);color:#fff;
+  background:radial-gradient(120% 90% at 80% 0%,#3349ff 0%,#1c2fd8 40%,#0a1170 100%);overflow:hidden}
+.company::before{content:"";position:absolute;inset:0;background-image:var(--noise);opacity:.22;mix-blend-mode:overlay;pointer-events:none}
+.company .sec-head{border-color:#fff;position:relative}
+.company .lead{grid-column:1/9;font-size:clamp(34px,5vw,80px);font-weight:300;letter-spacing:-.045em;line-height:.98;position:relative}
+.company .lead em{font-family:var(--serif);font-style:italic;letter-spacing:-.015em}
+.company .intro{grid-column:9/13;align-self:end;font-size:16px;color:rgba(255,255,255,.82);position:relative}
+.phases{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,3vw,48px) var(--gutter);margin-top:clamp(56px,8vw,110px);position:relative}
+.phases li{border-top:1px solid rgba(255,255,255,.4);padding-top:12px}
+.phases h4{font-weight:300;font-size:clamp(24px,2.4vw,36px);letter-spacing:-.035em;margin-top:18px}
+.phases p{font-size:14px;color:rgba(255,255,255,.75);margin-top:6px;max-width:32ch}
+.cta{position:relative;display:inline-block;margin-top:clamp(48px,6vw,80px);padding:14px 20px;border:1px solid #fff;font-size:12px;transition:background .3s,color .3s}
+.cta:hover{background:#fff;color:var(--cobalt)}
+
+/* Equipo */
+.team{padding-bottom:clamp(80px,10vw,160px)}
+.people{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gutter);row-gap:40px;align-items:end}
+.people .lead{grid-column:1/5;align-self:start;font-size:clamp(22px,2.2vw,32px);letter-spacing:-.03em;line-height:1.12}
+.people .lead em{font-family:var(--serif);font-style:italic}
+.person:nth-of-type(1){grid-column:6/9}
+.person:nth-of-type(2){grid-column:10/13}
+.portrait{aspect-ratio:4/5;position:relative;overflow:hidden;background:linear-gradient(180deg,#b3afa8,#8d8982)}
+.portrait::before{content:"";position:absolute;inset:0;background-image:var(--pores);opacity:.25;mix-blend-mode:multiply}
+.portrait::after{content:"";position:absolute;left:0;top:0;bottom:0;width:22%;background:var(--red-glass);border-right:1px solid rgba(255,140,120,.9)}
+.portrait.p-b::after{left:auto;right:0;background:rgba(28,47,216,.6);border:0;border-left:1px solid rgba(140,160,255,.9)}
+.portrait span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(60px,8vw,130px);font-weight:200;letter-spacing:-.06em;color:#efede9;z-index:1}
+.person .meta{display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid var(--line);margin-top:10px}
+.person h3{font-weight:400;font-size:clamp(20px,1.8vw,26px);letter-spacing:-.025em;margin-top:6px}
 
 /* Ticker */
 .ticker{overflow:hidden;border-block:1px solid var(--ink);padding-block:12px;white-space:nowrap}
@@ -357,6 +401,15 @@ section{position:relative}
   .swatches{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);row-gap:48px}
   .contact .info > div{grid-column:span 6;margin-bottom:28px}
+  .eq{grid-template-columns:1fr}
+  .eq .op{padding:0;font-size:40px;line-height:1;margin:18px 0 8px}
+  .eq-out p{grid-column:1/13;margin-top:8px}.eq-out .mono{grid-column:1/13}
+  .company .lead,.company .intro{grid-column:1/13}
+  .company .intro{margin-top:28px}
+  .phases{grid-template-columns:repeat(2,1fr)}
+  .people .lead{grid-column:1/13}
+  .person:nth-of-type(1){grid-column:1/7}
+  .person:nth-of-type(2){grid-column:7/13}
 }
 @media (max-width:560px){
   .top nav{gap:14px}
@@ -368,6 +421,8 @@ section{position:relative}
   .column{left:84%;width:9%}
   .steps{grid-template-columns:1fr}
   .contact .info > div{grid-column:1/13}
+  .phases{grid-template-columns:1fr}
+  .person:nth-of-type(n){grid-column:1/13}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -384,6 +439,7 @@ section{position:relative}
     <a href="#estudio">Estudio</a>
     <a href="#proyectos">Proyectos</a>
     <a href="#servicios">Servicios</a>
+    <a href="#empresas">Empresas</a>
     <a href="#contacto">Contacto</a>
   </nav>
   <div class="meta"><span>Barcelona</span><span id="clock">--:--</span></div>
@@ -415,8 +471,8 @@ section{position:relative}
   </div>
 
   <div class="corner c-bl">
-    <span class="mono">Índice — 2026</span>
-    <p>Producto, mobiliario, iluminación y espacio. Diseñamos objetos con materia, luz y proporción.</p>
+    <span class="mono">Producto + espacio + experiencia</span>
+    <p>Diseñamos los espacios y los productos que viven dentro de ellos, como un único proyecto.</p>
   </div>
   <div class="corner c-br mono">
     <a class="scroll-cue" href="#estudio"><span></span>Desplazar</a>
@@ -425,8 +481,8 @@ section{position:relative}
 
 <div class="ticker mono" aria-hidden="true">
   <div class="track">
-    <span>Producto</span><span>Mobiliario</span><span>Iluminación</span><span>Retail &amp; espacio</span><span>Prototipado</span><span>Dirección de materiales</span>
-    <span>Producto</span><span>Mobiliario</span><span>Iluminación</span><span>Retail &amp; espacio</span><span>Prototipado</span><span>Dirección de materiales</span>
+    <span>Producto</span><span>Espacio</span><span>Experiencia</span><span>Interiorismo</span><span>Mobiliario</span><span>Desarrollo de producto</span><span>Departamento de diseño externo</span>
+    <span>Producto</span><span>Espacio</span><span>Experiencia</span><span>Interiorismo</span><span>Mobiliario</span><span>Desarrollo de producto</span><span>Departamento de diseño externo</span>
   </div>
 </div>
 
@@ -439,23 +495,44 @@ section{position:relative}
   </div>
   <div class="grid">
     <p class="lead rv">
-      R11 es un estudio de diseño industrial. Trabajamos en el punto donde la
-      <em>materia</em> se encuentra con la <span class="r">luz</span>: hormigón, metacrilato,
-      vidrio <span class="b">cobalto</span> y acero, ordenados con la
-      <em>proporción</em> justa.
+      R11 es un estudio de diseño industrial. Diseñamos los <em>espacios</em> y los
+      <em>objetos</em> que viven dentro de ellos como partes de un
+      <span class="r">mismo proceso</span>: interior, mobiliario, materiales y uso
+      hablando un solo <span class="b">lenguaje</span>.
     </p>
     <div class="cols">
-      <p class="rv"><span class="mono">— Método</span>Cada proyecto empieza en el taller. Maquetas, prototipos y pruebas de material antes que renders.</p>
-      <p class="rv"><span class="mono">— Escala</span>Del objeto que cabe en la mano al espacio que lo contiene. La misma lógica a 1:1 y a 1:50.</p>
-      <p class="rv"><span class="mono">— Fabricación</span>Diseñamos pensando en cómo se produce: planos de fabricación, despieces y seguimiento con taller.</p>
+      <p class="rv"><span class="mono">— Integral</span>No separamos producto e interior. Un espacio se define por lo que contiene; un objeto, por el lugar donde se usa.</p>
+      <p class="rv"><span class="mono">— Escala</span>De la pieza que cabe en la mano al espacio que la contiene. La misma lógica a 1:1 y a 1:50.</p>
+      <p class="rv"><span class="mono">— Experiencia</span>Partimos de cómo las personas usan, recorren y viven un lugar, no solo de cómo se ve.</p>
     </div>
   </div>
 </section>
 
-<!-- PROYECTOS ------------------------------------------------------- -->
-<section class="work wrap" id="proyectos">
+<!-- ENFOQUE --------------------------------------------------------- -->
+<section class="approach wrap" id="enfoque">
   <div class="sec-head mono rv">
     <span class="n">(02)</span>
+    <span class="t">Enfoque</span>
+    <span class="r">Diseño integral</span>
+  </div>
+  <div class="eq rv">
+    <div class="term"><span class="w">Producto</span><span class="mono">A — Objeto</span><p>Mobiliario, iluminación y piezas específicas, diseñadas para el lugar y el uso que las explica.</p></div>
+    <span class="op" aria-hidden="true">+</span>
+    <div class="term"><span class="w">Espacio</span><span class="mono">B — Interior</span><p>Distribución, recorridos, luz y materiales: el marco donde los objetos cobran sentido.</p></div>
+    <span class="op" aria-hidden="true">+</span>
+    <div class="term"><span class="w">Experiencia</span><span class="mono">C — Uso</span><p>Cómo se utiliza y se percibe el conjunto. Es lo que da coherencia a todo lo demás.</p></div>
+  </div>
+  <div class="eq-out rv">
+    <span class="mono">=</span>
+    <p>Un solo proyecto. <em>Un mismo lenguaje</em> del objeto al lugar.</p>
+  </div>
+</section>
+
+<!-- PROYECTOS ------------------------------------------------------- -->
+<!-- Proyectos provisionales: sustituir por trabajos reales del estudio -->
+<section class="work wrap" id="proyectos">
+  <div class="sec-head mono rv">
+    <span class="n">(03)</span>
     <span class="t">Proyectos seleccionados</span>
     <span class="r">2023 — 2026</span>
   </div>
@@ -469,10 +546,10 @@ section{position:relative}
       </div>
       <div class="cap">
         <span class="mono">01</span>
-        <h3>Biombo <em>Filtre</em></h3>
-        <span class="mono">Mobiliario · 2026</span>
+        <h3>Tienda <em>Filtre</em></h3>
+        <span class="mono">Espacio + producto · 2026</span>
       </div>
-      <p class="desc">Sistema de paneles de metacrilato rojo con base de acero lacado. Divide sin cerrar: la luz atraviesa y tiñe el espacio.</p>
+      <p class="desc">Interior comercial y sistema de paneles de metacrilato diseñados a la vez: el mobiliario es el que organiza el espacio y filtra la luz.</p>
     </a>
 
     <a class="proj pj2 rv" href="#contacto">
@@ -483,10 +560,10 @@ section{position:relative}
       </div>
       <div class="cap">
         <span class="mono">02</span>
-        <h3>Mesa <em>Anell</em></h3>
+        <h3>Sala <em>Anell</em></h3>
         <span class="mono">Contract · 2025</span>
       </div>
-      <p class="desc">Mesa de reuniones circular. Tablero de acero y faldón de vidrio cobalto que deja ver el suelo a través.</p>
+      <p class="desc">Sala de reuniones proyectada desde la mesa: una pieza circular de acero y vidrio cobalto que ordena luz, recorrido y uso.</p>
     </a>
 
     <a class="proj pj3 rv" href="#contacto">
@@ -498,9 +575,9 @@ section{position:relative}
       <div class="cap">
         <span class="mono">03</span>
         <h3>Escaparate <em>Vermell</em></h3>
-        <span class="mono">Retail · 2025</span>
+        <span class="mono">Espacio + luz · 2025</span>
       </div>
-      <p class="desc">Intervención de escaparate: caja monocroma y luminarias lineales. Una sola idea visible desde la calle.</p>
+      <p class="desc">Escaparate y luminarias lineales como una sola pieza. Una caja monocroma que se lee desde la calle.</p>
     </a>
 
     <a class="proj pj4 rv" href="#contacto">
@@ -512,9 +589,9 @@ section{position:relative}
       <div class="cap">
         <span class="mono">04</span>
         <h3>Sistema <em>Escala</em></h3>
-        <span class="mono">Expositor · 2024</span>
+        <span class="mono">Dpto. externo · 2024</span>
       </div>
-      <p class="desc">Expositor modular de tubo de aluminio anodizado. Montaje sin herramientas, configurable en altura.</p>
+      <p class="desc">Desarrollo de producto para una empresa sin equipo de diseño: expositor modular, del concepto a la producción en serie.</p>
     </a>
   </div>
 </section>
@@ -522,42 +599,71 @@ section{position:relative}
 <!-- SERVICIOS ------------------------------------------------------- -->
 <section class="services wrap" id="servicios">
   <div class="sec-head mono rv">
-    <span class="n">(03)</span>
+    <span class="n">(04)</span>
     <span class="t">Servicios</span>
-    <span class="r">Pulsa para desplegar</span>
+    <span class="r">Un proceso, varias escalas</span>
   </div>
   <ul class="svc">
     <li>
-      <button aria-expanded="false"><span class="i mono">S—01</span><span class="h">Diseño de producto</span><span class="k mono">Objeto</span></button>
-      <div class="body"><p>Desde el concepto hasta la pieza lista para fabricar. Investigación, forma, ergonomía y definición técnica.</p><ul class="mono"><li>Concepto</li><li>Modelado 3D / CAD</li><li>Planos de fabricación</li></ul></div>
+      <button aria-expanded="false"><span class="i mono">S—01</span><span class="h">Proyecto integral</span><span class="k mono">Espacio + producto</span></button>
+      <div class="body"><p>Diseñamos el interior y las piezas que lo habitan a la vez: distribución, mobiliario, iluminación, materiales y experiencia de uso, con un único criterio.</p><ul class="mono"><li>Interiorismo</li><li>Mobiliario a medida</li><li>Iluminación</li><li>Experiencia de uso</li></ul></div>
     </li>
     <li class="b">
-      <button aria-expanded="false"><span class="i mono">S—02</span><span class="h">Mobiliario</span><span class="k mono">Hábitat / contract</span></button>
-      <div class="body"><p>Sillas, mesas, sistemas y piezas a medida para vivienda, oficina y hostelería.</p><ul class="mono"><li>Colecciones</li><li>Piezas únicas</li><li>Series cortas</li></ul></div>
+      <button aria-expanded="false"><span class="i mono">S—02</span><span class="h">Producto para el espacio</span><span class="k mono">Objeto</span></button>
+      <div class="body"><p>Mobiliario, luminarias y objetos pensados desde el lugar y el uso para el que existen. Del concepto a la pieza lista para fabricar.</p><ul class="mono"><li>Concepto</li><li>Modelado 3D / CAD</li><li>Planos de fabricación</li></ul></div>
     </li>
     <li>
-      <button aria-expanded="false"><span class="i mono">S—03</span><span class="h">Iluminación</span><span class="k mono">Luz</span></button>
-      <div class="body"><p>Luminarias y estrategias de luz. Trabajamos la luz como un material más del proyecto.</p><ul class="mono"><li>Luminarias</li><li>Integración lineal</li><li>Prototipos funcionales</li></ul></div>
+      <button aria-expanded="false"><span class="i mono">S—03</span><span class="h">Departamento de diseño externo</span><span class="k mono">Empresas</span></button>
+      <div class="body"><p>Para empresas sin departamento de diseño o de producto: nos integramos como su equipo externo y trabajamos en las fases que necesiten.</p><ul class="mono"><li>Consultoría</li><li>Desarrollo de producto</li><li>Seguimiento de producción</li></ul></div>
     </li>
     <li class="b">
-      <button aria-expanded="false"><span class="i mono">S—04</span><span class="h">Retail &amp; espacio</span><span class="k mono">Escaparate / tienda</span></button>
-      <div class="body"><p>Escaparates, expositores y espacios comerciales donde el objeto es protagonista.</p><ul class="mono"><li>Escaparatismo</li><li>Expositores</li><li>Pop-ups</li></ul></div>
-    </li>
-    <li>
-      <button aria-expanded="false"><span class="i mono">S—05</span><span class="h">Prototipado</span><span class="k mono">Taller</span></button>
-      <div class="body"><p>Maquetas, impresión 3D y prototipos a escala real para validar antes de producir.</p><ul class="mono"><li>Maquetas de estudio</li><li>Impresión 3D</li><li>Prototipo 1:1</li></ul></div>
-    </li>
-    <li class="b">
-      <button aria-expanded="false"><span class="i mono">S—06</span><span class="h">Dirección de materiales</span><span class="k mono">CMF</span></button>
-      <div class="body"><p>Color, material y acabado. Selección, muestras y coordinación con proveedores.</p><ul class="mono"><li>Paletas CMF</li><li>Muestrarios</li><li>Proveedores</li></ul></div>
+      <button aria-expanded="false"><span class="i mono">S—04</span><span class="h">Materiales y prototipado</span><span class="k mono">Taller</span></button>
+      <div class="body"><p>Muestras, maquetas y prototipos a escala real para validar espacio y objeto antes de construir o producir.</p><ul class="mono"><li>Paletas CMF</li><li>Maquetas</li><li>Prototipo 1:1</li></ul></div>
     </li>
   </ul>
+</section>
+
+<!-- EMPRESAS -------------------------------------------------------- -->
+<section class="company wrap" id="empresas">
+  <div class="sec-head mono rv">
+    <span class="n">(05)</span>
+    <span class="t">Para empresas</span>
+    <span class="r">Departamento de diseño externo</span>
+  </div>
+  <div class="grid">
+    <p class="lead rv">¿Tu empresa no tiene departamento de diseño o de producto? <em>R11 puede serlo.</em></p>
+    <p class="intro rv">Aportamos conocimiento y capacidad de trabajo en las fases que hagan falta: desde definir qué producto tiene sentido hasta acompañar su fabricación. Por proyecto o de forma continuada.</p>
+  </div>
+  <ol class="phases">
+    <li class="rv"><span class="mono">F—01</span><h4>Estrategia</h4><p>Análisis de producto, mercado y usuario. Definición del briefing.</p></li>
+    <li class="rv"><span class="mono">F—02</span><h4>Concepto</h4><p>Exploración, bocetos y propuestas de forma, uso y materiales.</p></li>
+    <li class="rv"><span class="mono">F—03</span><h4>Desarrollo</h4><p>Modelado CAD, definición técnica, CMF y planos.</p></li>
+    <li class="rv"><span class="mono">F—04</span><h4>Prototipo</h4><p>Maquetas y prototipos funcionales para validar con el cliente.</p></li>
+    <li class="rv"><span class="mono">F—05</span><h4>Industrialización</h4><p>Despieces, proveedores y preparación para fabricar.</p></li>
+    <li class="rv"><span class="mono">F—06</span><h4>Seguimiento</h4><p>Acompañamiento en producción y en la puesta en el espacio.</p></li>
+  </ol>
+  <a class="cta mono rv" href="#contacto">Hablemos de tu producto ↗</a>
+</section>
+
+<!-- PROCESO --------------------------------------------------------- -->
+<section class="process wrap" id="proceso">
+  <div class="sec-head mono rv">
+    <span class="n">(06)</span>
+    <span class="t">Proceso</span>
+    <span class="r">Cuatro fases</span>
+  </div>
+  <div class="steps">
+    <div class="step rv"><div class="num">01</div><h4>Escuchar</h4><p>Contexto, usuarios y restricciones. Entender qué tiene que pasar en el lugar.</p></div>
+    <div class="step rv"><div class="num">02</div><h4>Dibujar</h4><p>Espacio y objeto en el mismo papel. Proporción, recorridos y primeras maquetas.</p></div>
+    <div class="step rv"><div class="num">03</div><h4>Construir</h4><p>CAD, prototipos y pruebas de material. Lo que funciona en la mano y en el lugar, se queda.</p></div>
+    <div class="step rv"><div class="num">04</div><h4>Producir</h4><p>Planos, despieces y seguimiento en taller y en obra hasta el resultado final.</p></div>
+  </div>
 </section>
 
 <!-- MATERIALES ------------------------------------------------------ -->
 <section class="materials wrap" id="materiales">
   <div class="sec-head mono rv">
-    <span class="n">(04)</span>
+    <span class="n">(07)</span>
     <span class="t">Índice de materiales</span>
     <span class="r">Paleta del estudio</span>
   </div>
@@ -569,18 +675,25 @@ section{position:relative}
   </div>
 </section>
 
-<!-- PROCESO --------------------------------------------------------- -->
-<section class="process wrap" id="proceso">
+<!-- EQUIPO ---------------------------------------------------------- -->
+<section class="team wrap" id="equipo">
   <div class="sec-head mono rv">
-    <span class="n">(05)</span>
-    <span class="t">Proceso</span>
-    <span class="r">Cuatro fases</span>
+    <span class="n">(08)</span>
+    <span class="t">Equipo</span>
+    <span class="r">Fundadores</span>
   </div>
-  <div class="steps">
-    <div class="step rv"><div class="num">01</div><h4>Escuchar</h4><p>Briefing, contexto y restricciones. Entender qué tiene que hacer el objeto.</p></div>
-    <div class="step rv"><div class="num">02</div><h4>Dibujar</h4><p>Bocetos, proporción y primeras maquetas. Muchas opciones, pocas decisiones.</p></div>
-    <div class="step rv"><div class="num">03</div><h4>Construir</h4><p>CAD, prototipo y pruebas de material. Lo que funciona en la mano, se queda.</p></div>
-    <div class="step rv"><div class="num">04</div><h4>Producir</h4><p>Planos, despieces y seguimiento en taller hasta la pieza final.</p></div>
+  <div class="people">
+    <p class="lead rv">R11 está fundado y dirigido por dos diseñadores industriales que entienden el producto y el interior como <em>una misma disciplina</em>.</p>
+    <article class="person rv">
+      <div class="portrait" aria-hidden="true"><span>ER</span></div>
+      <div class="meta mono"><span>Cofundador</span><span>Dirección</span></div>
+      <h3>Efrain David Rondon</h3>
+    </article>
+    <article class="person rv">
+      <div class="portrait p-b" aria-hidden="true"><span>ZA</span></div>
+      <div class="meta mono"><span>Cofundador</span><span>Dirección</span></div>
+      <h3>Ziad Addami Ech Chaouy</h3>
+    </article>
   </div>
 </section>
 
@@ -592,22 +705,23 @@ section{position:relative}
     <i style="left:50%;right:4%;top:8%"></i>
   </div>
   <div class="sec-head mono">
-    <span class="n">(06)</span>
+    <span class="n">(09)</span>
     <span class="t">Contacto</span>
     <span class="r">Nuevos proyectos 2026—27</span>
   </div>
 
-  <a class="big" href="mailto:hola@r11.studio">Hablemos de<br>tu <span class="serif">próximo</span> objeto <span class="arrow">↗</span></a>
+  <a class="big" href="mailto:hola@r11.studio">Hablemos de tu<br>próximo <span class="serif">espacio</span> <span class="arrow">↗</span></a>
 
   <div class="grid info">
     <div><span class="mono">Correo</span><p><a href="mailto:hola@r11.studio">hola@r11.studio</a></p></div>
-    <div><span class="mono">Estudio</span><p>Barcelona<br>Visitas con cita previa</p></div>
-    <div><span class="mono">Social</span><p><a href="#">Instagram</a><br><a href="#">LinkedIn</a></p></div>
-    <div><span class="mono">Hora local</span><p id="clock2">--:--</p></div>
+    <div><span class="mono">Proyectos</span><p>Espacio, producto<br>y proyecto integral</p></div>
+    <div><span class="mono">Empresas</span><p>Departamento de<br>diseño externo</p></div>
+    <div><span class="mono">Estudio</span><p>Barcelona · <span id="clock2">--:--</span><br><a href="#">Instagram</a> · <a href="#">LinkedIn</a></p></div>
   </div>
 
   <footer class="foot mono">
     <span>© <span id="yr">2026</span> R11 Estudio de diseño industrial</span>
+    <span>Efrain David Rondon &amp; Ziad Addami Ech Chaouy</span>
     <a href="#top">Volver arriba ↑</a>
     <div class="wm" aria-hidden="true">r11</div>
   </footer>
