@@ -24,7 +24,7 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 
 .hud{position:fixed;z-index:2;font-family:var(--mono);font-size:11px;letter-spacing:.04em;line-height:1.6;
   color:var(--ink);pointer-events:none}
-.hud > *{background:var(--paper);box-shadow:0 0 0 4px var(--paper)}
+.hud,.cap,.cap *,.hud *{transition:color .5s,text-shadow .5s,border-color .5s}
 .hud a{pointer-events:auto;color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
 .hud .m{color:var(--mute)}
 .tl{left:20px;top:16px}
@@ -35,12 +35,21 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 .hint{transition:opacity .8s}
 .hint.off{opacity:0}
 
-.cap{position:fixed;z-index:2;pointer-events:none;transition:none}
+.cap{position:fixed;z-index:2;pointer-events:none;left:20px;bottom:64px;max-width:min(440px,calc(100vw - 40px))}
 .cap .i{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--mute)}
 .cap .t{font-weight:300;font-size:22px;letter-spacing:-.03em;line-height:1.1;margin-right:.5em}
 .cap .d{font-weight:300;font-size:14px;color:var(--mute)}
 .cap .n{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--red);margin-top:4px}
 @media (max-width:700px){.cap .t{font-size:18px}.cap .d{font-size:13px}}
+/* sobre imagen: texto blanco */
+body.on-img .hud,body.on-img .cap{color:#fff;text-shadow:0 0 8px rgba(0,0,0,.45)}
+body.on-img .hud .m,body.on-img .cap .i,body.on-img .cap .d{color:rgba(255,255,255,.82)}
+body.on-img .cap .n{color:#fff}
+body.on-img .phi{color:#fff}
+
+.veil{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .6s;
+  background:linear-gradient(180deg,rgba(0,0,0,.32) 0,rgba(0,0,0,0) 120px,rgba(0,0,0,0) 55%,rgba(0,0,0,.5) 100%)}
+body.on-img .veil{opacity:1}
 
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
@@ -49,6 +58,7 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 
 <canvas id="c" aria-hidden="true"></canvas>
 
+<div class="veil" aria-hidden="true"></div>
 <div class="cap" id="cap" aria-hidden="true"><span class="i"></span><span class="t"></span><span class="d"></span><span class="n"></span></div>
 
 <div class="hud tl"><span>R11</span><br><span class="m">ESTUDIO DE DISEÑO INDUSTRIAL</span></div>
@@ -140,14 +150,9 @@ function resize() {
   cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
   const portrait = H > W;
   const rho = portrait ? -Math.PI / 2 : 0;              // en vertical giramos el rectángulo
-  const k = portrait ? Math.min(W * 0.9, H / PHI * 0.78) : Math.min(W / PHI, H) * 0.78;
-  view = { k, rho, portrait, cr: Math.cos(rho), sr: Math.sin(rho), cx: W / 2, cy: H / 2 - (portrait ? H * 0.04 : H * 0.02) };
-  // pie de foto: bajo el rectángulo, alineado con la sección áurea (horizontal) o con el borde (vertical)
-  const rw = portrait ? k : k * PHI, rh = portrait ? k * PHI : k;
-  const left = view.cx - rw / 2 + (portrait ? 0 : k);
-  cap.style.left = `${left}px`;
-  cap.style.top = `${view.cy + rh / 2 + 14}px`;
-  cap.style.width = `${portrait ? rw : rw - k}px`;
+  // el rectángulo áureo cubre toda la pantalla (como background-size: cover)
+  const k = portrait ? Math.max(W, H / PHI) : Math.max(W / PHI, H);
+  view = { k, rho, portrait, cr: Math.cos(rho), sr: Math.sin(rho), cx: W / 2, cy: H / 2 };
 }
 
 // Mundo → pantalla para la capa m (m = n − t): z ↦ C + k·e^{iρ}·(O + (z−O)·φ^{−m}·e^{iπm/2} − c_R)
@@ -201,7 +206,9 @@ function drawStep(j, frac, alpha) {
 function drawText(j, frac, al) {
   const n = Math.floor(t) + j, item = itemAt(n);
   if (item.img || al <= 0.01) return;
-  const m = j - frac, side = view.k * Math.exp(-m * LN_PHI);
+  const m = j - frac;
+  // en móvil el cuadrado es más ancho que la pantalla: el texto se ajusta a la parte visible
+  const side = view.k * Math.exp(-m * LN_PHI) * Math.min(1, (view.portrait ? W : W / PHI) / view.k);
   const [cx, cy] = maker(m)(0.5, 0.5);
   ctx.save();
   ctx.globalAlpha = al;
@@ -325,6 +332,7 @@ function draw() {
     capN.textContent = cur.note ? '↳ ' + cur.note[view.portrait ? 'P' : 'L'] : '';
   }
   cap.style.opacity = capA;
+  document.body.classList.toggle('on-img', !!cur.img);
   depth.textContent = `n = ${n}`;
   scale.textContent = `1 : φ${sup(n)} = ${Math.pow(PHI, t).toPrecision(5)}`;
 }
