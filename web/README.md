@@ -25,3 +25,7 @@ Para cambiar textos, edita el array `ITEMS`. El contenido también está en HTML
 - Las imágenes de proyecto están hechas con CSS. Para usar fotos reales, sustituye el `<div class="art …">` de cada `.frame` por un `<img>` con `object-fit:cover`.
 - Secciones: Estudio · Enfoque (producto + espacio + experiencia) · Proyectos · Servicios · Para empresas (departamento de diseño externo) · Proceso · Materiales · Equipo · Contacto.
 - Contenido provisional por revisar: proyectos P-01–P-04 (inventados), correo `hola@r11.studio`, ciudad, redes sociales, retratos de los fundadores (ahora iniciales).
+
+## Archivo único
+
+`python3 tools/build_single.py` genera `dist/r11.html`: toda la web en un solo archivo, con las imágenes incrustadas. Se abre con doble clic, sin servidor (las tipografías se cargan de Google Fonts si hay conexión).
