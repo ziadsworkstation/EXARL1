@@ -24,8 +24,8 @@ Fuente de verdad para cartas y formularios. **No inventes nada que no esté aqu�
 ## Competencias
 - Profesionales: liderazgo y gestión de equipos, trabajo en equipo, comunicación y ventas.
 - Creativas: diseño gráfico, creatividad, marketing.
-- Software: SolidWorks, Siemens NX, AutoCAD, Adobe.
-- Inteligencia artificial: la sigue al día y está al tanto de las herramientas de IA aplicables al diseño.
+- Software: SolidWorks, Siemens NX, AutoCAD, Adobe Photoshop, Adobe Illustrator (nivel básico).
+- Inteligencia artificial: la sigue al día; usa Claude y ChatGPT a diario y los conecta con herramientas externas mediante conectores para automatizar tareas (p. ej. este flujo de búsqueda de prácticas).
 - Trabajos académicos recientes (de este repo): levantamiento CAD 2D/3D de una silla (DXF/DWG para AutoCAD) y lámina A3 de presentación.
 - Idiomas: español (nativo), árabe (nativo), catalán (fluido), inglés (fluido).
 
@@ -36,7 +36,7 @@ Fuente de verdad para cartas y formularios. **No inventes nada que no esté aqu�
 - Descartar: UX/UI puro, moda/textil, ventas/comercial, puestos que no sean prácticas, ofertas que exijan estar ya graduado, fuera de la zona de Barcelona (salvo remoto 100 %).
 
 ## Argumentos clave para cartas
-1. Formación técnica completa de grado en último curso: modelado y planos con SolidWorks, NX y AutoCAD; presentación con Adobe.
+1. Formación técnica completa de grado en último curso: modelado y planos con SolidWorks, NX y AutoCAD; presentación con Photoshop e Illustrator.
 2. Al día en inteligencia artificial y su uso en el proceso de diseño: aporta frescura y agilidad al equipo.
 3. Experiencia real de cara al cliente y en logística: entiende cómo se usa, vende y almacena un producto.
 4. Trabajo en equipos bajo presión (alta cocina, hotel, retail de gran volumen).
