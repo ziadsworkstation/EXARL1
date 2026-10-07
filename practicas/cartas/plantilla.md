@@ -11,7 +11,7 @@ A la atención del equipo de {empresa}:
 
 Me dirijo a ustedes para optar a las prácticas de {puesto}. Estoy en el último curso del Grado en Ingeniería de Diseño Industrial y Desarrollo del Producto en la UPC (EPSEVG) y busco unas prácticas curriculares en las que aplicar lo que he aprendido a un proyecto real. {Una frase concreta sobre la empresa: un producto, un proyecto, su forma de trabajar.}
 
-{Párrafo de encaje: relacionar 1-2 requisitos de la oferta con la formación (CAD 2D/3D, desarrollo de producto, presentación de proyectos).}
+{Párrafo de encaje: relacionar 1-2 requisitos de la oferta con la formación (modelado 3D y planos en SolidWorks, NX o AutoCAD; presentación con Adobe; uso de IA en el proceso de diseño). Elegir el software que pida la oferta.}
 
 Además de la formación técnica, he trabajado cada verano de cara al público y en logística: atención al cliente y visual merchandising en Adidas Passeig de Gràcia, gestión de almacén en Ibifood y servicio en un restaurante de alta cocina. Me ha enseñado cómo se vende, se almacena y se usa un producto, y a trabajar en equipo con presión y ritmo. Hablo español, árabe, catalán e inglés.
 
