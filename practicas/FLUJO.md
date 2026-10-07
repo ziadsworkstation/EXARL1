@@ -40,6 +40,8 @@ Instrucciones que sigue la rutina diaria. Lee primero `practicas/perfil.md`.
 ## 5. Registrar
 - Una entrada por oferta (también las descartadas con encaje ≥ 5, con motivo) en el formulario Jotform
   «Candidaturas prácticas – Ziad Addami» (ID 262794159654067) con `create_submission`.
+- Además (y siempre, aunque Jotform no esté disponible en la sesión) añade una fila por oferta a
+  `practicas/registro.md`: fecha | empresa | puesto | encaje | estado | enlace | carta.
 - Añade las URL procesadas a `practicas/seen.json`.
 - Commit y push a la rama del repo con mensaje «Prácticas: búsqueda AAAA-MM-DD (N enviadas, M pendientes)».
 - Termina con un resumen corto: enviadas, pendientes (con enlace) y descartadas.
