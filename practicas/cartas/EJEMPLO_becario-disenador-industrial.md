@@ -12,7 +12,7 @@ A la atención del equipo de diseño:
 
 Me dirijo a ustedes para optar a las prácticas de Diseñador/a Industrial. Estoy en el último curso del Grado en Ingeniería de Diseño Industrial y Desarrollo del Producto en la UPC (EPSEVG) y busco unas prácticas curriculares en las que aplicar lo aprendido a producto real, que es justo lo que plantea su oferta: diseño de piezas industriales y su resolución técnica.
 
-Trabajo con soltura en SolidWorks, NX y AutoCAD, tanto en modelado 3D como en planos y documentación 2D; hace poco levanté en CAD una silla completa, con vistas 2D y sólido 3D listos para AutoCAD. Para presentar los proyectos uso Photoshop e Illustrator, y tengo integrada la inteligencia artificial en mi día a día: uso Claude y ChatGPT, conectados a otras herramientas, para agilizar tareas repetitivas.
+Trabajo con soltura en SolidWorks, NX y AutoCAD, tanto en modelado 3D como en planos y documentación 2D, que es el día a día del grado. Para presentar los proyectos uso Photoshop e Illustrator, y tengo integrada la inteligencia artificial en mi día a día: uso Claude y ChatGPT, conectados a otras herramientas, para agilizar tareas repetitivas.
 
 Además, he trabajado cada verano de cara al público y en logística (Adidas Passeig de Gràcia, almacén de Ibifood, restaurante de alta cocina), lo que me ha enseñado cómo se vende, se almacena y se usa un producto, y a trabajar en equipo con ritmo. Hablo español, árabe, catalán e inglés.
 

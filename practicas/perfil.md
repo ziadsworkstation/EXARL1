@@ -1,6 +1,6 @@
 # Perfil de candidatura — Ziad Addami
 
-Fuente de verdad para cartas y formularios. **No inventes nada que no esté aquí** (software, proyectos, notas, premios). Si un formulario pide un dato que falta, deja la candidatura como «Pendiente de tu acción» y apúntalo en Notas.
+Fuente de verdad para cartas y formularios. **No inventes nada que no esté aquí** (software, proyectos, notas, premios). No cites ejercicios de clase del repo (p. ej. la silla Breuer) como proyectos propios. Si un formulario pide un dato que falta, deja la candidatura como «Pendiente de tu acción» y apúntalo en Notas.
 
 ## Datos personales
 - Nombre: Ziad Addami
@@ -26,7 +26,6 @@ Fuente de verdad para cartas y formularios. **No inventes nada que no esté aqu�
 - Creativas: diseño gráfico, creatividad, marketing.
 - Software: SolidWorks, Siemens NX, AutoCAD, Adobe Photoshop, Adobe Illustrator (nivel básico).
 - Inteligencia artificial: la sigue al día; usa Claude y ChatGPT a diario y los conecta con herramientas externas mediante conectores para automatizar tareas (p. ej. este flujo de búsqueda de prácticas).
-- Trabajos académicos recientes (de este repo): levantamiento CAD 2D/3D de una silla (DXF/DWG para AutoCAD) y lámina A3 de presentación.
 - Idiomas: español (nativo), árabe (nativo), catalán (fluido), inglés (fluido).
 
 ## Preferencias de búsqueda
