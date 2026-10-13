@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>INPS Práctica 3</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root { --ink: #222; --muted: #6b6b6b; --rule: #d6d6d6; --accent: #0b5ea8; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--ink);
+         font: 10.5pt/1.5 "Helvetica Neue", Arial, sans-serif; }
+  .page { width: 210mm; height: 297mm; padding: 22mm 22mm 18mm; position: relative;
+          page-break-after: always; overflow: hidden; }
+  .page:last-child { page-break-after: auto; }
+
+  /* Portada */
+  .cover { display: flex; flex-direction: column; }
+  .cover img.logo { width: 70mm; }
+  .cover .title { margin-top: 70mm; }
+  .cover .subject { font-size: 13pt; color: var(--accent); font-weight: 600; letter-spacing: .04em; }
+  .cover h1 { font-size: 28pt; line-height: 1.15; margin: 4mm 0 3mm; }
+  .cover .sub { font-size: 13pt; color: var(--muted); }
+  .cover .meta { margin-top: auto; border-top: 1px solid var(--rule); padding-top: 6mm;
+                 display: grid; grid-template-columns: 32mm 1fr; row-gap: 2mm; font-size: 11pt; }
+  .cover .meta b { color: var(--muted); font-weight: 500; }
+
+  /* Contenido */
+  header.run { position: absolute; top: 10mm; left: 22mm; right: 22mm; font-size: 8.5pt;
+               color: var(--muted); display: flex; justify-content: space-between;
+               border-bottom: 1px solid var(--rule); padding-bottom: 2mm; }
+  footer.run { position: absolute; bottom: 9mm; left: 22mm; right: 22mm; font-size: 8.5pt;
+               color: var(--muted); text-align: right; }
+  h2 { font-size: 14pt; color: var(--accent); margin: 7mm 0 2.5mm; }
+  h2:first-of-type { margin-top: 2mm; }
+  p { margin: 0 0 2.5mm; text-align: justify; }
+  ol, ul { margin: 0 0 2.5mm; padding-left: 6mm; }
+  li { margin-bottom: 1.2mm; }
+  code { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: 9pt;
+         background: #f3f3f3; padding: 0 1mm; border-radius: 1mm; }
+  table { border-collapse: collapse; margin: 2mm 0 3mm; font-size: 9.5pt; }
+  th, td { border-bottom: 1px solid var(--rule); padding: 1.3mm 4mm; text-align: left; }
+  th { color: var(--muted); font-weight: 600; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm 6mm; margin-top: 3mm; }
+  figure { margin: 0; }
+  figure img { width: 100%; display: block; border: 1px solid var(--rule); }
+  figcaption { font-size: 8.5pt; color: var(--muted); margin-top: 1.2mm; text-align: center; }
+  .shots { display: flex; flex-direction: column; gap: 3mm; margin: 3mm 0; }
+  .shots figure { align-self: center; }
+  .shots img { width: 130mm; border: 1px solid var(--rule); }
+  .note { border-left: 3px solid var(--accent); background: #f4f8fc; padding: 2.5mm 4mm; margin: 3mm 0; }
+</style>
+</head>
+<body>
+
+<!-- ======================= PORTADA ======================= -->
+<section class="page cover">
+  <img class="logo" src="assets/logo_upc_epsevg.png" alt="UPC EPSEVG">
+  <div class="title">
+    <div class="subject">INPS</div>
+    <h1>Práctica 3<br>Interacción con Visión</h1>
+    <div class="sub">Detección de forma, color y tamaño de figuras geométricas con MATLAB</div>
+  </div>
+  <div class="meta">
+    <b>Alumno</b><span>Ziad Addami Ech Chaouy</span>
+    <b>Grupo</b><span>D3111</span>
+    <b>Fecha</b><span>13/10/2026</span>
+  </div>
+</section>
+
+<!-- ======================= PÁGINA 2 ======================= -->
+<section class="page">
+  <header class="run"><span>INPS · Práctica 3 · Interacción con Visión</span><span>Ziad Addami Ech Chaouy</span></header>
+
+  <h2>1. Objetivo</h2>
+  <p>En una imagen de fondo negro hay nueve figuras colocadas al azar: tres círculos, tres triángulos y tres cuadrados,
+  de tres tamaños y tres colores distintos (rojo, verde y azul). El programa debe identificar cada figura y etiquetarla
+  con su forma (<b>C</b> círculo, <b>T</b> triángulo, <b>S</b> cuadrado) y su color (<b>R</b>, <b>G</b>, <b>B</b>).
+  También se ha hecho el apartado opcional: indicar si la figura es pequeña (<b>1</b>), mediana (<b>2</b>) o grande (<b>3</b>).
+  Por ejemplo, <code>TG2</code> es un triángulo verde mediano.</p>
+  <p>Se ha partido del ejemplo de Atenea (<code>ejemploVision.m</code>), y la solución está en
+  <code>Solucio_comentatV2.m</code>.</p>
+
+  <h2>2. Funcionamiento del programa</h2>
+  <ol>
+    <li><b>Preprocesado.</b> Se lee la imagen RGB, se pasa a escala de grises (<code>rgb2gray</code>) y se estira el
+      contraste (<code>imadjust</code>).</li>
+    <li><b>Binarización.</b> <code>imbinarize</code> con un umbral fijo: lo que supera el umbral pasa a blanco (figura)
+      y el resto a negro (fondo).</li>
+    <li><b>Limpieza.</b> Una dilatación seguida de una erosión con un disco de radio 1 (<i>cierre</i>) rellena pequeños huecos
+      del contorno.</li>
+    <li><b>Etiquetado y medida.</b> <code>bwconncomp</code> separa cada figura como un objeto, y <code>regionprops</code>
+      obtiene su área, su centroide y su circularidad.</li>
+    <li><b>Forma.</b> Se clasifica según la circularidad, <code>4π·Área / Perímetro²</code>, que vale 1 en un círculo
+      perfecto y baja cuanto más angulosa es la figura:
+      <table>
+        <tr><th>Figura</th><th>Circularidad teórica</th><th>Criterio usado</th></tr>
+        <tr><td>Círculo</td><td>1</td><td>&gt; 0,93</td></tr>
+        <tr><td>Cuadrado</td><td>π/4 ≈ 0,785</td><td>entre 0,74 y 0,93</td></tr>
+        <tr><td>Triángulo equilátero</td><td>≈ 0,605</td><td>&lt; 0,74</td></tr>
+      </table>
+    </li>
+    <li><b>Tamaño.</b> Dentro de cada forma, las tres figuras se ordenan por área (<code>sortrows</code>). La de menor área
+      recibe un 1, la siguiente un 2 y la mayor un 3.</li>
+    <li><b>Color.</b> Se lee el valor RGB del píxel del centroide. Si el canal rojo supera 200, la figura es roja; si no,
+      y el verde supera 200, es verde; en otro caso, azul.</li>
+    <li><b>Resultado.</b> Con <code>text</code> se escribe la etiqueta forma + color + tamaño sobre cada figura.</li>
+  </ol>
+
+  <footer class="run">2</footer>
+</section>
+
+<!-- ======================= PÁGINA 3 ======================= -->
+<section class="page">
+  <header class="run"><span>INPS · Práctica 3 · Interacción con Visión</span><span>Ziad Addami Ech Chaouy</span></header>
+
+  <h2>3. Resultados</h2>
+  <p>El programa se ha probado con las cuatro imágenes de prueba. En todas, las nueve figuras se etiquetan correctamente
+  en forma, color y tamaño.</p>
+  <div class="grid">
+    <figure><img src="assets/resultat1.jpg" alt=""><figcaption>Imagen 1</figcaption></figure>
+    <figure><img src="assets/resultat2.jpg" alt=""><figcaption>Imagen 2</figcaption></figure>
+    <figure><img src="assets/resultat3.jpg" alt=""><figcaption>Imagen 3 (umbral 0,11)</figcaption></figure>
+    <figure><img src="assets/resultat4.jpg" alt=""><figcaption>Imagen 4</figcaption></figure>
+  </div>
+
+  <footer class="run">3</footer>
+</section>
+
+<!-- ======================= PÁGINA 4 ======================= -->
+<section class="page">
+  <header class="run"><span>INPS · Práctica 3 · Interacción con Visión</span><span>Ziad Addami Ech Chaouy</span></header>
+
+  <h2>4. Ajuste del umbral en la imagen 3</h2>
+  <p>Con el umbral de binarización inicial de <b>0,1</b>, en la imagen 3 un píxel suelto del fondo superaba el umbral y
+  quedaba en blanco. <code>bwconncomp</code> lo detectaba como un objeto más y, al ser un solo píxel, su circularidad
+  lo clasificaba como <b>círculo</b>. Así se obtenían 10 objetos en lugar de 9, y el programa no podía procesarlos, porque
+  la asignación de tamaños supone exactamente tres figuras de cada forma.</p>
+  <p>Para solucionarlo se subió el umbral de <b>0,1</b> a <b>0,11</b>. Con este valor el píxel suelto queda por debajo
+  del umbral, desaparece de la imagen binaria y se vuelven a detectar las 9 figuras.</p>
+  <div class="shots">
+    <figure><img src="assets/umbral_010.png" alt=""><figcaption>Umbral original (0,1)</figcaption></figure>
+    <figure><img src="assets/umbral_011.png" alt=""><figcaption>Umbral modificado (0,11)</figcaption></figure>
+  </div>
+
+  <h2>5. Conclusiones</h2>
+  <p>Con unas pocas funciones de la Image Processing Toolbox (binarización, morfología, componentes conexas y
+  <code>regionprops</code>) se puede reconocer la forma, el color y el tamaño de cada figura. La circularidad permite
+  distinguir las tres formas sin que importe su tamaño. El caso de la imagen 3 muestra que el umbral de binarización es
+  un parámetro sensible: un solo píxel de ruido basta para cambiar el número de objetos detectados.</p>
+
+  <footer class="run">4</footer>
+</section>
+
+</body>
+</html>
