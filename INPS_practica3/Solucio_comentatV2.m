@@ -48,9 +48,11 @@ Igris2 = imadjust(Igris);    % Estiramos el contraste para facilitar la binariza
 figure, imshow(Igris2);
 
 % --- 2) BINARIZACIÓN Y LIMPIEZA ----------------------------------------
-% Umbral fijo de 0.1 (en escala 0-1): todo lo que sea más claro que el 10 %
+% Umbral fijo de 0.11 (en escala 0-1): todo lo que sea más claro que el 11 %
 % pasa a blanco (figura) y el resto a negro (fondo).
-bw = imbinarize(Igris2, 0.1);
+% Inicialmente era 0.1, pero en la imagen 3 un píxel suelto superaba el
+% umbral y se detectaba como un círculo (10 objetos en vez de 9).
+bw = imbinarize(Igris2, 0.11);
 
 se1 = strel('disk',1);       % Elemento estructurante: disco de radio 1 píxel
 bw1 = imdilate(bw,se1);      % Dilatación: rellena pequeños huecos
